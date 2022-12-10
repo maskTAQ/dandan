@@ -1,0 +1,47 @@
+$active:#4D6EFF;
+$color1:#2D4EF5;
+$color2:#5C79FB;
+$color3:#FF4938;
+$color4:#333;
+$color5:#666;
+$color6:#999;
+$color7:#e6edfa;
+$color8:#F6F8FA;
+$color9:#F6F6F6;
+$color10:#E5E9F0;
+$color11:#E5ECF9;
+$color12:#F4F5F9;
+$color13:#F6F6F6;
+$color14:#f0f0f0;
+$color15:#8e8e8e;
+$color16:#292828;
+$color17:#434343;
+$color18:#f5f5f5;
+$color19:#a9a9a9;
+$color20:#868686;
+$color21:#4d6eff;
+$border:#eee;
+$disabled:rgba(#2D4EF5,0.3);
+$placeholder:#ccc;
+$padding:.12rem;
+$margin:.15rem;
+$rowPadding:.16rem;
+
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: $placeholder;
+    // font-size: .16rem;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $placeholder;
+    // font-size: .16rem;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: $placeholder;
+    // font-size: .16rem;
+}
