@@ -25,7 +25,7 @@
                 :value="+rate.theScore"
                 @change="(value) => change({ index, value })"
                 size=".2rem"
-                color="#2D4EF5"
+                color="#6dc7c6"
                 void-icon="star"
                 void-color="#D9D9D9"
               />

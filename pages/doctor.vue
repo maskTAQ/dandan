@@ -323,9 +323,9 @@ export default {
       margin-right: 0.08rem;
       width: 4px;
       height: 0.18rem;
-      background: #2D4EF5;
+      background: #6dc7c6;
       border-radius: 0px 3px 3px 0px;
-      border: 1px solid #2D4EF5;
+      border: 1px solid #6dc7c6;
     }
     .label {
       font-size: 0.18rem;

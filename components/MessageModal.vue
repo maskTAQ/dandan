@@ -228,7 +228,7 @@ export default {
       border-radius: 0.15rem;
       &.confirm {
         margin-right: 0.2rem;
-        background: #2D4EF5;
+        background: #6dc7c6;
       }
 
       &.cancel {

@@ -12,6 +12,6 @@ export default {
 .bubble {
   padding: 0.15rem 0.2rem;
   border-radius: 0.06rem;
-  background: #2d4ef5;
+  background: #6dc7c6;
 }
 </style>

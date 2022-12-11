@@ -1,28 +1,33 @@
 <template>
   <StatusHandle :get="getData" ref="statusHandle">
-    <div class="swiper-container" @click="handleClick">
-      <div class="swiper-wrapper">
-        <div
-          v-for="(item, index) in list"
-          :key="index"
-          class="swiper-slide"
-          :style="{
-            background: `url('${getUrl(item)}') no-repeat center / cover`,
-          }"
-          @click="goAD(item)"
-        />
+    <div class="banner-box">
+      <div class="swiper-container" @click="handleClick">
+        <div class="swiper-wrapper">
+          <div
+            v-for="(item, index) in list"
+            :key="index"
+            class="swiper-slide"
+            :style="{
+              background: `url('${getUrl(item)}') no-repeat center / cover`,
+            }"
+            @click="goAD(item)"
+          />
+        </div>
       </div>
       <div class="paging-box align">
-        <div v-if="list.length > 1" class="paging flex-row center">
-          <span
-            v-for="index in list.length"
+        <div v-if="list.length" class="paging flex-row center">
+          <div
+            v-for="(item, index) in list"
             :key="index"
+            class="outer align"
             :class="{
               active: current === index,
               prev: current === index + 1,
               next: current === index - 1,
             }"
-          />
+          >
+            <div class="inner"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -48,7 +53,7 @@ export default {
   },
   data() {
     return {
-      current: 1,
+      current: 0,
       apiData: [],
       realIndex: 0,
     };
@@ -115,8 +120,8 @@ export default {
     handleClick() {
       this.$emit("click");
     },
-     goAD(ad) {
-      if(typeof ad !== 'object'){
+    goAD(ad) {
+      if (typeof ad !== "object") {
         return;
       }
       const { LinkUrl } = ad;
@@ -132,29 +137,39 @@ export default {
 };
 </script>
 <style lang="scss">
-.swiper-container {
-  /* margin-top: 0.1rem; */
+.banner-box {
   position: relative;
-  height: 2.22rem;
   .paging-box {
     position: absolute;
     z-index: 99;
     left: 0;
     right: 0;
-    bottom: 0.09rem;
-    span {
-      margin: 0 4px;
-      width: 4px;
-      height: 4px;
-      background: rgba($color: #000000, $alpha: 0.5);
+    bottom: -0.2rem;
+    .outer {
+      /* margin: 0 4px; */
+      width: 15px;
+      height: 15px;
+      border: 2px solid transparent;
       border-radius: 50%;
       &.active {
-        width: 11px;
-        height: 4px;
-        background: #fff;
-        border-radius: 2px;
+        border: 2px solid #6dc7c6;
+        .inner {
+          background: #6dc7c6;
+        }
+      }
+      .inner {
+        width: 5px;
+        height: 5px;
+        background: #d8edef;
+        border-radius: 50%;
       }
     }
   }
+}
+.swiper-container {
+  /* margin-top: 0.1rem; */
+
+  height: 1.6rem;
+  border-radius: 0.1rem;
 }
 </style>

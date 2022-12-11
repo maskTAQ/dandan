@@ -173,7 +173,7 @@ export default {
       }
       .value {
         font-size: 0.14rem;
-        color: #2d4ef5;
+        color: #6dc7c6;
       }
       .id {
         font-size: 0.13rem;
@@ -186,7 +186,7 @@ export default {
         padding: 0 0.18rem;
         font-size: 0.16rem;
         color: #fff;
-        background: #2d4ef5;
+        background: #6dc7c6;
         border-radius: 0.15rem;
       }
     }

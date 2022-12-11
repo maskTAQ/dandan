@@ -656,7 +656,7 @@ canvas.live-flowers {
       border: none;
       color: #000;
       &.none {
-        background: #2d4ef5;
+        background: #6dc7c6;
         color: #fff;
       }
     }
@@ -705,10 +705,10 @@ canvas.live-flowers {
       .label {
         font-size: 0.11rem;
         font-weight: bold;
-        color: #2d4ef5;
+        color: #6dc7c6;
       }
       &.liked {
-        background: #2d4ef5;
+        background: #6dc7c6;
         .label {
           color: #fff;
         }

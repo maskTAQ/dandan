@@ -70,7 +70,7 @@ export default {
     }
     .tag{
       font-size: .12rem;
-      color: #5C79FB;
+      color: #6dc7c6;
     }
     .bottom {
       .price {

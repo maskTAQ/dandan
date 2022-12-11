@@ -129,7 +129,7 @@ export default {
     }
 
     .status {
-      color: #2d4ef5;
+      color: #6dc7c6;
     }
   }
 }

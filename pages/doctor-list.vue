@@ -41,21 +41,13 @@ export default {
           value: "",
         },
         {
-          label: "待付款",
-          value: "2",
-        },
-        {
-          label: "待服务",
+          label: "国内",
           value: "1",
         },
         {
-          label: "服务中",
-          value: "3",
-        },
-        {
-          label: "已完成",
-          value: "6",
-        },
+          label: "国外",
+          value: "2",
+        }
       ],
     };
   },
@@ -137,8 +129,11 @@ export default {
         },
       });
     },
-    request(p) {
-      return API.LIST({ ...this.params, ...p });
+    request(params) {
+      return API.LIST({
+        ...params,
+        InChina: this.selected,
+      });
     },
     renderItem(item, i, instance) {
       return (

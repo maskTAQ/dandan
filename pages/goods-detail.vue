@@ -690,7 +690,7 @@ export default {
           background: linear-gradient(90deg, #74a1f9, #84acfb);
         }
         &.pay {
-          background: linear-gradient(270deg, #2d4ef5, #2d4ef5);
+          background: linear-gradient(270deg, #6dc7c6, #6dc7c6);
         }
       }
     }

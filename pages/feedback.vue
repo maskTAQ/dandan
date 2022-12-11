@@ -182,7 +182,7 @@ export default {
     height: 0.34rem;
     font-size: 0.14rem;
     color: #fff;
-    background: #2D4EF5;
+    background: #6dc7c6;
     border-radius: 4px;
   }
 }

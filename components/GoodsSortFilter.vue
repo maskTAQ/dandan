@@ -1,8 +1,8 @@
 <template>
   <div class="goods-sort-filter flex-row center">
-    <div :class="['item align', { active: isAll }]">
+    <div v-if="allText" :class="['item align', { active: isAll }]">
       <p :class="['switch label', { active: isAll }]" @click="selectAll">
-        全部项目
+        {{allText}}
       </p>
     </div>
     <div v-for="item in data" :key="item.key" class="item align">
@@ -14,8 +14,8 @@
             size="8"
             :color="
               params.selected === item.key && params.value === 'asc'
-                ? '#2D4EF5'
-                : '#fff'
+                ? '#6dc7c6'
+                : '#c7c6c9'
             "
           />
           <Triangle
@@ -24,8 +24,8 @@
             size="8"
             :color="
               params.selected === item.key && params.value === 'desc'
-                ? '#2D4EF5'
-                : '#fff'
+                ? '#6dc7c6'
+                : '#c7c6c9'
             "
           />
         </div>
@@ -46,7 +46,7 @@ export default {
     prop: "params",
     event: "change",
   },
-  props: ["data", "params", "isAll"],
+  props: ["data", "params", "isAll",'allText'],
   data() {
     return {
       icons,
@@ -77,12 +77,12 @@ export default {
 .goods-sort-filter {
   height: 0.32rem;
   padding: 0 0.13rem;
-  background: #fff;
+  /* background: #c7c6c9; */
   .item {
     margin-right: 0.11rem;
     padding: 0 0.12rem;
     height: 100%;
-    background: #f7f8fa;
+    /* background: #f7f8fa; */
     border-radius: 4px;
     &:last-child {
       margin-right: 0;
@@ -93,7 +93,7 @@ export default {
       color: #231916;
     }
     .active {
-      color: #2d4ef5;
+      color: #6dc7c6;
     }
   }
   .sort {

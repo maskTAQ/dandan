@@ -211,7 +211,7 @@ export default {
   }
   .reply-message {
     font-size: 0.14rem;
-    color: #2d4ef5;
+    color: #6dc7c6;
     margin-left: 0.1rem;
   }
   .toggle {
@@ -225,7 +225,7 @@ export default {
     height: 0.22rem;
     font-size: 0.11rem;
     color: #4d6eff;
-    background: rgba($color: #2d4ef5, $alpha: 0.1);
+    background: rgba($color: #6dc7c6, $alpha: 0.1);
     border-radius: 0.14rem;
   }
   .reply-list {

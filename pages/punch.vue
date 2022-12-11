@@ -205,7 +205,7 @@ export default {
       color: #939fba;
       .wh_chose_day {
         background: none;
-        border: 2px solid #2D4EF5;
+        border: 2px solid #6dc7c6;
         border-radius: 4px;
       }
       .wh_isToday {

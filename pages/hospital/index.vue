@@ -7,12 +7,22 @@
         <Banner class="banner" :root="bannerType" />
       </StatusHandle>
     </div>
-    <GoodsSortFilter
-      :isAll="!currentType"
-      @selectAll="currentType = ''"
-      :data="filter"
-      v-model="sort"
-    />
+    <div class="filter-area flex-row center">
+      <div
+        :class="['sidebar-item flex-row center', { selected: !currentType }]"
+        @click="currentType = ''"
+      >
+        <span v-if="!currentType" class="border" />
+        <i class="label">海外机构</i>
+      </div>
+      <GoodsSortFilter
+        :isAll="!currentType"
+        allText="全部国家"
+        @selectAll="currentType = ''"
+        :data="filter"
+        v-model="sort"
+      />
+    </div>
     <div class="content flex-row">
       <StatusHandle :status="hospitalClassify.status">
         <div class="sidebar">
@@ -43,7 +53,7 @@
         </div>
       </StatusHandle>
     </div>
-    
+
     <TabBar />
   </div>
 </template>
@@ -89,7 +99,7 @@ export default {
       banner: ["", ""],
       filter: [
         {
-          label: "产品销量",
+          label: "评分",
           key: "SalesNum",
         },
         {
@@ -102,7 +112,6 @@ export default {
         value: "",
       },
       params: {},
-      
     };
   },
   created() {
@@ -111,7 +120,6 @@ export default {
       this.currentType = tid;
     }
     this.getHospitalClassify();
-    
   },
   watch: {
     sort() {
@@ -207,11 +215,10 @@ export default {
 <style lang="scss">
 @import "@/assets/theme.scss";
 .mall {
-  background: #fff;
+  background: #f3f6f9;
   .mall-top {
-    height: 2.5rem;
+    height: 2.7rem;
     padding: 0.15rem;
-    background: linear-gradient(180deg, #f7f8fa 0%, #ffffff 100%, #ffffff 100%);
     .search {
       margin-top: 0.1rem;
       margin-bottom: 0.15rem;
@@ -223,45 +230,43 @@ export default {
       }
     }
     .banner {
-      height: 1.37rem;
-      border-radius: 4px;
-      overflow: hidden;
-      .swiper-slide {
-        height: 1.37rem;
-      }
+      
+    }
+  }
+  .sidebar {
+    width: 1rem;
+  }
+  .sidebar-item {
+    width: 1rem;
+    position: relative;
+    height: 0.45rem;
+    /* line-height: 0.5rem; */
+    font-size: 0.14rem;
+
+    padding-left: 0.13rem;
+    color: $color5;
+    &.selected {
+      font-weight: 500;
+      /* background: #fff; */
+      color: $color2;
+    }
+    .border {
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 0.04rem;
+      height: 0.28rem;
+      /* border-radius: 0px 0.04rem 0.04rem 0px; */
+      background: #6dc7c6;
+      border-radius: 0px 50px 50px 0px;
     }
   }
   .content {
     height: calc(100% - 2.82rem);
     padding-top: 0.16rem;
+    background: #fff;
     /* height: 100%; */
-    .sidebar {
-      width: 1rem;
-      .sidebar-item {
-        position: relative;
-        height: 0.5rem;
-        /* line-height: 0.5rem; */
-        font-size: 0.14rem;
 
-        padding-left: 0.13rem;
-        color: $color5;
-        &.selected {
-          font-weight: 500;
-          background: #fff;
-          color: $color2;
-        }
-        .border {
-          position: absolute;
-          left: 0;
-          top: 0.21rem;
-          width: 0.04rem;
-          height: 0.08rem;
-          /* border-radius: 0px 0.04rem 0.04rem 0px; */
-          background: #5c79fb;
-          border-radius: 0px 50px 50px 0px;
-        }
-      }
-    }
     .goods-area {
       width: 0;
       flex: 1;

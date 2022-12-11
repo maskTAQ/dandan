@@ -598,7 +598,7 @@ $margin: 0.12rem;
     }
     .yy {
       font-size: 0.14rem;
-      color: #2d4ef5;
+      color: #6dc7c6;
     }
     .cgl-box {
       /* height: 0.23rem; */
@@ -764,7 +764,7 @@ $margin: 0.12rem;
           position: absolute;
           top: 0.02rem;
           left: 0;
-          color: #2d4ef5;
+          color: #6dc7c6;
         }
         .value {
           display: block;

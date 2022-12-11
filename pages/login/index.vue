@@ -755,7 +755,7 @@ export default {
         }
         .value {
           margin-left: 0.1rem;
-          color: #2d4ef5;
+          color: #6dc7c6;
         }
       }
       .hint {
@@ -812,9 +812,9 @@ export default {
     font-weight: bold;
     border-radius: 0.25rem;
     background: #fff;
-    color: #2d4ef5;
+    color: #6dc7c6;
     &.van-button--disabled {
-      color: #2d4ef5;
+      color: #6dc7c6;
       opacity: 1;
       background: #fff;
     }
@@ -1030,7 +1030,7 @@ export default {
       }
       .value {
         margin-left: 0.1rem;
-        color: #2d4ef5;
+        color: #6dc7c6;
       }
     }
     .hint {
@@ -1145,7 +1145,7 @@ export default {
       }
       .value {
         margin-left: 0.1rem;
-        color: #2d4ef5;
+        color: #6dc7c6;
       }
     }
     .hint {

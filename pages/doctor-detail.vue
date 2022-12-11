@@ -1,30 +1,24 @@
 <template>
-  <Page title="医生详情">
+  <Page title="医生详情" fixed>
     <StatusHandle :get="getDetail">
       <div class="doctor-detail page-full">
-        <div class="bg"></div>
-        <div class="content flex-column">
-          <DoctorCard :data="data" class="doctor-card">
-            <div slot="intro" class="intro">
-              <p v-if="data.exCan">【擅长】：{{ data.exCan }}</p>
-              <p v-if="data.Resume">【履历】：{{ data.Resume }}</p>
-            </div>
-          </DoctorCard>
-
-          <div class="evaluation-list">
-            <div class="header flex-row center">
-              <span class="border"></span>
-              <i class="title">患者评价</i>
-              <i v-if="count" class="num">({{count}})</i>
-            </div>
-            <List
-              :request="request"
-              :renderItem="renderItem"
-              class="list"
-              ref="list"
-            />
+        <StatusHandle :get="getDoctorLiveList">
+          <div class="group doctor-live-list-card">
+            <p class="title">名医直播</p>
+            <ScrollView>
+              <div class="doctor-live-list flex-row">
+                <DoctorLiveCard
+                  class="card"
+                  :data="item"
+                  v-for="item in doctorLiveList"
+                  :key="item.gid"
+                />
+              </div>
+            </ScrollView>
           </div>
-        </div>
+        </StatusHandle>
+        <p v-if="data.exCan">【擅长】：{{ data.exCan }}</p>
+        <p v-if="data.Resume">【履历】：{{ data.Resume }}</p>
       </div>
     </StatusHandle>
   </Page>
@@ -42,6 +36,10 @@ const API = {
   DETAIL(exid) {
     return get("/Api/getDoctorInfo_api.php", { exid });
   },
+  DOCTOR_LIVE_LIST(params) {
+    return Promise.resolve([{},{},{},{}]);
+    // return get("/Api/getGoodsList_api.php", params);
+  },
 };
 export default {
   name: "doctor-detail",
@@ -53,10 +51,16 @@ export default {
   data() {
     return {
       data: {},
-      count:''
+      count: "",
+      doctorLiveList: [],
     };
   },
   methods: {
+    getDoctorLiveList() {
+      return API.DOCTOR_LIVE_LIST().then((res) => {
+        this.doctorLiveList = res;
+      });
+    },
     getDetail() {
       return API.DETAIL(this.$route.query.id).then((res) => {
         this.data = res;
@@ -66,8 +70,8 @@ export default {
       return API.LIST(
         { ...params, eid: this.$route.query.id },
         { full: true }
-      ).then(({count,data}) => {
-        this.count = count
+      ).then(({ count, data }) => {
+        this.count = count;
         return data;
       });
     },
@@ -93,81 +97,17 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "../assets/theme.scss";
+@import "@/assets/theme.scss";
 .doctor-detail {
-  position: relative;
-  background: $color8;
-  .bg {
-    height: 1.5rem;
-    background: $color1;
-  }
-  .content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0 0.12rem;
-    padding-top: 0.52rem;
-    .intro {
-      /* margin-top: 0.12rem; */
-      font-size: 0.11rem;
-      color: $color5;
+  .doctor-live-list-card {
+    .content {
+      margin: 0 -0.15rem;
     }
-  }
-  .evaluation-list {
-    height: calc(100vh - 0.6rem);
-    /* min-height: 300px; */
-    flex: 1;
-    margin-top: 0.1rem;
-    padding: 0 0.14rem;
-    background: #fff;
-    box-shadow: 0px 4px 12px 0px rgba(76, 135, 249, 0.05);
-    border-radius: 0.08rem;
-    .header {
-      height: 0.53rem;
-      .border {
-        width: 3px;
-        height: 0.16rem;
-        background: $color1;
-      }
-      .title {
-        margin: 0 0.06rem;
-        font-size: 0.18rem;
-        color: $color4;
-      }
-      .num {
-        font-size: 0.14rem;
-        color: $color6;
-      }
+    .doctor-live-list {
+      padding: 0.15rem;
     }
-    .list {
-      height: calc(100% - 0.53rem);
-      padding: 0 0.14rem;
-    }
-    .item {
-      padding: 0.14rem 0;
-      border-bottom: 1px solid $border;
-      .portrait {
-        margin-right: 0.05rem;
-        width: 0.28rem;
-        height: 0.28rem;
-        border-radius: 50%;
-        /* border: 1px solid red; */
-      }
-      .name {
-        font-size: 0.14rem;
-        color: $color4;
-      }
-      .time {
-        font-size: 0.11rem;
-        color: $color6;
-      }
-      .value {
-        margin-top: 0.1rem;
-        font-size: 0.14rem;
-        color: $color4;
-      }
+    .card {
+      margin-right: 0.15rem;
     }
   }
 }

@@ -1432,7 +1432,7 @@ ul {
 
 .van-tabbar-item--active {
     background-color: #fff;
-    color: #2D4EF5
+    color: #6dc7c6
 }
 
 .van-tabbar-item .van-info {
@@ -1729,7 +1729,7 @@ ul {
 }
 
 .van-nav-bar .van-icon {
-    color: #2D4EF5
+    color: #6dc7c6
 }
 
 .van-nav-bar__arrow {
@@ -1783,7 +1783,7 @@ ul {
 }
 
 .van-nav-bar__text {
-    color: #2D4EF5
+    color: #6dc7c6
 }
 
 .van-grid-item {
@@ -1963,8 +1963,8 @@ ul {
 
 .van-checkbox__icon--checked .van-icon {
     color: #fff;
-    background-color: #2D4EF5;
-    border-color: #2D4EF5
+    background-color: #6dc7c6;
+    border-color: #6dc7c6
 }
 
 .van-checkbox__icon--disabled {
@@ -2216,8 +2216,8 @@ ul {
 
 .van-radio__icon--checked .van-icon {
     color: #fff;
-    background-color: #2D4EF5;
-    border-color: #2D4EF5
+    background-color: #6dc7c6;
+    border-color: #6dc7c6
 }
 
 .van-radio__icon--disabled {
@@ -2279,11 +2279,11 @@ ul {
 }
 
 .van-tag--primary {
-    background-color: #2D4EF5
+    background-color: #6dc7c6
 }
 
 .van-tag--primary.van-tag--plain {
-    color: #2D4EF5
+    color: #6dc7c6
 }
 
 .van-tag--success {
@@ -2608,7 +2608,7 @@ ul {
 }
 
 .van-contact-card--add .van-cell__left-icon {
-    color: #2D4EF5;
+    color: #6dc7c6;
     font-size: 0.4rem
 }
 
@@ -2618,8 +2618,8 @@ ul {
     bottom: 0;
     left: 0;
     height: 0.02rem;
-    background: -webkit-repeating-linear-gradient(135deg, #ff6c6c 0, #ff6c6c 20%, transparent 0, transparent 25%, #2D4EF5 0, #2D4EF5 45%, transparent 0, transparent 50%);
-    background: repeating-linear-gradient(-45deg, #ff6c6c 0, #ff6c6c 20%, transparent 0, transparent 25%, #2D4EF5 0, #2D4EF5 45%, transparent 0, transparent 50%);
+    background: -webkit-repeating-linear-gradient(135deg, #ff6c6c 0, #ff6c6c 20%, transparent 0, transparent 25%, #6dc7c6 0, #6dc7c6 45%, transparent 0, transparent 50%);
+    background: repeating-linear-gradient(-45deg, #ff6c6c 0, #ff6c6c 20%, transparent 0, transparent 25%, #6dc7c6 0, #6dc7c6 45%, transparent 0, transparent 50%);
     background-size: 0.8rem;
     content: ''
 }
@@ -3230,7 +3230,7 @@ ul {
 }
 
 .van-notify--primary {
-    background-color: #2D4EF5
+    background-color: #6dc7c6
 }
 
 .van-notify--success {
@@ -3637,7 +3637,7 @@ ul {
 
 .van-key--blue {
     color: #fff;
-    background-color: #2D4EF5
+    background-color: #6dc7c6
 }
 
 .van-key--blue.van-key--active {
@@ -3728,7 +3728,7 @@ ul {
 }
 
 .van-switch--on {
-    background-color: #2D4EF5
+    background-color: #6dc7c6
 }
 
 .van-switch--on .van-switch__node {
@@ -3737,7 +3737,7 @@ ul {
 }
 
 .van-switch--on .van-switch__loading {
-    color: #2D4EF5
+    color: #6dc7c6
 }
 
 .van-switch--disabled {
@@ -3819,8 +3819,8 @@ ul {
 
 .van-button--info {
     color: #fff;
-    background-color: #2D4EF5;
-    border: 1px solid #2D4EF5
+    background-color: #6dc7c6;
+    border: 1px solid #6dc7c6
 }
 
 .van-button--danger {
@@ -3844,7 +3844,7 @@ ul {
 }
 
 .van-button--plain.van-button--info {
-    color: #2D4EF5
+    color: #6dc7c6
 }
 
 .van-button--plain.van-button--danger {
@@ -4447,7 +4447,7 @@ ul {
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     justify-content: center;
-    color: #2D4EF5;
+    color: #6dc7c6;
     background-color: rgba(255, 255, 255, .9)
 }
 
@@ -4841,7 +4841,7 @@ ul {
 }
 
 .van-address-edit-detail__finish {
-    color: #2D4EF5;
+    color: #6dc7c6;
     font-size: 0.12rem
 }
 
@@ -5819,7 +5819,7 @@ ul {
 }
 
 .van-swipe__indicator--active {
-    background-color: #2D4EF5;
+    background-color: #6dc7c6;
     opacity: 1
 }
 
@@ -6206,7 +6206,7 @@ ul {
     box-sizing: border-box;
     min-width: 0.36rem;
     height: 0.4rem;
-    color: #2D4EF5;
+    color: #6dc7c6;
     background-color: #fff;
     cursor: pointer;
     -webkit-user-select: none;
@@ -6215,7 +6215,7 @@ ul {
 
 .van-pagination__item:active {
     color: #fff;
-    background-color: #2D4EF5
+    background-color: #6dc7c6
 }
 
 .van-pagination__item::after {
@@ -6228,7 +6228,7 @@ ul {
 
 .van-pagination__item--active {
     color: #fff;
-    background-color: #2D4EF5
+    background-color: #6dc7c6
 }
 
 .van-pagination__next,
@@ -6384,7 +6384,7 @@ ul {
     position: absolute;
     left: 0;
     height: 100%;
-    background: #2D4EF5;
+    background: #6dc7c6;
     border-radius: inherit
 }
 
@@ -6399,7 +6399,7 @@ ul {
     line-height: 1.6;
     text-align: center;
     word-break: keep-all;
-    background-color: #2D4EF5;
+    background-color: #6dc7c6;
     border-radius: 1em;
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%)
@@ -7134,7 +7134,7 @@ ul {
 .van-sku-actions .van-button--danger {
     /* background: -webkit-linear-gradient(left, #ff6034, #ee0a24);
     background: linear-gradient(to right, #ff6034, #ee0a24) */
-    background: linear-gradient(270deg, #2D4EF5, #2D4EF5);
+    background: linear-gradient(270deg, #6dc7c6, #6dc7c6);
 }
 
 .van-slider {
@@ -7159,7 +7159,7 @@ ul {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #2D4EF5;
+    background-color: #6dc7c6;
     border-radius: inherit;
     -webkit-transition: all .2s;
     transition: all .2s
