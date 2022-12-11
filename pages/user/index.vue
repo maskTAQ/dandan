@@ -17,7 +17,7 @@
             <div class="info">
               <p class="name">{{ userInfo.NickName || "--" }}</p>
               <p class="slogan">
-                {{ userInfo.UserRemarks || "新生优孕 一站式备孕服务平台" }}
+                {{ userInfo.UserRemarks || "旦旦医学 一站式备孕服务平台" }}
               </p>
             </div>
           </div>

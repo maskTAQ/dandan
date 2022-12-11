@@ -370,7 +370,7 @@ export default {
   mounted() {
     const data = {
       // desc: res.Tital2, // 描述
-      title: `新生优孕`, // 分享标题
+      title: `旦旦医学`, // 分享标题
       desc: "缔造好孕 共育未来", // 分享描述
       link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
       imgUrl: "https://sanshengzhiyun.com/h5/_nuxt/assets/icon/logo.png", // 分享图标

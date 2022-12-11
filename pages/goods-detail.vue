@@ -198,7 +198,7 @@ export default {
   mixins:[scroll],
   data() {
     return {
-      title: "新生优孕",
+      title: "旦旦医学",
       icons,
       data: {},
       search: "",

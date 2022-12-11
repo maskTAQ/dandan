@@ -39,7 +39,7 @@
         <div class="top">
           <img @click="link" src="./imgs/w.png" alt="" />
           <p class="top-label">
-            《新生优孕正式上线，为医患打造一站式管理服务平台》
+            《旦旦医学正式上线，为医患打造一站式管理服务平台》
           </p>
         </div>
       </Box>

@@ -4,7 +4,7 @@ const  version = '1.4.57';
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: '新生优孕',
+    title: '旦旦医学',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' },

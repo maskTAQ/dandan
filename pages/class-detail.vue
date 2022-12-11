@@ -273,7 +273,7 @@ export default {
   name: "class-detail",
   head() {
     return {
-      title: "新生优孕",
+      title: "旦旦医学",
       script: [
         {
           src: "https://webrtc-demo.myqcloud.com/pull-sdk/TXLivePlayer-0.0.2-beta.min.js",
@@ -352,9 +352,9 @@ export default {
     title() {
       const { data } = this;
       if (!data) {
-        return "新生优孕";
+        return "旦旦医学";
       }
-      let title = split(this.data.Tital || "新生优孕", 18);
+      let title = split(this.data.Tital || "旦旦医学", 18);
       document.title = title;
       return title;
     },

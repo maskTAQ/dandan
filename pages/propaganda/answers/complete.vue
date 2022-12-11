@@ -57,7 +57,7 @@
       <p class="title">关注我们</p>
       <div class="code-box flex-column align">
         <img src="./imgs/code.png" alt="" class="code" />
-        <p class="text">新生优孕</p>
+        <p class="text">旦旦医学</p>
       </div>
     </div>
   </div>

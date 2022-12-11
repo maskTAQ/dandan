@@ -2,7 +2,7 @@
   <div class="header flex-row main-between center">
     <div class="logo flex-row center">
       <img :src="icons.logo || img.logo" alt="" class="icon" />
-      <!-- <span class="text">新生优孕</span> -->
+      <!-- <span class="text">旦旦医学</span> -->
     </div>
     <div @click="go({ path: '/messages' })" class="msg-box">
       <img :src="icons.msg || defaultIcons.msg" alt="" class="msg" />

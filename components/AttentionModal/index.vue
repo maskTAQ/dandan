@@ -38,7 +38,7 @@
                   >{{ +data.IsFollow === 1 ? "已完成" : "未完成" }}</i
                 >
               </div>
-              <p class="step-subtitle">长按识别 或搜索“新生优孕”</p>
+              <p class="step-subtitle">长按识别 或搜索“旦旦医学”</p>
               <img src="./assets/code.png" alt="" class="code" />
             </div>
           </div>

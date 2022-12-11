@@ -13,7 +13,7 @@
         <div v-if="type === 'success'" class="msg-box flex-column align">
           <p class="title">消息推送设置成功</p>
           <p class="text">
-            我们将通过短信和微信公众号“新生优孕”为您推送重要的信息通知
+            我们将通过短信和微信公众号“旦旦医学”为您推送重要的信息通知
           </p>
           <div class="btn-group flex-row center">
             <button class="ok align" @click="hide">我知道了</button>

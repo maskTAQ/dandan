@@ -15,7 +15,7 @@ export default {
             <p style="text-align:center;" align="center">
               <strong>
                 <span style="font-family:宋体">
-                  <span style="font-size: .16rem;">新生优孕用户隐私协议</span>
+                  <span style="font-size: .16rem;">旦旦医学用户隐私协议</span>
                 </span>
               </strong>
             </p>
@@ -28,7 +28,7 @@ export default {
             </p>
             <p>
               <span style=";font-family:宋体;font-size:14px">
-                <span style="font-family:宋体">&nbsp; &nbsp; 新生优孕</span>
+                <span style="font-family:宋体">&nbsp; &nbsp; 旦旦医学</span>
               </span>
               <span style=";font-family:宋体;font-size:14px">
                 <span style="font-family:宋体">
@@ -59,7 +59,7 @@ export default {
                 </span>
               </span>
               <span style=";font-family:宋体;font-size:14px">
-                <span style="font-family:宋体">新生优孕</span>
+                <span style="font-family:宋体">旦旦医学</span>
               </span>
               <span style=";font-family:宋体;font-size:14px">
                 <span style="font-family:宋体">

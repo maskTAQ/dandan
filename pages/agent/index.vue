@@ -22,7 +22,7 @@ export default {
       visible: false,
       tabs: [
         // {
-        //   label: "新生优孕官网",
+        //   label: "旦旦医学官网",
         //   icon: agent.website,
         //   path: "/",
         // },
