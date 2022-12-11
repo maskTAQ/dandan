@@ -106,7 +106,12 @@ export const icons = {
     plUnlike:require('./icon/pl-unlike.png'),
     readNum:require('./icon/read-num.png'),
     comment:require('./icon/comment.png'),
-    likeWhite:require('./icon/like-white.png')
+    likeWhite:require('./icon/like-white.png'),
+
+    service:require('./icon/service.png'),
+    money1:require('./icon/money1.png'),
+    wiki:require('./icon/wiki.png'),
+    tag:require('./icon/tag.png'),
 };
 export const img = {
     logo: require('./img/logo.png'),
@@ -121,6 +126,9 @@ export const img = {
     chatHead: require('./img/chat-head.png'),
     hw: require('./img/hw-jg.png'),
     gn: require('./img/gn-jg.png'),
+    homeTopBg: require('./img/home-top-bg.png'),
+    homeBannerBg: require('./img/home-banner-bg.png'),
+    groupTitle: require('./img/group-title.png'),
 }
 
 export const user = {

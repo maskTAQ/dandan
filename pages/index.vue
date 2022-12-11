@@ -363,22 +363,22 @@ export default {
         {
           title: "服务",
           path: "/propaganda/static/zytl",
-          icon: icons.zytl,
+          icon: icons.service,
         },
         {
           title: "金融",
           path: "/propaganda/static/sgqzqzyfw",
-          icon: icons.sggl,
+          icon: icons.money1,
         },
         {
           title: "百科",
-          icon: icons.yq,
+          icon: icons.wiki,
           onClick: this.goPunchTab,
         },
         {
           title: "活动",
           path: "/punch",
-          icon: icons.punch,
+          icon: icons.tag,
         },
       ];
     },
@@ -782,10 +782,10 @@ export default {
 .home {
   background: #f3f7fa;
   .header-area {
-    margin-bottom: 0.4rem;
-    height: 2.2rem;
+    height: 2.65rem;
     padding: 0.18rem;
-    background: #1ebcc4;
+    background:url('../assets/img/home-top-bg.png') no-repeat  center top / 100% auto,url('../assets/img/home-banner-bg.png') no-repeat  center bottom / 100% auto;
+    background-color: rgb(99, 216, 199) ;
     .title {
       .logo {
         font-size: 0.16rem;
