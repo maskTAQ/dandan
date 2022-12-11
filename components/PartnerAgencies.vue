@@ -4,36 +4,13 @@
             <div class="head">
                 <CoverImage :url="img.hw" class="tab-img" />
             </div>
-            <div class="hw-list">
-                <div class="">
-                    <CoverImage :url="img.chatHead" class="exPhoto" />
-                    <div class="info">
-                        <p class="title">名称</p>
-                        <div class="flex-row center main-between">
-                            <span class="type">0元（免费预约）</span>
-                            <span class="fw">服务645次</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <CardInfo1></CardInfo1>
         </div>
         <div class="hw-jg">
             <div class="head">
                 <CoverImage :url="img.gn" class="tab-img" />
             </div>
-            <div class="hw-list">
-                <div class="">
-                    <CoverImage :url="img.chatHead" class="exPhoto" />
-                    <div class="info">
-                        <p class="title ellipsis">名称名称名称名称名称名称名称名称名称</p>
-                        <div class="flex-center">
-                            <span class="type">0元（免费预约）</span>
-                            <span class="fw">服务645次</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <CardInfo1></CardInfo1>
         </div>
     </div>
 </template>
@@ -90,11 +67,13 @@
 <script>
 import { icons, img } from "@/assets";
 import CoverImage from "@/components/CoverImage.vue"
+import CardInfo1 from "@/components/CardInfo1.vue"
 
 export default {
     name: "PartnerAgencies",
     components: {
-        CoverImage
+        CoverImage,
+        CardInfo1
     },
     data() {
         return {
