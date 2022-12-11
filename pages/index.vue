@@ -46,7 +46,7 @@
       </StatusHandle>
       <StatusHandle :get="getDoctorList">
         <Group
-          title="名医直播"
+          title="专家直达"
           class="doctor-info-list-card"
           v-if="data.doctorList.length"
         >
@@ -63,111 +63,38 @@
         </Group>
       </StatusHandle>
     </div>
-    <div class="padding-box" style="background: #fff">
-      <TopGoods />
-      <StatusHandle :get="get">
+    <div class="padding-box white-area">
+      <Group title="合作机构">
+        <TopGoods />
+      </Group>
+
+      <StatusHandle :get="getGoodsList">
         <Group
           title="精选周边"
-          class="doctor-info-list-card"
+          class="goods-list-card"
           v-if="data.doctorList.length"
         >
           <ScrollView>
-            <div class="doctor-info-list flex-row">
-              <DoctorInfoCard
-                class="card"
-                :data="item"
-                v-for="item in data.doctorList"
-                :key="item.gid"
-              />
-            </div>
-          </ScrollView>
-        </Group>
-      </StatusHandle>
-    </div>
-    <div class="goods-list-box">
-      <p class="title">助孕调理服务</p>
-      <div class="goods-list flex-row">
-        <div
-          v-for="item in goodsTabList"
-          :key="item.title"
-          class="item flex-column align"
-          @click="go(item)"
-        >
-          <img :src="item.icon" class="icon" alt="" />
-          <p class="title">{{ item.title }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="padding-box">
-      <div class="hospital-area">
-        <StatusHandle :get="getGoodsType">
-          <Tab
-            v-model="currentGoodsTab"
-            placeholder="医院"
-            :data="data.goodsTypeList"
-            :hint="false"
-            ref="goodsType"
-            @change="handleGoodsTabChange"
-          />
-        </StatusHandle>
-        <StatusHandle ref="goodsList" :get="getGoodsList">
-          <ScrollView v-if="data.goodsList.length">
-            <div class="hospital-list flex-row">
+            <div class="goods-list flex-row">
               <div
                 v-for="item in data.goodsList"
                 :key="item.gid"
-                class="card flex-row center"
-                @click="goHospital(item)"
+                class="goods-card"
+                @click="go({ path: '/goods-detail', id: item.gid })"
               >
                 <CoverImage class="cover" :url="item.gImg" />
                 <div class="info flex-column main-between">
-                  <div class="top">
-                    <p class="name">{{ item.gName }}</p>
-                    <div class="flex-row main-between center">
-                      <span class="city">{{ item.TypeName }}</span>
-                      <!-- <div class="distance flex-row center">
-                        <img :src="icons.pos" class="icon" alt="" />
-                        <span class="text">距离120km</span>
-                      </div> -->
-                    </div>
+                  <p class="name">{{ item.gName }}</p>
+                  <div class="price-box flex-row center">
+                    <span class="unit">￥</span>
+                    <span class="value">{{ item.ThePrice }}</span>
                   </div>
-                  <TagList :data="item.Tag" :max="3" />
                 </div>
               </div>
             </div>
           </ScrollView>
-          <van-empty v-else description="暂无医院" />
-        </StatusHandle>
-      </div>
-      <div id="孕产百科" />
-      <StatusHandle :get="getTabList">
-        <Tab
-          :style="{ opacity: sticky ? 0 : 1 }"
-          ref="tab"
-          v-model="tab"
-          :data="data.tabList"
-          placeholder="发现好孕"
-          @load="computedY"
-          @change="handTabClick"
-          hint
-        />
+        </Group>
       </StatusHandle>
-      <div v-show="sticky" class="sticky">
-        <Tab
-          v-model="tab"
-          ref="fixedTab"
-          placeholder="发现好孕"
-          :data="data.tabList"
-          hint
-        />
-      </div>
-      <img
-        v-if="sticky"
-        src="../assets/img/scroll-top.png"
-        alt=""
-        class="scroll-top"
-        @click="scrollTo"
-      />
     </div>
     <div
       v-if="data.live"
@@ -188,6 +115,37 @@
         class="close"
       />
     </div>
+    <div class="padding-box tab-area">
+      <div id="孕产百科" />
+      <StatusHandle :get="getTabList">
+        <Tab
+          :style="{ opacity: sticky ? 0 : 1 }"
+          ref="tab"
+          v-model="tab"
+          :data="data.tabList"
+          placeholder="推荐百科"
+          @load="computedY"
+          @change="handTabClick"
+          hint
+        />
+      </StatusHandle>
+      <div v-show="sticky" class="sticky">
+        <Tab
+          v-model="tab"
+          ref="fixedTab"
+          placeholder="推荐百科"
+          :data="data.tabList"
+          hint
+        />
+      </div>
+      <img
+        v-if="sticky"
+        src="../assets/img/scroll-top.png"
+        alt=""
+        class="scroll-top"
+        @click="scrollTo"
+      />
+    </div>
     <div class="tab-content">
       <List
         :request="request"
@@ -203,7 +161,7 @@
         customControl
         resetDatasource
       />
-    </div> 
+    </div>
     <!-- <CodeModal v-model="model.visible" :data="model.data" />
     <LoginModal />
     <ForceLoginModal
@@ -392,7 +350,11 @@ export default {
         tab.setSelected(fixedTab.selected);
       }
     },
-    currentGoodsTab() {},
+    data() {
+      setTimeout(() => {
+        this.computedY();
+      });
+    },
   },
   computed: {
     ...mapState(["myDoctor"]),
@@ -674,19 +636,12 @@ export default {
       });
     },
     getGoodsList() {
-      this.computedY();
       return API.GOODS_LIST({
         tid: this.currentGoodsTab,
         root: "医院",
-      })
-        .then((res) => {
-          this.data.goodsList = res;
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.computedY();
-          }, 10);
-        });
+      }).then((res) => {
+        this.data.goodsList = res;
+      });
     },
     computedY() {
       const { scroll, tab } = this.$refs;
@@ -931,6 +886,31 @@ export default {
       margin-right: 0.15rem;
     }
   }
+  .goods-list-card {
+    .goods-card {
+      margin-right: 0.15rem;
+      .cover {
+        min-width: 0.72rem;
+        height: 0.72rem;
+      }
+      .name {
+        margin-top: 0.1rem;
+        margin-bottom: 0.04rem;
+        font-size: 0.12rem;
+        color: rgb(42, 42, 42);
+      }
+      .price-box {
+        font-weight: bold;
+        color: rgb(217, 51, 26);
+        .unit {
+          font-size: 0.1rem;
+        }
+        .value {
+          font-size: 0.16rem;
+        }
+      }
+    }
+  }
   .hospital-area {
     margin-bottom: 0.2rem;
     .tag-list {
@@ -998,7 +978,15 @@ export default {
   .padding-box {
     padding: 0.12rem $margin;
     padding-top: 0;
+    &.white-area {
+      background: rgb(255, 255, 255);
+      box-shadow: 0px 4px 12px rgba(139, 156, 164, 0.17);
+    }
+    &.tab-area {
+      padding-top: 0.12rem;
+    }
   }
+
   .live {
     position: fixed;
     right: 0;
@@ -1027,29 +1015,6 @@ export default {
       top: -0.07rem;
       left: -0.07rem;
       width: 0.14rem;
-    }
-  }
-  .tab-card {
-    margin-top: 0.27rem;
-    .item {
-      flex: 1;
-    }
-    .icon-box {
-      /* background: #fff; */
-      /* width: 0.7rem;
-      height: 0.7rem;
-      border-radius: 50%; */
-      img {
-        height: 0.33rem;
-        /* height: 0.48rem; */
-      }
-    }
-
-    .title {
-      margin-top: 0.18rem;
-      font-size: 14px;
-      font-weight: 500;
-      color: #4d4d4d;
     }
   }
   .goods-list-box {
