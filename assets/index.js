@@ -119,6 +119,8 @@ export const img = {
     codeModelBg: require('./img/code-model-bg.png'),
     selectedBorder: require('./img/selected-border.png'),
     chatHead: require('./img/chat-head.png'),
+    hw: require('./img/hw-jg.png'),
+    gn: require('./img/gn-jg.png'),
 }
 
 export const user = {

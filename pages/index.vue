@@ -1,5 +1,6 @@
 <template>
   <div ref="scroll" class="home page-tab" @scroll="throttleScroll">
+    <PartnerAgencies></PartnerAgencies>
     <div class="header-area">
       <div class="title flex-row main-between center">
         <span class="logo">旦旦医学</span>
@@ -234,7 +235,7 @@ import CoverImage from "@/components/CoverImage";
 import DoctorLiveCard from "@/components/DoctorLiveCard.vue";
 import ScrollView from "@/components/ScrollView";
 import TopGoods from "@/components/TopGoods";
-
+import  PartnerAgencies from '@/components/PartnerAgencies'
 //
 const BASE_TABS = [
   // {
@@ -819,6 +820,7 @@ export default {
     CoverImage,
     DoctorLiveCard,
     TopGoods,
+    PartnerAgencies,
   },
 };
 </script>
