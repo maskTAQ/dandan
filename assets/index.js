@@ -121,6 +121,7 @@ export const img = {
     chatHead: require('./img/chat-head.png'),
     hw: require('./img/hw-jg.png'),
     gn: require('./img/gn-jg.png'),
+    jb: require('./img/bj-jb.png'),
 }
 
 export const user = {
