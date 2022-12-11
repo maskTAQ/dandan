@@ -52,7 +52,7 @@ export default {
       font-size: 0.18rem;
       font-weight: 600;
       color: #ffffff;
-      background: linear-gradient(180deg, #a6b6ff 0%, #4d6eff 100%);
+      background: linear-gradient(180deg, #a6b6ff 0%, #1ebcc4 100%);
       border-radius: 0.05rem;
       border: 1px solid rgba(255, 255, 255, 0.65);
       &:last-child {

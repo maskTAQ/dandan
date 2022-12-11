@@ -45,7 +45,7 @@ export default {
     line-height: 0.18rem;
     background: #ecf0ff;
     font-size: 0.09rem;
-    color: #4d6eff;
+    color: #1ebcc4;
     border-radius: 4px;
     &:last-child {
       margin-right: 0;

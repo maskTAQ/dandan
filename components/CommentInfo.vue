@@ -217,14 +217,14 @@ export default {
   .toggle {
     margin-bottom: 0.1rem;
     font-size: 0.12rem;
-    color: #4d6eff;
+    color: #1ebcc4;
   }
   .reply-btn {
     margin-bottom: 0.2rem;
     width: 0.44rem;
     height: 0.22rem;
     font-size: 0.11rem;
-    color: #4d6eff;
+    color: #1ebcc4;
     background: rgba($color: #6dc7c6, $alpha: 0.1);
     border-radius: 0.14rem;
   }

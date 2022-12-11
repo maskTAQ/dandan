@@ -98,7 +98,7 @@
               <i class="label">开具发票</i>
               <van-checkbox
                 v-model="params.invoice"
-                checked-color="#4d6eff"
+                checked-color="#1ebcc4"
                 shape="square"
               />
             </div>
@@ -139,7 +139,7 @@
               </div>
               <van-checkbox
                 value="true"
-                checked-color="#4d6eff"
+                checked-color="#1ebcc4"
                 shape="square"
               />
             </div>

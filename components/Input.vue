@@ -206,7 +206,7 @@ export default {
   .request-code {
     font-size: 0.14rem;
     font-weight: 400;
-    color: #4d6eff;
+    color: #1ebcc4;
     white-space: nowrap;
   }
 }

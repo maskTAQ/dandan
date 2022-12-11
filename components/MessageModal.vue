@@ -87,7 +87,7 @@ export default {
                         next[index].thescore = v;
                         this.rateList = next;
                       }}
-                      color="#4d6eff"
+                      color="#1ebcc4"
                     />
                     <p class="value">{thescore}分</p>
                   </div>

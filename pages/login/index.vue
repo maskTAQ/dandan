@@ -775,7 +775,7 @@ export default {
 
       .confirm,
       .confirm.van-button--disabled {
-        background: #4d6eff;
+        background: #1ebcc4;
         color: #fff;
       }
     }
@@ -795,7 +795,7 @@ export default {
     width: 100%;
     text-align: center;
     font-size: 0.14rem;
-    color: #4d6eff;
+    color: #1ebcc4;
     border: none;
     background: none;
   }
@@ -967,7 +967,7 @@ export default {
     }
     .confirm,
     .confirm.van-button--disabled {
-      background: #4d6eff;
+      background: #1ebcc4;
       color: #fff;
     }
     .login-way {
@@ -989,15 +989,15 @@ export default {
         }
         .icon {
           width: 0.1rem;
-          border: 1px solid #4d6eff;
+          border: 1px solid #1ebcc4;
           border-radius: 2px;
         }
         i {
           font-size: 0.13rem;
-          color: rgba($color: #4d6eff, $alpha: 0.8);
+          color: rgba($color: #1ebcc4, $alpha: 0.8);
         }
         .protocol {
-          color: #4d6eff;
+          color: #1ebcc4;
         }
       }
     }
@@ -1049,7 +1049,7 @@ export default {
     }
     .confirm,
     .confirm.van-button--disabled {
-      background: #4d6eff;
+      background: #1ebcc4;
       color: #fff;
     }
     .field-box {
@@ -1084,7 +1084,7 @@ export default {
     }
     .confirm,
     .confirm.van-button--disabled {
-      background: #4d6eff;
+      background: #1ebcc4;
       color: #fff;
     }
     .login-way {
@@ -1109,10 +1109,10 @@ export default {
         }
         i {
           font-size: 0.13rem;
-          color: rgba($color: #4d6eff, $alpha: 0.8);
+          color: rgba($color: #1ebcc4, $alpha: 0.8);
         }
         .protocol {
-          color: #4d6eff;
+          color: #1ebcc4;
         }
       }
     }
@@ -1156,7 +1156,7 @@ export default {
     }
     .confirm,
     .confirm.van-button--disabled {
-      background: #4d6eff;
+      background: #1ebcc4;
       color: #fff;
     }
     .field-box {
@@ -1195,7 +1195,7 @@ export default {
     }
     .confirm,
     .confirm.van-button--disabled {
-      background: #4d6eff;
+      background: #1ebcc4;
       color: #fff;
     }
     .login-way {
@@ -1220,10 +1220,10 @@ export default {
         }
         i {
           font-size: 0.13rem;
-          color: rgba($color: #4d6eff, $alpha: 0.8);
+          color: rgba($color: #1ebcc4, $alpha: 0.8);
         }
         .protocol {
-          color: #4d6eff;
+          color: #1ebcc4;
         }
       }
     }

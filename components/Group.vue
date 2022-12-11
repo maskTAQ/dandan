@@ -1,6 +1,6 @@
 <template>
   <div class="group">
-    <div :class="['title flex-row main-between center', { border }]">
+    <div :class="['group-title flex-row main-between center', { border }]">
       <div class="left flex-row center">
         <img v-if="icon" :src="icon" alt="" class="icon" />
         <i class="label">{{ title }}</i>
@@ -58,7 +58,7 @@ export default {
 <style lang="scss">
 @import "../assets/theme.scss";
 .group {
-  .title {
+  .group-title {
     height: 0.53rem;
     /* margin: 0.08rem 0; */
     &.border {

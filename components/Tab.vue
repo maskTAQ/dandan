@@ -235,7 +235,7 @@ export default {
     font-size: 0.12rem;
     color: #2a2a2a;
     &.selected {
-      color: #4d6eff;
+      color: #1ebcc4;
     }
   }
 }

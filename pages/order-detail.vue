@@ -124,13 +124,13 @@
               <van-checkbox
                 v-if="isWaitPay"
                 v-model="params.invoice"
-                checked-color="#4d6eff"
+                checked-color="#1ebcc4"
                 shape="square"
               />
               <van-checkbox
                 v-else
                 :value="!!invoiceId"
-                checked-color="#4d6eff"
+                checked-color="#1ebcc4"
                 shape="square"
               />
             </div>
@@ -182,7 +182,7 @@
               </div>
               <van-checkbox
                 value="true"
-                checked-color="#4d6eff"
+                checked-color="#1ebcc4"
                 shape="square"
               />
             </div>

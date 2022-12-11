@@ -25,7 +25,7 @@
         <van-checkbox
           :value="isAllChecked"
           @click="hanldeAllCheckedChange"
-          checked-color="#4d6eff"
+          checked-color="#1ebcc4"
           >全选</van-checkbox
         >
       </van-submit-bar>
@@ -33,7 +33,7 @@
         <van-checkbox
           :value="isAllChecked"
           @click="hanldeAllCheckedChange"
-          checked-color="#4d6eff"
+          checked-color="#1ebcc4"
           >全选</van-checkbox
         >
         <van-button

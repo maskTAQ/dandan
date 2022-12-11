@@ -1,18 +1,14 @@
 <template>
-  <Group
+  <SimpleGroup
     title="客户评价"
-    more
-    :moreText="`${total ? total + '条' : ''}`"
-    @more="go"
     class="evaluation-group area radius"
-    border
   >
     <StatusHandle ref="statusHandle" key="statusHandle" :get="getList">
       <ShowMore min="2.2rem">
         <EvaluateInfo v-for="item in list" :key="item.pjid" :data="item" />
       </ShowMore>
     </StatusHandle>
-  </Group>
+  </SimpleGroup>
 </template>
 
 <script>
@@ -68,9 +64,6 @@ export default {
 <style lang="scss">
 .evaluation-group {
   /* margin-top: 0.12rem; */
-  margin-bottom: 0.24rem;
-  padding: 0.15rem;
-  padding-top: 0;
   background: #fff;
   /* border-radius: 0.12rem; */
   .title {

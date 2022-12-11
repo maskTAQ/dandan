@@ -319,7 +319,7 @@ export default {
       font-size: 0.16rem;
       font-weight: 600;
       color: #ffffff;
-      background: #4d6eff;
+      background: #1ebcc4;
       border-radius: 0.26rem;
     }
   }

@@ -261,7 +261,7 @@ export default {
       }
       .value {
         font-size: 0.12rem;
-        color: #4d6eff;
+        color: #1ebcc4;
       }
     }
     .tags {
@@ -289,8 +289,8 @@ export default {
       border-radius: 0.17rem;
 
       &.edit {
-        border: 1px solid #4d6eff;
-        color: #4d6eff;
+        border: 1px solid #1ebcc4;
+        color: #1ebcc4;
       }
       &.delete {
         border: 1px solid #f03434;

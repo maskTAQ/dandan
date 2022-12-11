@@ -1,5 +1,10 @@
 <template>
-  <Page :title="title" fixed ref="scroll" @scroll="onScrollToToggleScrollTopBtn">
+  <Page
+    :title="title"
+    fixed
+    ref="scroll"
+    @scroll="onScrollToToggleScrollTopBtn"
+  >
     <StatusHandle :get="getData" ref="statusHandle">
       <div v-if="data" class="hospital-detail">
         <img
@@ -28,166 +33,164 @@
             </div>
           </div>
         </div>
-
-        <div class="hospital-info">
-          <div class="hospital-name">
-            <span class="tag align">{{ data.fTypeName }}</span>
-            <p class="label ellipsis line-2">{{ data.gName }}</p>
-          </div>
-          <div class="flex-row main-between center">
-            <span class="yy">{{ data.SalesNum }}人预约</span>
-            <div
-              v-if="data.SuccessRate"
-              :class="['cgl-box flex-row', { red: isRed }]"
-            >
-              <span class="value align">{{ data.SuccessRate }}%</span>
-              <span class="label align">成功率</span>
+        <div class="padding-box">
+          <div class="hospital-info">
+            <div class="hospital-name">
+              <span class="tag align">{{ data.fTypeName }}</span>
+              <p class="label ellipsis line-2">{{ data.gName }}</p>
             </div>
-          </div>
-          <div class="price-box flex-row center">
-            <span class="label">试管费用：</span>
-            <span class="unit">￥</span>
-            <span class="value">{{ data.ThePrice }}</span>
-            <span class="label">起</span>
-          </div>
-          <!-- <div class="tag-list flex-row center">
+            <div class="flex-row main-between center">
+              <span class="yy">{{ data.SalesNum }}人预约</span>
+              <div
+                v-if="data.SuccessRate"
+                :class="['cgl-box flex-row', { red: isRed }]"
+              >
+                <span class="value align">{{ data.SuccessRate }}%</span>
+                <span class="label align">成功率</span>
+              </div>
+            </div>
+            <div class="price-box flex-row center">
+              <span class="label">试管费用：</span>
+              <span class="unit">￥</span>
+              <span class="value">{{ data.ThePrice }}</span>
+              <span class="label">起</span>
+            </div>
+            <!-- <div class="tag-list flex-row center">
             <div v-for="item in data.Tag.split(';')" :key="item" class="tag">
               {{ item }}
             </div>
           </div> -->
-        </div>
-        <div class="alert" v-if="data.Tag && data.Tag.length">
-          {{ getAlert(data.Tag) }}
-        </div>
-        <SimpleGroup
-          :icon="icons.user_title"
-          size="mini"
-          title="简介"
-          class="intro-card card"
-          border
-        >
-          <ShowMore min="1rem">
+          </div>
+          <div class="alert" v-if="data.Tag && data.Tag.length">
+            {{ getAlert(data.Tag) }}
+          </div>
+          <SimpleGroup
+            :icon="icons.user_title"
+            size="mini"
+            title="简介"
+            class="intro-card card"
+            border
+          >
             <p class="intro">{{ data.Smple }}</p>
-          </ShowMore>
-        </SimpleGroup>
-        <SimpleGroup
-          v-if="doctorList.length"
-          :icon="icons.user_title"
-          size="mini"
-          title="医院专家"
-          class="doctor-card card"
-        >
-          <div>
-            <ScrollView>
-              <div class="doctor-list flex-row center">
-                <div
-                  v-for="(item, index) in doctorList"
-                  :class="[
-                    'portrait-box',
-                    { selected: selectedDoctorIndex === index },
-                  ]"
-                  :key="item.exid"
-                  @click="selectedDoctorIndex = index"
-                >
-                  <CoverImage :url="item.exPhoto" class="portrait" />
-                  <img
+          </SimpleGroup>
+          <SimpleGroup title="服务内容" border>
+            <div class="service-list">
+              <div
+                class="item flex-row main-between"
+                v-for="item in serviceList"
+                :key="item.label"
+              >
+                <span class="label">{{ item.label }}</span>
+                <span class="value">{{ item.label }}</span>
+              </div>
+            </div>
+          </SimpleGroup>
+          <SimpleGroup
+            v-if="doctorList.length"
+            title="医院专家"
+            class="doctor-card card"
+            border
+          >
+            <div>
+              <ScrollView>
+                <div class="doctor-list flex-row center">
+                  <div
+                    v-for="(item, index) in doctorList"
+                    :class="[
+                      'portrait-box',
+                      { selected: selectedDoctorIndex === index },
+                    ]"
+                    :key="item.exid"
+                    @click="selectedDoctorIndex = index"
+                  >
+                    <CoverImage :url="item.exPhoto" class="portrait" />
+                    <!-- <img
                     v-if="selectedDoctorIndex === index"
                     :src="icons.doctorIntrolBottom"
                     alt=""
                     class="icon"
-                  />
+                  /> -->
+                  </div>
                 </div>
-              </div>
-            </ScrollView>
-            <div class="doctor-introl">
-              <p class="name">{{ doctorList[selectedDoctorIndex].exName }}</p>
-              <div class="flelds">
-                <div class="field">
-                  <span class="label">擅长领域</span>
-                  <span class="value">{{
-                    doctorList[selectedDoctorIndex].exCan
-                  }}</span>
-                </div>
-                <div class="field">
-                  <span class="label">专家履历</span>
-                  <span class="value">{{
-                    doctorList[selectedDoctorIndex].Resume || "-"
-                  }}</span>
+              </ScrollView>
+              <div class="doctor-introl">
+                <p class="name">{{ doctorList[selectedDoctorIndex].exName }}</p>
+                <div class="flelds">
+                  <div class="field">
+                    <span class="label">擅长领域</span>
+                    <span class="value">{{
+                      doctorList[selectedDoctorIndex].exCan
+                    }}</span>
+                  </div>
+                  <div class="field">
+                    <span class="label">专家履历</span>
+                    <span
+                      class="value"
+                      v-html="
+                        getHtmlStr(doctorList[selectedDoctorIndex].Resume)
+                      "
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </SimpleGroup>
-        <SimpleGroup size="mini" title="医院详情" class="hospital-detail-card card">
-          <div class="html-content" v-html="data.goodValue" />
-        </SimpleGroup>
-        <SimpleGroup
-          :icon="icons.user_title"
-          size="mini"
-          title="预约须知"
-          class="subscribe-card card"
-          border
-        >
-          <ul class="subscribe-list">
-            <li class="item flex-row center">
-              <span class="dot"></span>
-              <span class="value">{{ data.PayFlow }}</span>
-            </li>
-          </ul>
-        </SimpleGroup>
-        <EvaluateGroup :goods="data" />
-        <div class="type-chunk" v-if="false">
-          <StatusHandle :get="getSku">
-            <ScrollView>
-              <div class="type-list flex-row center">
-                <div v-for="index of 7" :key="index" class="item">
-                  规格{{ index }}
-                </div>
-              </div>
-            </ScrollView>
-          </StatusHandle>
-
-          <div class="type-content card flex-row">
-            <i class="label">优势</i>
-            <div class="value">
-              <p>
-                遗传疾病 染色体异常 输卵管堵塞 弱精 少精 反复流产 子宫内膜息肉
-              </p>
-              <p>
-                基因测序（NGS） 睾丸穿刺I胚胎培养 宫腔镜 聚合酶 反应（PCR）
-                基因诊断（PGD）
-              </p>
-            </div>
-          </div>
+          </SimpleGroup>
         </div>
-        <SimpleGroup
-          size="mini"
-          title="其他医院"
-          class="hospital-list-card card"
-          border
-        >
-          <div>
-            <List
-              customControl
-              :request="getOtherHospitalList"
-              :renderItem="renderHospitalItem"
-              class="list"
-              ref="list"
-            />
-          </div>
-        </SimpleGroup>
-        <SimpleGroup v-if="false" size="mini" title="支付说明" class="pay-desc card">
-          <div>
-            <div class="item">
-              <i class="label">支付流程:</i>
-              <i class="value">{{ data.PayFlow }}</i>
+        <div class="html-content" v-html="data.goodValue" />
+        <div class="padding-box">
+          <SimpleGroup title="支付说明">
+            <div class="pay-desc">
+              <div class="item">
+                <i class="label">支付流程:</i>
+                <i class="value">{{ data.PayFlow }}</i>
+              </div>
+              <div class="item">
+                <i class="label">退款流程:</i>
+                <i class="value" v-html="newline(data.ReturnFlow)"></i>
+              </div>
             </div>
-            <div class="item">
-              <i class="label">退款流程:</i>
-              <i class="value" v-html="newline(data.ReturnFlow)"></i>
+          </SimpleGroup>
+          <EvaluateGroup :goods="data" />
+          <div class="type-chunk" v-if="false">
+            <StatusHandle :get="getSku">
+              <ScrollView>
+                <div class="type-list flex-row center">
+                  <div v-for="index of 7" :key="index" class="item">
+                    规格{{ index }}
+                  </div>
+                </div>
+              </ScrollView>
+            </StatusHandle>
+
+            <div class="type-content card flex-row">
+              <i class="label">优势</i>
+              <div class="value">
+                <p>
+                  遗传疾病 染色体异常 输卵管堵塞 弱精 少精 反复流产 子宫内膜息肉
+                </p>
+                <p>
+                  基因测序（NGS） 睾丸穿刺I胚胎培养 宫腔镜 聚合酶 反应（PCR）
+                  基因诊断（PGD）
+                </p>
+              </div>
             </div>
           </div>
-        </SimpleGroup>
+          <SimpleGroup
+            size="mini"
+            title="相关推荐"
+            class="hospital-list-card card"
+          >
+            <div>
+              <List
+                customControl
+                :request="getOtherHospitalList"
+                :renderItem="renderHospitalItem"
+                class="list"
+                ref="list"
+              />
+            </div>
+          </SimpleGroup>
+        </div>
 
         <van-sku
           v-model="sku.visible"
@@ -209,15 +212,13 @@
           <div class="flex-row center">
             <div @click="consulting" class="btn flex-column align">
               <img class="icon" :src="icons.kf" alt="" />
-              <i class="label">在线客服</i>
             </div>
             <a :href="`tel:4000913522`" class="btn flex-column align">
               <img class="icon" :src="icons.mobile" alt="" />
-              <i class="label">电话咨询</i>
             </a>
           </div>
           <van-button :loading="loading.sku" class="ask" @click="showSKU"
-            >立即预约</van-button
+            >服务预约</van-button
           >
         </div>
       </div>
@@ -336,8 +337,27 @@ export default {
     isRed() {
       return parseInt(this.data.SuccessRate) > 90;
     },
+    serviceList() {
+      return [
+        {
+          label: "优质蛋白质",
+          value: "含有丰富的矿物质以及微量元素等",
+        },
+        {
+          label: "优质蛋白质",
+          value: "含有丰富的矿物质以及微量元素等",
+        },
+        {
+          label: "优质蛋白质",
+          value: "含有丰富的矿物质以及微量元素等",
+        },
+      ];
+    },
   },
   methods: {
+    getHtmlStr(str) {
+      return (str || "").replace(/\n+/gim, "<br/>");
+    },
     getOtherHospitalList(params) {
       return API.HOSPITAL_LIST({
         ...params,
@@ -517,22 +537,16 @@ export default {
 @import "../assets/theme.scss";
 $margin: 0.12rem;
 .hospital-detail {
-  background: $color8;
-  padding-bottom: 0.55rem;
+  background: #fff;
+  padding-bottom: 0.8rem;
   .html-content {
     * {
-      display: block;
+      /* display: block; */
       max-width: 100%;
     }
   }
   .card {
-    padding: 0.15rem;
-    padding-top: 0;
-    background: #fff;
     /* border-radius: 0.12rem; */
-  }
-  .hospital-detail-card {
-    margin-bottom: 0.1rem;
   }
   .swiper-container {
     position: relative;
@@ -566,8 +580,7 @@ $margin: 0.12rem;
     }
   }
   .padding-box {
-    padding: 0.12rem;
-    background: #f3f5f7;
+    padding: 0.2rem;
   }
   .hospital-info {
     margin-bottom: $margin;
@@ -666,20 +679,32 @@ $margin: 0.12rem;
     }
   }
   .alert {
-    margin-bottom: 0.1rem;
     min-height: 0.5rem;
     /* padding-left: 0.15rem; */
-    padding: 0.06rem 0.1rem;
+    padding: 0.06rem 0;
     line-height: 0.2rem;
     font-size: 0.14rem;
     color: #ffa83e;
     background: #fff;
   }
+  .service-list {
+    font-size: 0.12rem;
+    font-weight: bold;
+    .item {
+      min-height: 0.3rem;
+    }
+    .label {
+      color: rgb(0, 188, 197);
+    }
+    .value {
+      color: rgb(173, 173, 173);
+    }
+  }
   .intro-card {
-    margin-bottom: 0.1rem;
     .intro {
       font-size: 0.14rem;
-      color: #666666;
+      /* font-weight: bold; */
+      color: rgb(173, 173, 173);
     }
   }
   .discount {
@@ -700,9 +725,9 @@ $margin: 0.12rem;
         height: 0.24rem;
         padding: 0 0.06rem;
         font-size: 0.12rem;
-        color: #4d6eff;
+        color: #1ebcc4;
         border-radius: 3px;
-        border: 1px solid #4d6eff;
+        border: 1px solid #1ebcc4;
       }
       .label {
         margin-left: 0.06rem;
@@ -735,32 +760,35 @@ $margin: 0.12rem;
         margin-right: 0;
       }
       &.selected .portrait {
-        border-color: #3155f1;
+        border-color: rgb(0, 188, 197);
       }
     }
     .portrait {
       width: 0.75rem;
       height: 0.75rem;
-      border: 2px solid transparent;
-      border-radius: 4px;
+      border: 1px solid transparent;
+      border-radius: 50%;
     }
     .doctor-introl {
       position: relative;
       /* margin-top: 0.15rem; */
-      padding: 0.16rem;
-      background: #eef0fe;
+      /* padding: 0.16rem; */
+      /* background: #eef0fe; */
       border-radius: 10px;
 
       .name {
-        font-size: 16px;
+        margin-bottom: 0.1rem;
+        font-size: 0.16rem;
         font-weight: 500;
-        color: #000000;
+        color: rgb(59, 67, 83);
       }
       .field {
-        margin-top: 0.15rem;
+        margin-top: 0.05rem;
         position: relative;
         font-size: 0.14rem;
-        .label {
+        font-weight: bold;
+        color: rgb(173, 173, 173);
+        /* .label {
           position: absolute;
           top: 0.02rem;
           left: 0;
@@ -771,7 +799,7 @@ $margin: 0.12rem;
           line-height: 0.24rem;
           text-indent: 0.8rem;
           color: #666666;
-        }
+        } */
       }
     }
     .show-doctor-detail {
@@ -780,14 +808,13 @@ $margin: 0.12rem;
       margin-top: 0.16rem;
       height: 0.3rem;
       padding: 0 0.3rem;
-      background: #4d6eff;
+      background: #1ebcc4;
       font-size: 0.12rem;
       color: #fff;
       border-radius: 0.13rem;
     }
   }
   .subscribe-card {
-    margin-bottom: 0.1rem;
     .subscribe-list {
       .item {
         height: 0.6rem;
@@ -815,7 +842,7 @@ $margin: 0.12rem;
         line-height: 0.34rem;
         font-size: 0.14rem;
         color: #fff;
-        background: #4d6eff;
+        background: #1ebcc4;
         border-radius: 0.19rem;
         &:last-child {
           margin-right: 0;
@@ -847,20 +874,12 @@ $margin: 0.12rem;
     height: 1rem;
   }
   .pay-desc {
-    margin-top: $margin;
-    .title {
-      font-size: 0.14rem;
-      color: $color6;
-    }
+    padding: 0.1rem;
+    background: rgba(105, 199, 199, 0.1);
+    border-radius: 0.04rem;
     .item {
-      margin-top: 0.12rem;
-      font-size: 0.12rem;
-      .label {
-        color: $color4;
-      }
-      .value {
-        color: $color6;
-      }
+      font-size: 0.14rem;
+      color: rgb(173, 173, 173);
     }
   }
   .pay-bar {
@@ -868,30 +887,31 @@ $margin: 0.12rem;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 0.55rem;
+    height: 0.8rem;
     padding: 0 0.15rem;
     background: #fff;
-    box-shadow: 0px 0px 3px 0px rgba(181, 181, 196, 0.5);
+    /* box-shadow: 0px 0px 3px 0px rgba(181, 181, 196, 0.5); */
     .btn {
-      &:first-child {
-        margin-right: 0.18rem;
-      }
+      margin-right: 0.13rem;
+      width: 0.44rem;
+      height: 0.44rem;
+      background: rgba(0, 188, 197, 0.1);
+      border-radius: 0.08rem;
       .icon {
-        margin-bottom: 4px;
-        width: 0.22rem;
+        width: 0.3rem;
       }
-      .label {
-        font-size: 0.12rem;
-        color: #999999;
+      &:first-child {
+        
       }
     }
     .ask {
-      width: 1.79rem;
+      width: 0;
+      flex: 1;
       height: 0.39rem;
       font-size: 0.16rem;
       font-weight: 600;
       color: #fff;
-      background: #4d6eff;
+      background: #1ebcc4;
       border-radius: 0.23rem;
       border: none;
     }

@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="toggle flex-row align" @click="visible = !visible">
-      <i class="label">{{ visible ? "收起" : "查看" }}全部</i>
+      <i class="label">{{ visible ? "收起" : "展开" }}更多</i>
       <van-icon
         color="#666"
         :name="visible ? 'arrow-up' : 'arrow-down'"

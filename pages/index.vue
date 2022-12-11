@@ -1,6 +1,5 @@
 <template>
   <div ref="scroll" class="home page-tab" @scroll="throttleScroll">
-    <PartnerAgencies></PartnerAgencies>
     <div class="header-area">
       <div class="title flex-row main-between center">
         <span class="logo">旦旦医学</span>
@@ -66,9 +65,8 @@
     </div>
     <div class="padding-box white-area">
       <Group title="合作机构">
-        <TopGoods />
+        <PartnerAgencies />
       </Group>
-
       <StatusHandle :get="getGoodsList">
         <Group
           title="精选周边"
@@ -193,7 +191,7 @@ import CoverImage from "@/components/CoverImage";
 import DoctorLiveCard from "@/components/DoctorLiveCard.vue";
 import ScrollView from "@/components/ScrollView";
 import TopGoods from "@/components/TopGoods";
-import  PartnerAgencies from '@/components/PartnerAgencies'
+import PartnerAgencies from "@/components/PartnerAgencies";
 //
 const BASE_TABS = [
   // {
@@ -787,7 +785,7 @@ export default {
     margin-bottom: 0.4rem;
     height: 2.2rem;
     padding: 0.18rem;
-    background: #4d6eff;
+    background: #1ebcc4;
     .title {
       .logo {
         font-size: 0.16rem;

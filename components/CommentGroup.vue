@@ -372,7 +372,7 @@ export default {
       font-weight: bold;
       color: #989898;
       &.active {
-        color: #4d6eff;
+        color: #1ebcc4;
       }
       &:first-child {
         margin-right: 0.24rem;

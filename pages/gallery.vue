@@ -222,17 +222,17 @@ export default {
     .kind-list {
       margin: 0.14rem;
       margin-bottom: 0;
-      border: 1px solid #4d6eff;
+      border: 1px solid #1ebcc4;
       border-radius: 4px;
       overflow: hidden;
       button {
         flex: 1;
         height: 0.32rem;
         font-size: 0.15rem;
-        color: #4d6eff;
+        color: #1ebcc4;
         &.selected {
           color: #fff;
-          background: #4d6eff;
+          background: #1ebcc4;
           border-radius: 4px;
         }
       }
@@ -251,7 +251,7 @@ export default {
         color: $color6;
         &.selected {
           font-weight: bold;
-          color: #4d6eff;
+          color: #1ebcc4;
         }
         .border {
           position: absolute;
@@ -260,7 +260,7 @@ export default {
           bottom: 0;
           height: 3px;
           border-radius: 3px;
-          background: #4d6eff;
+          background: #1ebcc4;
         }
       }
     }

@@ -9,7 +9,7 @@
                     <CoverImage :url="img.chatHead" class="exPhoto" />
                     <div class="info">
                         <p class="title">名称</p>
-                        <div class="flex-center">
+                        <div class="flex-row center main-between">
                             <span class="type">0元（免费预约）</span>
                             <span class="fw">服务645次</span>
                         </div>
@@ -39,7 +39,7 @@
 </template>
 <style lang="scss">
 .partner-agencies-wrap {
-    padding: 0.12rem;
+    /* padding: 0.12rem; */
     background: #fff;
     .hw-jg {
         width: 48%;

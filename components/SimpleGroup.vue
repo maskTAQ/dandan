@@ -13,7 +13,7 @@
         </div>
       </template>
     </div>
-    <div class="content">
+    <div :class="['content', { padding }]">
       <slot></slot>
     </div>
   </div>
@@ -38,6 +38,10 @@ export default {
       default: icons.right,
     },
     border: Boolean,
+    padding: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -88,6 +92,11 @@ export default {
         width: 0.07rem;
         height: auto;
       }
+    }
+  }
+  .content {
+    &.padding {
+      padding-bottom: 0.15rem;
     }
   }
 }
