@@ -1,32 +1,38 @@
 <template>
-  <div class="search-result-card">
-    <div
-      v-if="type === TYPE.DOCTOR"
-      @click="
+  <div :class="['search-result-card',type]">
+    <HospitalCard
+      v-if="type === TYPE.HOSPITAL"
+      @buy="
         go({
-          path: '/doctor-detail',
+          path: '/hospital-detail',
           query: {
-            id: data.exid,
+            id: data.gid,
           },
         })
       "
-      class="doctor flex-row center"
-    >
-      <div
-        :style="{
-          background: `url('${data.exPhoto}') no-repeat left center / 100%`,
-        }"
-        class="cover"
-      />
-      <div class="info">
-        <div class="flex-row center">
-          <i class="name">{{ data.exName }} </i>
-          <i class="position">{{ data.exLevel }}</i>
-        </div>
-        <p class="hospital">{{ data.HsName }} {{ data.exRoom }}</p>
-        <p class="intro ellipsis line-3">擅长：{{ data.exCan }}</p>
-      </div>
-    </div>
+      @click="
+        go({
+          path: '/hospital-detail',
+          query: {
+            id: data.gid,
+          },
+        })
+      "
+      class="goods"
+      :data="data"
+    />
+    <PZItem
+      v-if="type === TYPE.SERVER"
+      :data="data"
+      @click="
+        go({
+          path: '/goods-detail',
+          query: {
+            id: data.gid,
+          },
+        })
+      "
+    />
     <div
       @click="
         go({
@@ -36,12 +42,14 @@
           },
         })
       "
-      v-if="type === TYPE.MALL"
-      class="mall flex-row center"
+      v-if="type === TYPE.GOODS"
+      class="classify-goods mall flex-row center"
     >
       <div
         :style="{
-          background: `url('${toArray(data.gImg,'||')[0]}') no-repeat left center / 100%`,
+          background: `url('${
+            toArray(data.gImg, '||')[0]
+          }') no-repeat left center / 100%`,
         }"
         class="cover"
       />
@@ -59,7 +67,7 @@
           </div>
         </div>
         <div class="bottom flex-row main-between center">
-          <i class="price">￥{{data.ThePrice || data.linePrice }}</i>
+          <i class="price">￥{{ data.ThePrice || data.linePrice }}</i>
           <i class="sell-num">销量{{ data.SalesNum }}次</i>
         </div>
       </div>
@@ -71,27 +79,8 @@
           query: { type: '孕圈', id: data.bid },
         })
       "
-      v-if="type === TYPE.CLASS"
-      class="class flex-row center"
-    >
-      <CoverImage class="cover" :url="data.PageImg" />
-      <div class="info flex-column main-between">
-        <p class="name ellipsis line-2">{{ data.Tital }}</p>
-        <div class="bottom flex-row main-between center">
-          <i class="time">{{ formatTime(data.CreateTime) }}</i>
-          <i class="read-num">热度:{{ data.HotNum }}</i>
-        </div>
-      </div>
-    </div>
-    <div
-      @click="
-        go({
-          path: '/class-detail',
-          query: { type: '百科', id: data.bid },
-        })
-      "
       v-if="type === TYPE.WIKI"
-      class="class flex-row center"
+      class="wiki-goods class flex-row center"
     >
       <CoverImage class="cover" :url="data.PageImg" />
       <div class="info flex-column main-between">
@@ -105,12 +94,15 @@
   </div>
 </template>
 <script>
+import HospitalCard from "@/pages/hospital/HospitalCard.vue";
+import PZItem from "@/pages/mall/PZItem.vue";
+
 import { router, formatTime, toArray } from "@/utils";
 const TYPE = {
-  DOCTOR: "doctor",
-  MALL: "goods",
-  CLASS: "jt",
-  WIKI: "bk",
+  HOSPITAL: "Hospital",
+  SERVER: "Service",
+  GOODS: "Goods",
+  WIKI: "Content",
 };
 export default {
   name: "",
@@ -130,6 +122,10 @@ export default {
       });
     },
   },
+  components: {
+    HospitalCard,
+    PZItem,
+  },
 };
 </script>
 <style lang="scss">
@@ -137,7 +133,11 @@ export default {
 .search-result-card {
   padding: 0.14rem 0;
   min-height: 1.2rem;
-  border-bottom: 1px solid #efefef;
+
+  &.Content,
+  &.Goods {
+    border-bottom: 1px solid #efefef;
+  }
   .tag-list {
     flex-wrap: wrap;
   }
@@ -163,7 +163,7 @@ export default {
     .hospital {
       margin: 0.06rem 0;
       font-size: 0.1rem;
-      color: #2D4EF5;
+      color: #2d4ef5;
     }
     .intro {
       font-size: 0.1rem;

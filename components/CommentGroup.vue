@@ -169,6 +169,7 @@ export default {
         {
           icon: icons.comment,
           value: count.MessageNum || 0,
+          call: this.handleClickComment,
         },
         {
           value: this.data.GoodNum || 0,
@@ -330,6 +331,9 @@ export default {
     toggleLike() {
       // this.$emit("toggle-like");
       this.$emit("toggleLike");
+    },
+    handleClickComment(){
+      this.$emit("comment");
     },
     handleMenuCick(menu) {
       if (menu.call) {

@@ -183,6 +183,7 @@ export default {
     .img {
       margin-right: 0.1rem;
       margin-bottom: 0.1rem;
+      width: .61rem;
       height: 0.61rem;
 
       &:last-child {

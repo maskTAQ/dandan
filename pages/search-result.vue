@@ -68,10 +68,10 @@ const STATUS = {
   4: "已完成",
 };
 const TYPE = {
-  DOCTOR: "doctor",
-  MALL: "goods",
-  CLASS: "jt",
-  WIKI: "bk",
+  HOSPITAL: "Hospital",
+  SERVER: "Service",
+  GOODS: "Goods",
+  WIKI: "Content",
 };
 export default {
   name: "search-result",
@@ -94,16 +94,20 @@ export default {
         //   type: TYPE.DOCTOR,
         // },
         {
-          label: "周边",
-          type: TYPE.MALL,
+          label: "医院",
+          type: TYPE.HOSPITAL,
         },
         {
-          label: "孕圈",
-          type: TYPE.CLASS,
+          label: "服务",
+          type: TYPE.SERVER,
         },
         {
-          label: "百科",
+          label: "内容",
           type: TYPE.WIKI,
+        },
+        {
+          label: "商品",
+          type: TYPE.GOODS,
         },
       ],
       data: {
@@ -155,30 +159,30 @@ export default {
           top: 2,
           // isSZ: "1", //1是松子 2 是试管
         }).then((res) => {
-          const { BK, Doctor, Goods, JT } = res;
+          const { Service, Hospital, Content, Goods} = res;
           const hasChild =
-            BK.length || Doctor.length || Goods.length || JT.length;
+            Hospital.length || Service.length || Content.length || Goods.length;
           return hasChild
             ? [
                 {
-                  type: TYPE.DOCTOR,
-                  children: Doctor,
-                  title: "医生",
+                  type: TYPE.HOSPITAL,
+                  children: Hospital,
+                  title: "医院",
                 },
                 {
-                  type: TYPE.MALL,
-                  children: Goods,
-                  title: "周边",
-                },
-                {
-                  type: TYPE.CLASS,
-                  children: JT,
-                  title: "孕圈",
+                  type: TYPE.SERVER,
+                  children: Service,
+                  title: "服务",
                 },
                 {
                   type: TYPE.WIKI,
-                  children: BK,
-                  title: "百科",
+                  children: Content,
+                  title: "内容",
+                },
+                {
+                  type: TYPE.GOODS,
+                  children: Goods,
+                  title: "商品",
                 },
               ]
             : [];

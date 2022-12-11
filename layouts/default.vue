@@ -63,6 +63,7 @@ const showSharePathList = [
   // "/class-list",
   // "/class-detail",
   // "/doctor-list",
+  "/hospital-detail",
   "/goods-detail",
   // "/mall",
 ];

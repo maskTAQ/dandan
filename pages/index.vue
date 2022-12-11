@@ -2,44 +2,87 @@
   <div ref="scroll" class="home page-tab" @scroll="throttleScroll">
     <div class="header-area">
       <div class="title flex-row main-between center">
-        <div class="logo flex-row center">
-          <img :src="img.logo" alt="" class="icon" />
-          <span class="text">新生优孕</span>
+        <span class="logo">旦旦医学</span>
+        <div class="search flex-row center">
+          <img :src="icons.search" alt="" class="icon" />
+          <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
         </div>
         <div @click="go({ auth: true, path: '/messages' })" class="msg-box">
           <img :src="icons.msg" alt="" class="msg" />
           <div class="dot"></div>
         </div>
       </div>
-      <Search class="search" />
       <HomeBanner class="banner" />
     </div>
-    <div class="card-list-1 flex-row center">
-      <div class="card flex-row main-between center" @click="goChat">
-        <div class="info">
-          <p class="title">备孕管理</p>
-          <div class="nav flex-row center">
-            <span class="text">开始管理</span>
-            <img :src="icons.bgLeft" alt="" class="go" />
-          </div>
-        </div>
-        <StatusHandle :get="getUserInfo" class="img">
-          <CoverImage :url="byIcon" class="img" />
-        </StatusHandle>
-      </div>
-      <div
-        class="card flex-row main-between center"
-        @click="go({ path: '/groups' })"
-      >
-        <div class="info">
-          <p class="title">好孕社群</p>
-          <div class="nav flex-row center">
-            <span class="text">加入社区</span>
-            <img :src="icons.bgLeft" alt="" class="go" />
-          </div>
-        </div>
-        <img :src="img.shequn" alt="" class="img" />
-      </div>
+    <div class="padding-box">
+      <ul class="tab-card-list flex-row">
+        <li
+          class="tab-card flex-column align"
+          v-for="tab in tabCardList"
+          :key="tab.label"
+        >
+          <img :src="tab.icon" alt="" class="icon" />
+          <p class="label">{{ tab.title }}</p>
+        </li>
+      </ul>
+
+      <StatusHandle :get="getDoctorLiveList">
+        <Group
+          title="名医直播"
+          class="doctor-live-list-card"
+          v-if="data.doctorLiveList.length"
+        >
+          <ScrollView>
+            <div class="doctor-live-list flex-row">
+              <DoctorLiveCard
+                class="card"
+                :data="item"
+                v-for="item in data.doctorLiveList"
+                :key="item.gid"
+              />
+            </div>
+          </ScrollView>
+        </Group>
+      </StatusHandle>
+      <StatusHandle :get="getDoctorList">
+        <Group
+          title="名医直播"
+          class="doctor-info-list-card"
+          v-if="data.doctorList.length"
+        >
+          <ScrollView>
+            <div class="doctor-info-list flex-row">
+              <DoctorInfoCard
+                class="card"
+                :data="item"
+                v-for="item in data.doctorList"
+                :key="item.gid"
+              />
+            </div>
+          </ScrollView>
+        </Group>
+      </StatusHandle>
+    </div>
+    <div class="padding-box" style="background: #fff">
+      <TopGoods />
+      <StatusHandle :get="get">
+        <Group
+          title="精选周边"
+          class="doctor-info-list-card"
+          v-if="data.doctorList.length"
+        >
+          <ScrollView>
+            <div class="doctor-info-list flex-row">
+              <DoctorInfoCard
+                class="card"
+                :data="item"
+                v-for="item in data.doctorList"
+                :key="item.gid"
+              />
+            </div>
+          </ScrollView>
+        </Group>
+      </StatusHandle>
     </div>
     <div class="goods-list-box">
       <p class="title">助孕调理服务</p>
@@ -188,8 +231,10 @@ import HomeTask from "@/components/HomeTask.vue";
 import NoteItem from "@/components/NoteItem.vue";
 import Header from "@/components/Header.vue";
 import CoverImage from "@/components/CoverImage";
-import Search from "@/components/Search.vue";
+import DoctorLiveCard from "@/components/DoctorLiveCard.vue";
 import ScrollView from "@/components/ScrollView";
+import TopGoods from "@/components/TopGoods";
+
 //
 const BASE_TABS = [
   // {
@@ -284,6 +329,8 @@ export default {
         live: null,
         insuranceInfo: null,
         recommend: null,
+        doctorLiveList: [],
+        doctorList: [],
       },
       LIVE_STATUS,
       tab: "",
@@ -349,26 +396,26 @@ export default {
   },
   computed: {
     ...mapState(["myDoctor"]),
-    tabList() {
+    tabCardList() {
       // const { isPregnant } = this;
       return [
         {
-          title: "助孕调理",
+          title: "服务",
           path: "/propaganda/static/zytl",
           icon: icons.zytl,
         },
         {
-          title: "试管管理",
+          title: "金融",
           path: "/propaganda/static/sgqzqzyfw",
           icon: icons.sggl,
         },
         {
-          title: "好孕接力",
+          title: "百科",
           icon: icons.yq,
           onClick: this.goPunchTab,
         },
         {
-          title: "好孕打卡",
+          title: "活动",
           path: "/punch",
           icon: icons.punch,
         },
@@ -471,6 +518,16 @@ export default {
       if (this.$refs.goodsList) {
         this.$refs.goodsList.refresh();
       }
+    },
+    getDoctorLiveList() {
+      return API.GOODS_TYPE_LIST("医院").then((res) => {
+        this.data.doctorLiveList = res;
+      });
+    },
+    getDoctorList() {
+      return API.GOODS_TYPE_LIST("医院").then((res) => {
+        this.data.doctorList = res;
+      });
     },
     getGoodsType() {
       return API.GOODS_TYPE_LIST("医院").then((res) => {
@@ -760,21 +817,46 @@ export default {
     Header,
     ScrollView,
     CoverImage,
+    DoctorLiveCard,
+    TopGoods,
   },
 };
 </script>
 <style lang="scss">
 @import "../assets/theme.scss";
 .home {
-  background: #f5f6fa;
+  background: #f3f7fa;
   .header-area {
     margin-bottom: 0.4rem;
     height: 2.2rem;
     padding: 0.18rem;
     background: #4d6eff;
     .title {
-      .icon {
-        height: 20px;
+      .logo {
+        font-size: 0.16rem;
+        font-weight: bold;
+        color: #fff;
+      }
+      .search {
+        width: 0;
+        flex: 1;
+        height: 0.3rem;
+        padding: 0 0.1rem;
+        margin-left: 0.08rem;
+        margin-right: 0.11rem;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 0.18rem;
+        .icon {
+          width: 0.14rem;
+          height: 0.14rem;
+        }
+        .placeholder {
+          margin-left: 0.1rem;
+          font-size: 0.12rem;
+          color: #fff;
+          line-height: 0.3rem;
+          font-weight: 500;
+        }
       }
       .text {
         margin-left: 0.06rem;
@@ -805,42 +887,48 @@ export default {
     position: relative; */
       height: 1.4rem;
       background: #fff;
-      border-radius: 0.2rem;
+      /* border-radius: 0.2rem; */
     }
   }
-  .card-list-1 {
-    padding: 0 0.18rem;
-    .card {
+  .tab-card-list {
+    height: 0.98rem;
+    background: #fff;
+    box-shadow: 0px 4px 12px rgba(139, 156, 164, 0.17);
+    border-radius: 0.1rem;
+    .tab-card {
       flex: 1;
-      padding: 0.16rem 0.06rem;
-      height: 0.85rem;
-      background: #ffffff;
-      box-shadow: 0px 4px 11px 0px rgba(139, 156, 164, 0.17);
-      border-radius: 9px;
-      &:first-child {
-        margin-right: 0.11rem;
-      }
-      .title {
-        margin-bottom: 0.1rem;
-        font-size: 0.16rem;
-        color: #2a2a2a;
-      }
-      .info {
-        margin-left: 0.12rem;
-      }
-      .text {
-        font-size: 0.12rem;
-        color: #2a2a2a;
-      }
-      .go {
-        margin-left: 0.04rem;
-        width: 0.12rem;
-      }
-      .img {
-        width: 0.56rem;
-        height: 0.56rem;
-        border-radius: 50%;
-      }
+    }
+    .icon {
+      margin-bottom: 0.1rem;
+      width: 0.3rem;
+      height: 0.3rem;
+    }
+    .label {
+      font-size: 0.12rem;
+      color: rgb(42, 42, 42);
+    }
+  }
+  .doctor-live-list-card {
+    .content {
+      margin: 0 -0.15rem;
+    }
+    .doctor-live-list {
+      padding: 0.15rem;
+    }
+    .card {
+      margin-right: 0.15rem;
+    }
+  }
+  .doctor-info-list-card {
+    .content {
+      margin: 0 -0.15rem;
+    }
+    .doctor-info-list {
+      padding: 0.15rem;
+      padding-top: 0.25rem;
+    }
+    .card {
+      margin-right: 0.15rem;
     }
   }
   .hospital-area {

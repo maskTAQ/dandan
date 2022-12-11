@@ -1,7 +1,14 @@
 <template>
-  <Page :title="title" fixed>
+  <Page :title="title" fixed ref="scroll" @scroll="onScrollToToggleScrollTopBtn">
     <StatusHandle :get="getData" ref="statusHandle">
       <div v-if="data" class="hospital-detail">
+        <img
+          v-if="sticky"
+          src="../assets/img/scroll-top.png"
+          alt=""
+          class="scroll-to-top"
+          @click="scrollToTop"
+        />
         <div
           @click="go({ path: '/gallery', query: { id: data.gid } })"
           ref="swiper"
@@ -237,6 +244,7 @@ import QA from "@/components/Q";
 import EvaluateGroup from "@/components/EvaluateGroup";
 import HospitalCard from "./hospital/HospitalCard.vue";
 import { get } from "@/api/http";
+import scroll from "@/mixins/scroll";
 
 const API = {
   LIST(params) {
@@ -273,6 +281,7 @@ export default {
       },
     };
   },
+  mixins: [scroll],
   computed: {
     id() {
       return this.$route.query.id;

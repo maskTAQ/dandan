@@ -113,8 +113,8 @@ export default {
 <style lang="scss">
 .home-banner.swiper-container {
   height: 1.4rem;
-  border-radius: 0.2rem;
-  box-shadow: 0px -1px 12px 0px rgba(77, 110, 255, 0.8);
+  /* border-radius: 0.2rem; */
+  /* box-shadow: 0px -1px 12px 0px rgba(77, 110, 255, 0.8); */
   /* width: 3.3rem; */
 
   .swiper-wrapper {
@@ -170,12 +170,12 @@ export default {
       margin: 0 4px;
       width: 4px;
       height: 4px;
-      background: #5c79fb;
+      background: #fff;
       border-radius: 50%;
       &.active {
         width: 11px;
         height: 4px;
-        background: #5c79fb;
+        background: #fff;
         border-radius: 2px;
       }
     }

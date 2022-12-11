@@ -44,7 +44,7 @@
           </template>
           <Banner
             v-else
-            style="height: 300px; margin-bottom: 0.12rem"
+            style="height: 300px;"
             :data="data.PageImg"
           />
           <!-- <div
@@ -140,7 +140,7 @@
                 :url="data.writerImg"
                 class="portrait"
               />
-              <div class="info flex-row main-between center">
+              <div class="like-area-info flex-row main-between center">
                 <div>
                   <p class="name">{{ data.writer }}</p>
                   <p class="date">{{ formatTime(data.CreateTime) }}</p>
@@ -669,20 +669,21 @@ canvas.live-flowers {
     }
   }
   .like-area {
-    padding-top: 0.1rem;
-    padding-bottom: 0.2rem;
+    /* padding-top: 0.1rem;*/
+    padding-bottom: 0.1rem; 
     .portrait {
       margin-right: 0.15rem;
       width: 0.48rem;
       height: 0.48rem;
       border-radius: 50%;
     }
-    .info {
+    .like-area-info {
       width: 0;
       flex: 1;
     }
     .name {
-      line-height: 0.12rem;
+      margin-bottom: .04rem;
+      /* line-height: 0.12rem; */
       font-size: 0.13rem;
       color: #343434;
       font-weight: bold;
@@ -759,10 +760,10 @@ canvas.live-flowers {
   .info {
     padding-top: 0.2rem;
     overflow: auto;
-    padding: 0.16rem 0.12rem;
+    padding: 0 0.12rem;
     /* padding-top: 0; */
     .title {
-      margin-bottom: 0.12rem;
+      margin: 0.12rem 0;
       font-size: 0.2rem;
       color: $color4;
     }

@@ -53,10 +53,10 @@
             </div>
           </StatusHandle>
         </div>
-        <div v-if="showToggle" class="field">
+        <!-- <div v-if="showToggle" class="field">
           <p class="label">显示</p>
           <van-switch v-model="visible" />
-        </div>
+        </div> -->
 
         <div class="btn-box align">
           <van-button :loading="loading" @click="submit" class="publish"
@@ -221,9 +221,9 @@ export default {
         Tag: selectedTags,
         flag: 2,
       };
-      if (showToggle) {
-        params.isShow = visible ? 1 : -2;
-      }
+      // if (showToggle) {
+      //   params.isShow = visible ? 1 : -2;
+      // }
       LoadingControl({
         call: API.SUBMIT,
         params,

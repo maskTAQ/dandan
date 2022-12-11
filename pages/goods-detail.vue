@@ -1,7 +1,14 @@
 <template>
   <Page :title="title">
     <StatusHandle :get="getData" ref="statusHandle">
-      <div class="goods-detail page-full" @scroll="onScroll">
+      <div class="goods-detail page-full" ref="scroll" @scroll="onScroll">
+        <img
+          v-if="sticky"
+          src="../assets/img/scroll-top.png"
+          alt=""
+          class="scroll-to-top"
+          @click="scrollToTop"
+        />
         <div class="area radiu-b">
           <ToolBar
             :scan="false"
@@ -143,7 +150,7 @@ import GoodsCard from "@/components/GoodsCard";
 import EvaluateGroup from "@/components/EvaluateGroup";
 import { get } from "@/api/http";
 import { toArray } from "../utils";
-
+import scroll from "@/mixins/scroll";
 const API = {
   LIST(params) {
     return get("/Api/getGoodsList_api.php", params);
@@ -188,6 +195,7 @@ export default {
       title: "商品详情",
     };
   },
+  mixins:[scroll],
   data() {
     return {
       title: "新生优孕",
@@ -404,7 +412,9 @@ export default {
       const currentHeight = scrollTop + offsetHeight;
       if (currentHeight >= scrollHeight) {
         this.$refs.list.loadmore();
+        
       }
+      this.onScrollToToggleScrollTopBtn(e);
     },
     onBuyClicked(goods) {
       const {

@@ -5,6 +5,7 @@
       <div>
         <p class="name ellipsis">{{ data.gName }}</p>
         <p class="subtitle">{{ data.gTital }}</p>
+        <p class="tag">{{tag}}</p>
       </div>
       <div class="bottom flex-row main-between center">
         <div class="price flex-row center">
@@ -29,6 +30,22 @@ export default {
       this.$emit("click");
     },
   },
+  computed:{
+    tag() {
+      const string = this.data.Tag || "";
+      let result;
+      if (typeof string === "string") {
+        result = string.split(";");
+      } else {
+        result = toArray(string);
+      }
+      if (this.max && result.length > this.max) {
+        result.length = this.max;
+        result.push("...");
+      }
+      return result.join(',');
+    },
+  }
 };
 </script>
 <style lang="scss">
@@ -50,6 +67,10 @@ export default {
       font-size: 0.12rem;
       font-weight: 400;
       color: #999999;
+    }
+    .tag{
+      font-size: .12rem;
+      color: #5C79FB;
     }
     .bottom {
       .price {

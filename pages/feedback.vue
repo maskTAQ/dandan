@@ -46,7 +46,7 @@ const API = {
     return post("/Api/uploadImg_api.php", params);
   },
   SUBMIT(params) {
-    return get("/Api/getDoctorPJ_api.php", params);
+    return get("/Api/sendfeedback_api.php", params);
   },
 };
 export default {

@@ -8,6 +8,9 @@ const API = {
   DELETE(params) {
     return get("/Api/delForum_api.php", params);
   },
+  TOGGLE(params) {
+    return get("/Api/stopForum_api.php", params);
+  },
 };
 
 const STATUS = {
@@ -33,8 +36,17 @@ export default {
     };
   },
   render() {
-    const { title, Tag, ctime, UserPhoto, fileUrl, readNum, fid, isShow } =
-      this.data;
+    const {
+      title,
+      Tag,
+      ctime,
+      UserPhoto,
+      fileUrl,
+      readNum,
+      fid,
+      isShow,
+      ApplyRemark,
+    } = this.data;
     return (
       <div class="note-item">
         <div class="card">
@@ -65,6 +77,12 @@ export default {
                     <span class="value">{readNum || 0}</span>
                   </div>
                 </div>
+                {ApplyRemark && (
+                  <div class="flex-row center">
+                    <span class="label">拒绝原因</span>
+                    <span class="value">{ApplyRemark}</span>
+                  </div>
+                )}
               </div>
               <ul class="tags flex-row">
                 {Tag.map((text, index) => {
@@ -79,7 +97,61 @@ export default {
           </div>
         </div>
         <div class="btn-group flex-row center">
-          {isShow != 1 && (
+          {isShow == 1 && (
+            <button
+              onClick={() => {
+                Tip.request({
+                  title: "确定下架?",
+                  // content: "删除的信息将不能找回,确定删除吗",
+                  call: LoadingControl,
+                  params: {
+                    call: API.TOGGLE,
+                    params: {
+                      id: this.data.fid,
+                      isShow: -2,
+                    },
+                    change: ({ loading }) => {
+                      this.loading = loading;
+                    },
+                  },
+                }).then((res) => {
+                  this.$emit("refresh");
+                  Tip.success("下架成功");
+                });
+              }}
+              class="btn edit"
+            >
+              下 架
+            </button>
+          )}
+          {isShow == -2 && (
+            <button
+              onClick={() => {
+                Tip.request({
+                  title: "确定上架?",
+                  // content: "删除的信息将不能找回,确定删除吗",
+                  call: LoadingControl,
+                  params: {
+                    call: API.TOGGLE,
+                    params: {
+                      id: this.data.fid,
+                      isShow: 1,
+                    },
+                    change: ({ loading }) => {
+                      this.loading = loading;
+                    },
+                  },
+                }).then((res) => {
+                  this.$emit("refresh");
+                  Tip.success("上架成功");
+                });
+              }}
+              class="btn edit"
+            >
+              上 架
+            </button>
+          )}
+          {[0, 1, -1].includes(+isShow) && (
             <button
               onClick={() => {
                 router.push({
@@ -209,6 +281,7 @@ export default {
     padding: 0.15rem;
     justify-content: flex-end;
     .btn {
+      margin-left: 0.15rem;
       height: 0.3rem;
       padding: 0 0.24rem;
       font-size: 0.14rem;
@@ -220,7 +293,6 @@ export default {
         color: #4d6eff;
       }
       &.delete {
-        margin-left: 0.15rem;
         border: 1px solid #f03434;
         color: #f03434;
       }
