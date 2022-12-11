@@ -31,7 +31,7 @@ function mapDir(dir, callback, finish) {
                 if (stats.isDirectory()) {
                     mapDir(pathname, callback, finish)
                 } else if (stats.isFile()) {
-                    if (['.json', '.less'].includes(path.extname(pathname))) {  // 排除 目录下的 json less 文件
+                    if (['.json', '.scss'].includes(path.extname(pathname))) {  // 排除 目录下的 json scss 文件
                         return
                     }
                     fs.readFile(pathname, (err, data) => {

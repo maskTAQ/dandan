@@ -3,7 +3,7 @@
     <StatusHandle :get="getDetail">
       <div class="doctor-detail page-full">
         <StatusHandle :get="getDoctorLiveList">
-          <SimpleGroup title="名医直播">
+          <SimpleGroup title="名医直播" class="doctor-live-list-card">
             <ScrollView>
               <div class="doctor-live-list flex-row">
                 <DoctorLiveCard

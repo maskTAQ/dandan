@@ -70,7 +70,7 @@ export default {
     },
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .goods-status-card-wrap {
     padding: 0.17rem;
     background: #fff;

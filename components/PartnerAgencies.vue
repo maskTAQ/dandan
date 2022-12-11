@@ -37,7 +37,7 @@
         </div>
     </div>
 </template>
-<style lang="less">
+<style lang="scss">
 .partner-agencies-wrap {
     padding: 0.12rem;
     background: #fff;
