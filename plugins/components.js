@@ -49,4 +49,5 @@ Vue.component('SortFilter', SortFilter);
 Vue.component('DatetimePicker', DatetimePicker);
 Vue.component('Coupon', Coupon);
 Vue.component('CoverIcon', CoverIcon);
-Vue.component('SimpleGroup', SimpleGroup);
+Vue.component('SimpleGroup', SimpleGroup); 
+Vue.component('GoodsTitle', GoodsTitle); 

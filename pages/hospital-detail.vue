@@ -27,6 +27,20 @@
               :key="item"
             />
           </div>
+          <div class="btn-group flex-row align">
+            <button
+              @click="go({ path: '/gallery', query: { id: data.gid } })"
+              class="btn selected"
+            >
+              图片
+            </button>
+            <button
+              @click="go({ path: '/gallery', query: { id: data.gid } })"
+              class="btn"
+            >
+              视频
+            </button>
+          </div>
           <div class="paging flex-row center">
             <div class="num flex-row center">
               <i class="text">{{ current }}/{{ (data.gImg || []).length }}</i>
@@ -34,35 +48,14 @@
           </div>
         </div>
         <div class="padding-box">
-          <div class="hospital-info">
-            <div class="hospital-name">
-              <span class="tag align">{{ data.fTypeName }}</span>
-              <p class="label ellipsis line-2">{{ data.gName }}</p>
+          <GoodsTitle :data="data" />
+          <div class="fq flex-row main-between center">
+            <div class="flex-row center">
+              <span class="label">旦旦医疗费用</span>
+              <span class="value">6分期</span>
+              <span class="label">更轻松每月1342.2</span>
             </div>
-            <div class="flex-row main-between center">
-              <span class="yy">{{ data.SalesNum }}人预约</span>
-              <div
-                v-if="data.SuccessRate"
-                :class="['cgl-box flex-row', { red: isRed }]"
-              >
-                <span class="value align">{{ data.SuccessRate }}%</span>
-                <span class="label align">成功率</span>
-              </div>
-            </div>
-            <div class="price-box flex-row center">
-              <span class="label">试管费用：</span>
-              <span class="unit">￥</span>
-              <span class="value">{{ data.ThePrice }}</span>
-              <span class="label">起</span>
-            </div>
-            <!-- <div class="tag-list flex-row center">
-            <div v-for="item in data.Tag.split(';')" :key="item" class="tag">
-              {{ item }}
-            </div>
-          </div> -->
-          </div>
-          <div class="alert" v-if="data.Tag && data.Tag.length">
-            {{ getAlert(data.Tag) }}
+            <img class="icon" :src="icons.right" alt="" />
           </div>
           <SimpleGroup
             :icon="icons.user_title"
@@ -390,9 +383,7 @@ export default {
         />
       );
     },
-    getAlert(s) {
-      return String(s || "").replace(/;/gim, " · ");
-    },
+
     newline,
     consulting() {
       window.location.href = KF_URL.hospital;
@@ -553,6 +544,26 @@ $margin: 0.12rem;
     .swiper-slide {
       height: 2.22rem;
     }
+    .btn-group {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0.37rem;
+      z-index: 9;
+      .btn {
+        height: 0.22rem;
+        padding: 0 0.22rem;
+        font-size: 0.12rem;
+        color: rgb(51, 51, 51);
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 0.11rem;
+        &.selected {
+          margin-right: 0.4rem;
+          background: rgb(105, 199, 199);
+          color: #fff;
+        }
+      }
+    }
     .paging {
       position: absolute;
       right: 0.24rem;
@@ -582,111 +593,7 @@ $margin: 0.12rem;
   .padding-box {
     padding: 0.2rem;
   }
-  .hospital-info {
-    margin-bottom: $margin;
-    /* padding-bottom: 0.06rem; */
-    /* padding: 0.15rem; */
-    background: #fff;
-    .hospital-name {
-      margin-bottom: 0.08rem;
-      position: relative;
-      .tag {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0.58rem;
-        height: 0.21rem;
-        background: linear-gradient(90deg, #ff894c 0%, #fe5337 100%);
-        border-radius: 4px;
-        font-size: 0.12rem;
-        font-weight: 400;
-        color: #ffffff;
-      }
-      p {
-        text-indent: 0.7rem;
-        font-size: 0.16rem;
-        font-weight: 600;
-        color: #040a2d;
-      }
-    }
-    .yy {
-      font-size: 0.14rem;
-      color: #6dc7c6;
-    }
-    .cgl-box {
-      /* height: 0.23rem; */
-      border-radius: 4px;
-      border: 1px solid #33ca57;
-      overflow: hidden;
-      .value {
-        min-width: 0.41rem;
-        padding: 0 0.04rem;
-        font-size: 0.14rem;
-        font-weight: 600;
-        color: #ffffff;
-        background: linear-gradient(90deg, #76d77f 0%, #2ec954 100%);
-      }
-      .label {
-        min-width: 0.42rem;
-        font-size: 0.14rem;
-        color: #33ca57;
-      }
-      &.red {
-        border: 1px solid #ff7f48;
-        .value {
-          background: linear-gradient(90deg, #ff894c 0%, #fe5337 100%);
-        }
-        .label {
-          color: #fe5839;
-        }
-      }
-    }
-    .price-box {
-      margin-top: 0.11rem;
-      .label {
-        font-size: 0.14rem;
-        color: #777a78;
-      }
-      .unit {
-        font-size: 0.13rem;
-        font-weight: bold;
-        color: #f91e00;
-      }
-      .value {
-        position: relative;
-        top: -0.02rem;
-        font-size: 0.24rem;
-        font-weight: bold;
-        color: #f91e00;
-      }
-    }
 
-    .tag-list {
-      flex-wrap: wrap;
-      .tag {
-        margin-right: 0.08rem;
-        margin-bottom: 4px;
-        height: 0.18rem;
-        padding: 0 0.04rem;
-        line-height: 0.18rem;
-        font-size: 0.1rem;
-        color: $color14;
-        background: rgba($color: $color14, $alpha: 0.08);
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-  }
-  .alert {
-    min-height: 0.5rem;
-    /* padding-left: 0.15rem; */
-    padding: 0.06rem 0;
-    line-height: 0.2rem;
-    font-size: 0.14rem;
-    color: #ffa83e;
-    background: #fff;
-  }
   .service-list {
     font-size: 0.12rem;
     font-weight: bold;
@@ -698,6 +605,21 @@ $margin: 0.12rem;
     }
     .value {
       color: rgb(173, 173, 173);
+    }
+  }
+  .fq {
+    padding: 0.13rem 0;
+    font-size: 0.14rem;
+    font-weight: bold;
+    border-top: 1px solid #eeeeee;
+    .label {
+      color: rgba(82, 82, 82, 0.8);
+    }
+    .value {
+      color: rgba(0, 188, 197, 0.8);
+    }
+    .icon {
+      width: 0.15rem;
     }
   }
   .intro-card {
@@ -901,7 +823,6 @@ $margin: 0.12rem;
         width: 0.3rem;
       }
       &:first-child {
-        
       }
     }
     .ask {
