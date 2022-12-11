@@ -170,10 +170,12 @@ export default {
 <style lang="scss">
 @import "../assets/theme.scss";
 .doctor-list {
-  background: $color8;
+  background:#fff;
+    padding:0rem 0.16rem;
+
   .list {
     height: calc(100% - 0.32rem);
-    padding: 20px;
+    // padding: 20px;
     .item {
       margin-bottom: 0.2rem;
     }

@@ -3,18 +3,20 @@
     <div class="doctor-head flex-row main-between center">
       <CoverImage :url="data.exPhoto" class="exPhoto" />
       <div class="info">
-        <p class="title">{{ data.exName }}</p>
+        <p class="title ellipsis">{{ data.exName }}</p>
         <p class="exRoom">{{ data.exRoom }}</p>
         <div>
-          <span class="tag">{{ data.tag }}公立三甲</span>
-          <span class="exLevel">{{ data.exLevel }}</span>
+          <span class="tag" v-if="data.tag">{{ data.tag }}</span>
+          <span class="exLevel">
+            <span class="circular"></span>
+            {{ data.exLevel }}</span>
         </div>
       </div>
     </div>
     <div class="doctor-footer flex-row main-between center">
       <div>
         <div class="exRoom ellipsis">{{ data.exRoom }}</div>
-        <div class="intro ellipsis">{{ data.intro }}111111111111111111111111111111111111111111111111</div>
+        <div class="intro ellipsis">{{ data.intro }}</div>
       </div>
       <div class="btn">医生主页</div>
     </div>
@@ -157,23 +159,37 @@ export default {
     }
 
     .title {
-      font-size: 0.15rem;
+      font-size: 0.16rem;
+      width: 150px;
     }
 
     .exRoom {
-      font-size: 0.13rem;
+      font-size: 0.12rem;
       color: #989898;
       line-height: 30px;
       margin-bottom: 0.10rem;
       border-bottom: 1px solid #e0e0e0;
     }
 
+    .circular {
+      background: #48988e;
+      display: inline-block;
+      height: 0.08rem;
+      width: 0.08rem;
+      border-radius: 0.3rem;
+    }
+    .exLevel{
+      font-size: 0.12rem;
+
+    }
     .tag {
       background: #eaf3f1;
       color: #48988e;
       border-radius: 0.05rem;
       padding: 0.05rem;
       font-weight: 600;
+      font-size: 0.12rem;
+
     }
 
     .info {
@@ -182,7 +198,8 @@ export default {
   }
 
   .doctor-footer {
-    margin-top:0.10rem;
+    margin-top: 0.10rem;
+
     .btn {
       /* Rectangle 515 */
       width: 1.12rem;
@@ -194,13 +211,17 @@ export default {
       text-align: center;
       line-height: 0.34rem;
     }
-    .exRoom{
+
+    .exRoom {
       color: rgb(0, 188, 197);
       width: 100px;
+      font-size: 0.13rem;
     }
-    .intro{
+
+    .intro {
       color: #989898;
       width: 150px;
+      font-size: 0.12rem;
     }
   }
 }
