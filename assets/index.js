@@ -129,6 +129,7 @@ export const img = {
     homeTopBg: require('./img/home-top-bg.png'),
     homeBannerBg: require('./img/home-banner-bg.png'),
     groupTitle: require('./img/group-title.png'),
+    jb: require('./img/bj-jb.png'),
 }
 
 export const user = {
