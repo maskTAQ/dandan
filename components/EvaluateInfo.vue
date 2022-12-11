@@ -2,26 +2,28 @@
   <div class="evaluate-info flex-row">
     <CoverImage :url="data.UserPhoto" class="portrait" />
     <div class="main">
-      <div class="user-info flex-row main-between">
-        <div class="flex-row center">
-          <p class="name ellipsis">{{ data.NickName }}</p>
-          <img
-            v-if="data.isFine === '1'"
-            :src="icons.youzhi"
-            class="icon"
-            alt=""
-            srcset=""
-          />
-        </div>
-        <span class="time">{{ formatTime(data.pjTime, "YYYY/MM/DD") }}</span>
+      <div class="user-info flex-row center">
+        <p class="name ellipsis">{{ data.NickName }}</p>
+        <img
+          v-if="data.isFine === '1'"
+          :src="icons.youzhi"
+          class="icon"
+          alt=""
+          srcset=""
+        />
+        <van-rate
+          :value="3"
+          :size="9"
+          color="rgba(0, 188, 197, 0.8)"
+          void-icon="star"
+          void-color="rgba(0, 188, 197, 0.3);"
+        />
+        <span class="score">4.8分</span>
       </div>
-      <van-rate
-        :value="3"
-        :size="9"
-        color="#FFC100"
-        void-icon="star"
-        void-color="#ebeef0"
-      />
+      <div class="text">
+        <span class="time">{{ formatTime(data.pjTime, "YYYY/MM/DD") }}</span>
+        <span style="margin-left:.2rem;" class="type">规格：默认规格</span>
+      </div>
       <p class="message">{{ data.pjValue }}</p>
       <div v-if="(data.pjImgs || []).length" class="img-list flex-row centere">
         <CoverImage
@@ -51,7 +53,7 @@
         </div>
         <p class="reply-message">{{ data.replyValue }}</p>
       </div>
-      <p class="split"></p>
+      <!-- <p class="split"></p> -->
     </div>
   </div>
 </template>
@@ -95,6 +97,7 @@ export default {
 @import "../assets/theme.scss";
 .evaluate-info {
   /* padding: 0.15rem 0; */
+  padding-bottom: .2rem;
   margin-bottom: 0.1rem;
   .portrait {
     width: 0.43rem;
@@ -113,25 +116,27 @@ export default {
   }
   .user-info {
     .name {
-      margin-bottom: 4px;
       font-size: 0.14rem;
       font-weight: 600;
       color: #141414;
     }
-    .time {
-      font-size: 0.13rem;
-      color: #989898;
+    .van-rate {
+      margin: 0.1rem;
     }
-    .icon {
-      margin-left: 0.08rem;
-      width: 0.6rem;
+    .score {
+      font-size: 0.1rem;
+      color: rgb(153, 153, 153);
     }
+  }
+  .text{
+    font-size: .1rem;
+    color: rgb(153, 153, 153);
   }
 
   .message {
     margin: 0.15rem 0;
     font-size: 0.14rem;
-    color: #4e4e4e;
+    color: rgb(51, 51, 51);
   }
   .img-list {
     flex-wrap: wrap;

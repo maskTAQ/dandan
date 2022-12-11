@@ -585,7 +585,7 @@ $margin: 0.12rem;
   .hospital-info {
     margin-bottom: $margin;
     /* padding-bottom: 0.06rem; */
-    padding: 0.15rem;
+    /* padding: 0.15rem; */
     background: #fff;
     .hospital-name {
       margin-bottom: 0.08rem;
