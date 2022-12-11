@@ -1,11 +1,7 @@
 <template>
   <Page title="医生列表">
     <div class="doctor-list page-full">
-      <FilterTool
-        :data="filter"
-        :params="params"
-        @change="handleParamsChange"
-      />
+      <Tabs :value="selected" @change="select" :data="tabs" />
       <List
         :request="request"
         :extra="extra"
@@ -39,14 +35,34 @@ export default {
   },
   data() {
     return {
-      params: {
-        zh: false,
-        exRoom: "",
-        HSCity: "",
-      },
+      tabs: [
+        {
+          label: "全部",
+          value: "",
+        },
+        {
+          label: "待付款",
+          value: "2",
+        },
+        {
+          label: "待服务",
+          value: "1",
+        },
+        {
+          label: "服务中",
+          value: "3",
+        },
+        {
+          label: "已完成",
+          value: "6",
+        },
+      ],
     };
   },
   computed: {
+    selected() {
+      return this.$route.query.status || "";
+    },
     ...mapState(["departmentList", "areaList", "myDoctor"]),
     filter() {
       const { departmentList, areaList } = this;
@@ -104,13 +120,23 @@ export default {
     }
   },
   watch: {
-    params() {
+    selected() {
+      this.refresh();
+    },
+  },
+  methods: {
+    refresh() {
       if (this.$refs.list) {
         this.$refs.list.refresh();
       }
     },
-  },
-  methods: {
+    select(tab) {
+      router.replace({
+        query: {
+          status: tab,
+        },
+      });
+    },
     request(p) {
       return API.LIST({ ...this.params, ...p });
     },
