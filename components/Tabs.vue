@@ -3,11 +3,10 @@
     <div
       v-for="tab in data"
       :key="tab.value"
-      :class="['tab', { selected: value === tab.value }]"
+      :class="['tab align', { selected: value === tab.value }]"
       @click="change(tab.value)"
     >
       {{ tab.label }}
-      <img :src="icons.tabSelected" v-if="value === tab.value" class="border" />
     </div>
   </div>
 </template>
@@ -26,7 +25,6 @@ export default {
   },
   methods: {
     change(v) {
-      console.log({v})
       this.$emit("change", v);
     },
   },
@@ -54,28 +52,22 @@ export default {
 @import "@/assets/themes.scss";
 
 .tabs {
-  height: 0.5rem;
-  justify-content: space-around;
-  background: #ffffff;
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  padding: 0.22rem 0;
   .tab {
-    position: relative;
-    line-height: 0.5rem;
-    font-size: 0.15rem;
-    color: #666666;
+    margin-right: 0.2rem;
+    flex: 1;
+    height: 0.3rem;
+    font-size: 0.14rem;
+    color: rgb(51, 51, 51);
+    background: rgb(232, 243, 241);
+    border-radius: 0.05rem;
     &.selected {
-      font-size: 0.17rem;
-      font-weight: bold;
-      color: #2a2a2a;
+      font-weight: 500;
+      color: #fff;
+      background: rgb(0, 188, 197);
     }
-    .border {
-      position: absolute;
-      left: 50%;
-      bottom: -0.07rem;
-      width: 0.26rem;
-      height: auto;
-      margin-left: -0.13rem;
+    &:last-child {
+      margin-right: 0;
     }
   }
 }
