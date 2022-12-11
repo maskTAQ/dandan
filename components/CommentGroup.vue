@@ -63,7 +63,7 @@
       </div>
       <div v-if="isInInput" class="nm flex-row main-between center">
         <div class="flex-row center">
-          <van-checkbox v-model="isNoUser" checked-color="#2d4ef5"
+          <van-checkbox v-model="isNoUser" checked-color="#6dc7c6"
             >匿名回复</van-checkbox
           >
         </div>
@@ -419,7 +419,7 @@ export default {
     height: 0.3rem;
     font-size: 0.14rem;
     color: #fff;
-    background: #2d4ef5;
+    background: #6dc7c6;
     border-radius: 0.19rem;
   }
   .comment-menus {

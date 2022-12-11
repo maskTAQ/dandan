@@ -242,7 +242,7 @@ export default {
       color: #fff;
       border-radius: 0.19rem;
       &.confirm {
-        background: #2D4EF5;
+        background: #6dc7c6;
       }
 
       &.cancel {

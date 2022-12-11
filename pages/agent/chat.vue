@@ -234,7 +234,7 @@ export default {
       .m {
         font-size: 0.2rem;
         font-weight: bold;
-        color: #2d4ef5;
+        color: #6dc7c6;
       }
       .d {
         font-size: 0.14rem;
@@ -247,7 +247,7 @@ export default {
       left: 0.05rem;
       bottom: 0;
       width: 1px;
-      background: rgba($color: #2d4ef5, $alpha: 0.1);
+      background: rgba($color: #6dc7c6, $alpha: 0.1);
       &::after {
         content: "";
         position: absolute;
@@ -255,7 +255,7 @@ export default {
         top: 0;
         width: 0.07rem;
         height: 0.07rem;
-        background: #2d4ef5;
+        background: #6dc7c6;
         box-shadow: inset 0px 0px 4px 0px rgb(255 255 255 / 50%);
         border-radius: 50%;
       }

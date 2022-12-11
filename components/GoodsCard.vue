@@ -91,7 +91,7 @@ export default {
       padding: 0.04rem 0.11rem;
       background: rgba(45, 78, 245, 0.1);
       border-radius: 8px;
-      color: #2d4ef5;
+      color: #6dc7c6;
     }
     .name {
       font-size: 0.12rem;

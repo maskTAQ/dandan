@@ -129,7 +129,7 @@ export default {
       height: 0.3rem;
       border-bottom: 3px solid transparent;
       &.selected {
-        border-color: #2d4ef5;
+        border-color: #6dc7c6;
       }
       &:first-child {
         margin-right: 0.9rem;

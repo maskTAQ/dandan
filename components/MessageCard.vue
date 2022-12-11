@@ -206,7 +206,7 @@ export default {
       padding: 0 0.22rem;
       font-size: 0.12rem;
       color: #fff;
-      background: #2d4ef5;
+      background: #6dc7c6;
       border-radius: 0.15rem;
     }
 

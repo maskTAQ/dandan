@@ -163,7 +163,7 @@ export default {
     .hospital {
       margin: 0.06rem 0;
       font-size: 0.1rem;
-      color: #2d4ef5;
+      color: #6dc7c6;
     }
     .intro {
       font-size: 0.1rem;

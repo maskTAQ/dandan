@@ -253,7 +253,7 @@ export default {
                 class="refresh-icon"
                 type="spinner"
                 size="0.24rem"
-                color="#2D4EF5"
+                color="#6dc7c6"
               />
               <i class="label">{message.loading || "加载中..."}</i>
             </div>

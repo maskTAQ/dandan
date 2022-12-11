@@ -727,7 +727,7 @@ export default {
       }
       .status {
         font-size: 0.14rem;
-        color: #2D4EF5;
+        color: #6dc7c6;
       }
     }
     .item {

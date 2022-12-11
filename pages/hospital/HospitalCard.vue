@@ -192,10 +192,10 @@ export default {
       border-radius: 0.08rem;
       .name {
         font-size: 0.1rem;
-        color: #2d4ef5;
+        color: #6dc7c6;
       }
       .price {
-        color: #2d4ef5;
+        color: #6dc7c6;
         .unit {
           font-size: 0.07rem;
         }

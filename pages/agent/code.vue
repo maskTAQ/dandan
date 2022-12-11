@@ -125,7 +125,7 @@ export default {
     .slogan {
       margin-top: 0.08rem;
       font-size: 0.14rem;
-      color: #2d4ef5;
+      color: #6dc7c6;
     }
     .more {
       width: 0.16rem;

@@ -274,14 +274,14 @@ export default {
         line-height: 0.34rem;
       }
     }
-    .banner {
+    /* .banner {
       height: 1.37rem;
       border-radius: 4px;
       overflow: hidden;
       .swiper-slide {
         height: 1.37rem;
       }
-    }
+    } */
   }
   .content {
     height: calc(100% - 2.82rem);
@@ -309,7 +309,7 @@ export default {
           width: 0.04rem;
           height: 0.08rem;
           /* border-radius: 0px 0.04rem 0.04rem 0px; */
-          background: #5c79fb;
+          background: #6dc7c6;
           border-radius: 0px 50px 50px 0px;
         }
       }

@@ -337,7 +337,7 @@ export default {
 @import "@/assets/theme.scss";
 ._628 {
   position: relative;
-  background: #2D4EF5;
+  background: #6dc7c6;
   .tabs {
     position: fixed;
     top: 0.5rem;
@@ -354,9 +354,9 @@ export default {
         border-bottom: 2px solid transparent;
       }
       &.active {
-        color: #2D4EF5;
+        color: #6dc7c6;
         .text {
-          border-bottom: 2px solid #2D4EF5;
+          border-bottom: 2px solid #6dc7c6;
         }
       }
     }

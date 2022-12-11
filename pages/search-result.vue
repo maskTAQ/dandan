@@ -59,7 +59,7 @@ const API = {
 
 const COLOR = {
   WAIT_PAY: "#FF6C5E",
-  COMPLETE: "#2D4EF5",
+  COMPLETE: "#6dc7c6",
 };
 const STATUS = {
   1: "待付款",

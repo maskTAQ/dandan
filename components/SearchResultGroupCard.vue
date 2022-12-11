@@ -42,7 +42,7 @@ export default {
     width: 100%;
     height: 0.4rem;
     font-size: 0.12rem;
-    color: #2D4EF5;
+    color: #6dc7c6;
   }
 }
 </style>

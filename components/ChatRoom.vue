@@ -358,9 +358,9 @@ export default {
     align-items: flex-start;
     margin-bottom: 0.16rem;
     &.admin {
-      color: #2D4EF5 !important;
+      color: #6dc7c6 !important;
       .message {
-        color: #2D4EF5 !important;
+        color: #6dc7c6 !important;
       }
     }
     .user-info {

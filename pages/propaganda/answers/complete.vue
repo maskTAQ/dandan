@@ -221,7 +221,7 @@ export default {
       text-align: center;
       font-size: 0.14rem;
       font-weight: bold;
-      color: #2D4EF5;
+      color: #6dc7c6;
     }
     .code-box {
       display: block;

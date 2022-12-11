@@ -203,7 +203,7 @@ export default {
         margin-top: 0.2rem;
         margin-bottom: 0.38rem;
         font-size: 0.12rem;
-        color: #2D4EF5;
+        color: #6dc7c6;
         background: none;
         border: none;
         padding: 0;

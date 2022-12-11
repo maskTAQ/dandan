@@ -457,7 +457,7 @@ export default {
     }
     .title {
       font-size: 0.12rem;
-      color: #2d4ef5;
+      color: #6dc7c6;
     }
     .position {
       margin-top: 0.06rem;

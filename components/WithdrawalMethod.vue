@@ -88,7 +88,7 @@ export default {
         border: none;
         border-radius: 0;
         background: url('../assets/img/selected-border.png') no-repeat center center / 100% 100%;
-        color: #2D4EF5;
+        color: #6dc7c6;
       }
     }
   }
