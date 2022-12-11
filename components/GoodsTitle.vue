@@ -15,6 +15,10 @@
       />
       <span class="value">3分</span>
     </div>
+    <div v-if="showKD" class="postage flex-row center">
+      <i class="label">快递：{{ data.isInv == "1" ? "包邮" : "不包邮" }}</i>
+      <!-- <i class="value">销量：{{ data.SalesNum }}</i> -->
+    </div>
     <div v-if="yyLayout === 'row'" class="yy-row-box flex-row main-end">
       <p class="text">预约人数:{{ data.SalesNum }}</p>
     </div>
@@ -24,9 +28,19 @@
         <p class="yy">预约人数</p>
       </div>
     </div>
+    <div v-if="yyLayout === 'goods'" class="yy-goods-box">
+      <div class="inner flex-column">
+        <p class="xl">销量：{{ data.SalesNum }}</p>
+        <div class="price-box flex-row center">
+          <span class="old-price">{{ data.linePrice }}</span>
+          <span class="unit">￥</span>
+          <span class="value">{{ data.ThePrice }}</span>
+        </div>
+      </div>
+    </div>
     <div class="flex-row main-between center">
       <div
-        v-if="showPrice && data.SuccessRate"
+        v-if="showSuccess && data.SuccessRate"
         :class="['cgl-box flex-row', { red: isRed }]"
       >
         <span class="value align">{{ data.SuccessRate }}%</span>
@@ -39,8 +53,9 @@
         <span class="value">{{ data.ThePrice }}</span>
         <span class="label">起</span>
       </div>
+      <div v-else></div>
     </div>
-    <ScrollView>
+    <ScrollView v-if="showType">
       <div class="type-list flex-row">
         <div class="type">
           <div class="cover"></div>
@@ -60,24 +75,32 @@ export default {
   props: {
     data: Object,
     showCountry: {
-      type: Object,
+      type: Boolean,
       default: true,
     },
     showSuccess: {
-      type: Object,
+      type: Boolean,
       default: true,
     },
     showPrice: {
-      type: Object,
+      type: Boolean,
       default: true,
     },
     showTag: {
-      type: Object,
+      type: Boolean,
       default: true,
+    },
+    showType: {
+      type: Boolean,
+      default: true,
+    },
+    showKD: {
+      type: Boolean,
+      default: false,
     },
     yyLayout: {
       type: String,
-      default: "column", //row column
+      default: "column", //row column goods
     },
   },
   computed: {
@@ -140,6 +163,32 @@ export default {
       color: rgb(153, 153, 153);
     }
   }
+  .yy-goods-box {
+    position: relative;
+    height: 0.22rem;
+    .inner {
+      position: absolute;
+      top: -0.22rem;
+      right: 0;
+      align-items: flex-end;
+    }
+    .xl {
+      font-size: 0.14rem;
+      color: rgb(153, 153, 153);
+    }
+    .old-price {
+      position: relative;
+      top: 0.02rem;
+      font-size: 0.12rem;
+      color: rgb(173, 173, 173);
+    }
+    .unit,
+    .value {
+      font-size: 0.26rem;
+      font-weight: 600;
+      color: rgb(16, 22, 35);
+    }
+  }
   .yy-column-box {
     position: relative;
     height: 0.22rem;
@@ -198,8 +247,13 @@ export default {
       color: rgb(215, 96, 43);
     }
   }
+  .postage {
+    margin: 0.04rem 0;
+    font-size: 0.14rem;
+    color: rgb(102, 102, 102);
+  }
   .type-list {
-    margin: .1rem 0;
+    margin: 0.1rem 0;
     .type {
       margin-right: 0.12rem;
     }

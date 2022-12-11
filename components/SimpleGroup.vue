@@ -9,7 +9,7 @@
         <img v-if="link" :src="icons.right" alt="" class="right" />
         <div v-if="more" @click="clickMore" class="more flex-row center">
           <i class="label">{{ moreText || "更多" }}</i>
-          <img :src="rightIcon" alt="" class="right-icon" />
+          <!-- <img :src="rightIcon" alt="" class="right-icon" /> -->
         </div>
       </template>
     </div>
@@ -89,7 +89,7 @@ export default {
       .right-icon {
         margin-left: 0.04rem;
         display: block;
-        width: 0.07rem;
+        width: 0.15rem;
         height: auto;
       }
     }
