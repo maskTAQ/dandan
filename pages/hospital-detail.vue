@@ -59,7 +59,7 @@
         <div class="alert" v-if="data.Tag && data.Tag.length">
           {{ getAlert(data.Tag) }}
         </div>
-        <Group
+        <SimpleGroup
           :icon="icons.user_title"
           size="mini"
           title="简介"
@@ -69,8 +69,8 @@
           <ShowMore min="1rem">
             <p class="intro">{{ data.Smple }}</p>
           </ShowMore>
-        </Group>
-        <Group
+        </SimpleGroup>
+        <SimpleGroup
           v-if="doctorList.length"
           :icon="icons.user_title"
           size="mini"
@@ -117,11 +117,11 @@
               </div>
             </div>
           </div>
-        </Group>
-        <Group size="mini" title="医院详情" class="hospital-detail-card card">
+        </SimpleGroup>
+        <SimpleGroup size="mini" title="医院详情" class="hospital-detail-card card">
           <div class="html-content" v-html="data.goodValue" />
-        </Group>
-        <Group
+        </SimpleGroup>
+        <SimpleGroup
           :icon="icons.user_title"
           size="mini"
           title="预约须知"
@@ -134,7 +134,7 @@
               <span class="value">{{ data.PayFlow }}</span>
             </li>
           </ul>
-        </Group>
+        </SimpleGroup>
         <EvaluateGroup :goods="data" />
         <div class="type-chunk" v-if="false">
           <StatusHandle :get="getSku">
@@ -160,7 +160,7 @@
             </div>
           </div>
         </div>
-        <Group
+        <SimpleGroup
           size="mini"
           title="其他医院"
           class="hospital-list-card card"
@@ -175,8 +175,8 @@
               ref="list"
             />
           </div>
-        </Group>
-        <Group v-if="false" size="mini" title="支付说明" class="pay-desc card">
+        </SimpleGroup>
+        <SimpleGroup v-if="false" size="mini" title="支付说明" class="pay-desc card">
           <div>
             <div class="item">
               <i class="label">支付流程:</i>
@@ -187,7 +187,7 @@
               <i class="value" v-html="newline(data.ReturnFlow)"></i>
             </div>
           </div>
-        </Group>
+        </SimpleGroup>
 
         <van-sku
           v-model="sku.visible"

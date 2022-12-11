@@ -24,6 +24,7 @@ import Coupon from '@/components/Coupon.vue'
 import CoverIcon from '@/components/CoverIcon.vue'
 import CoverImage from '@/components/CoverImage.vue'
 import TagList from '@/components/TagList.vue'
+import SimpleGroup from '@/components/SimpleGroup.vue'
 
 Vue.component('Page', Page);
 Vue.component('Input', Input);
@@ -48,4 +49,4 @@ Vue.component('SortFilter', SortFilter);
 Vue.component('DatetimePicker', DatetimePicker);
 Vue.component('Coupon', Coupon);
 Vue.component('CoverIcon', CoverIcon);
-Vue.component('CoverImage', CoverImage);
+Vue.component('SimpleGroup', SimpleGroup);

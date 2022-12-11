@@ -3,8 +3,7 @@
     <StatusHandle :get="getDetail">
       <div class="doctor-detail page-full">
         <StatusHandle :get="getDoctorLiveList">
-          <div class="group doctor-live-list-card">
-            <p class="title">名医直播</p>
+          <SimpleGroup title="名医直播">
             <ScrollView>
               <div class="doctor-live-list flex-row">
                 <DoctorLiveCard
@@ -15,8 +14,11 @@
                 />
               </div>
             </ScrollView>
-          </div>
+          </SimpleGroup>
         </StatusHandle>
+        <SimpleGroup title="所在医院" more>
+          12
+        </SimpleGroup>
         <p v-if="data.exCan">【擅长】：{{ data.exCan }}</p>
         <p v-if="data.Resume">【履历】：{{ data.Resume }}</p>
       </div>
@@ -37,7 +39,7 @@ const API = {
     return get("/Api/getDoctorInfo_api.php", { exid });
   },
   DOCTOR_LIVE_LIST(params) {
-    return Promise.resolve([{},{},{},{}]);
+    return Promise.resolve([{}, {}, {}, {}]);
     // return get("/Api/getGoodsList_api.php", params);
   },
 };
