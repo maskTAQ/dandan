@@ -34,11 +34,11 @@
         <div class="other-login-ways flex-row align">
           <button @click="requestWXAuth" class="login-way flex-column align">
             <img :src="icons.wechat1" alt="" class="icon" />
-            <span class="label">微信登录</span>
+            <!-- <span class="label">微信登录</span> -->
           </button>
           <button @click="toggle(TYPE.LOGIN_BY_PASSWORD)" class="login-way flex-column align">
-            <img :src="icons.password1" alt="" class="icon" />
-            <span class="label">密码登录</span>
+            <img :src="icons.mm" alt="" class="icon" />
+            <!-- <span class="label">密码登录</span> -->
           </button>
         </div>
 
@@ -243,6 +243,7 @@ const TYPE = {
 icons.wechat = require("./imgs/wechat.png");
 icons.password = require("./imgs/password.png");
 icons.wechat1 = require("./imgs/wechat1.png");
+icons.mm = require("./imgs/mm.png");
 icons.password1 = require("./imgs/password1.png");
 icons.checked = require("./imgs/checked.png");
 icons.unchecked = require("./imgs/unchecked.png");
@@ -797,12 +798,12 @@ export default {
   }
 
   .other-login-ways {
-    margin-top: 0.86rem;
+    margin-top: 0.26rem;
 
     .login-way {
       .icon {
         margin-bottom: 0.19rem;
-        width: 0.45rem;
+        width: 0.64rem;
       }
 
       .label {
