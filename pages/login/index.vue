@@ -265,7 +265,7 @@ export default {
       currentType: TYPE.LOGIN_BY_PASSWORD,
       loading: false,
       agree: false,
-      openPassword: false,
+      openPassword: true,
       params: {
         mobile: "",
         password: "",
