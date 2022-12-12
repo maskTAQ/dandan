@@ -28,17 +28,76 @@
               {{ data.theTitle }}
             </div>
           </div>
-          <div
-            @click="goCardPackage"
-            class="use-coupon card flex-row main-between center"
-            v-if="+data.cardValue"
-          >
-            <i class="label">优惠券</i>
-            <div class="price flex-row center">
-              <i class="value">￥{{ data.cardValue }}</i>
-              <img :src="icons.right" alt="" class="icon" />
+          <SimpleGroup title="价格明细" titleColor="rgba(0, 188, 197, 0.8)">
+            {{ steps.others }}
+          </SimpleGroup>
+          <SimpleGroup title="积分钱包" titleColor="rgba(0, 188, 197, 0.8)">
+            <div class="jf-box flex-row main-between">
+              <div>
+                <p class="label">积分（12321分）</p>
+                <p class="remark">提交订单后积分值自动扣除</p>
+              </div>
+              <p class="value">-20</p>
             </div>
-          </div>
+          </SimpleGroup>
+          <SimpleGroup
+            title="选择优惠"
+            titleColor="rgba(0, 188, 197, 0.8)"
+            more
+            @more="goCardPackage"
+          >
+            <div class="jf-box flex-row main-between">
+              <div>
+                <p class="label">优惠券</p>
+                <p class="remark">优惠券的描述新客户专用</p>
+              </div>
+              <p class="value">-￥{{ data.cardValue }}</p>
+            </div>
+          </SimpleGroup>
+          <SimpleGroup
+            title="开具发票"
+            titleColor="rgba(0, 188, 197, 0.8)"
+            more
+          >
+          <!-- v-if="!!+data.isInv" -->
+            <div  class="invoice-card card">
+              <div class="flex-row main-between center">
+                <i class="label">开具发票</i>
+                <van-checkbox
+                  v-model="params.invoice"
+                  checked-color="#1ebcc4"
+                  shape="square"
+                />
+              </div>
+              <div v-if="params.invoice" class="address">
+                <div
+                  v-if="invoice"
+                  @click="selectedInvoice"
+                  class="info flex-row center"
+                >
+                  <img :src="icons.invoice" alt="" class="icon" />
+                  <div class="full flex-row main-between center">
+                    <div>
+                      <div class="flex-row center">
+                        <i class="name" style="width: 0.8rem">发票抬头</i>
+                        <i class="mobile"> {{ invoice.invName }}</i>
+                      </div>
+                      <div class="flex-row center">
+                        <i class="name" style="width: 0.8rem">税号</i>
+                        <i class="mobile"> {{ invoice.invBankNo }}</i>
+                      </div>
+                    </div>
+                    <img :src="icons.right" alt="" class="right" />
+                  </div>
+                </div>
+                <div v-else class="no-selected" @click="selectedInvoice">
+                  <p class="label">暂无开票信息 请添加开票信息</p>
+                  <img :src="icons.right" alt="" class="icon" />
+                </div>
+              </div>
+            </div>
+          </SimpleGroup>
+
           <div v-if="false" class="goods-card card">
             <p class="title" style="margin-bottom: 0.13rem">买赠活动</p>
             <div class="flex-row">
@@ -93,42 +152,7 @@
               <img :src="icons.right" alt="" class="icon" />
             </div>
           </div>
-          <div v-if="!!+data.isInv" class="invoice-card card">
-            <div class="flex-row main-between center">
-              <i class="label">开具发票</i>
-              <van-checkbox
-                v-model="params.invoice"
-                checked-color="#1ebcc4"
-                shape="square"
-              />
-            </div>
-            <div v-if="params.invoice" class="address">
-              <div
-                v-if="invoice"
-                @click="selectedInvoice"
-                class="info flex-row center"
-              >
-                <img :src="icons.invoice" alt="" class="icon" />
-                <div class="full flex-row main-between center">
-                  <div>
-                    <div class="flex-row center">
-                      <i class="name" style="width: 0.8rem">发票抬头</i>
-                      <i class="mobile"> {{ invoice.invName }}</i>
-                    </div>
-                    <div class="flex-row center">
-                      <i class="name" style="width: 0.8rem">税号</i>
-                      <i class="mobile"> {{ invoice.invBankNo }}</i>
-                    </div>
-                  </div>
-                  <img :src="icons.right" alt="" class="right" />
-                </div>
-              </div>
-              <div v-else class="no-selected" @click="selectedInvoice">
-                <p class="label">暂无开票信息 请添加开票信息</p>
-                <img :src="icons.right" alt="" class="icon" />
-              </div>
-            </div>
-          </div>
+
           <OrderForm v-model="data.otherForm" :handleSubmit="saveForm" />
           <div class="pay-method card">
             <p class="title">支付方式</p>
@@ -296,6 +320,14 @@ export default {
         invoiceId,
       } = this;
       return (data || []).find((item) => item.iid === invoiceId);
+    },
+    steps() {
+      const itemData = [...(this.data.itemData || [])];
+      const first = itemData.shift();
+      return {
+        first,
+        others: itemData,
+      };
     },
     itemName() {
       try {
@@ -466,7 +498,6 @@ export default {
   background: #fff;
   .order-confirm {
     padding: 0.12rem;
-    background: #f0f0f0;
   }
   .card {
     padding: 0.13rem 0.15rem;
@@ -545,7 +576,23 @@ export default {
       color: #7e7e7e;
     }
   }
-
+  .jf-box {
+    .label {
+      font-size: 0.16rem;
+      font-weight: 500;
+      color: rgb(85, 85, 85);
+    }
+    .remark {
+      margin-top: 0.05rem;
+      font-size: 0.12rem;
+      font-weight: 500;
+      color: rgba(126, 126, 126, 0.5);
+    }
+    .value {
+      font-size: 0.14rem;
+      color: rgb(85, 85, 85);
+    }
+  }
   .use-coupon {
     margin-bottom: 0.13rem;
     padding: 0.15rem 0.12rem;
