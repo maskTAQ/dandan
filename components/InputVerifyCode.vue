@@ -69,12 +69,15 @@ export default {
       }
     }
     .van-password-input__security {
-      height: 0.46rem;
+      height: 0.70rem;
     }
     .van-password-input__item {
-      background: #e8ecfa;
-      border-radius: 3px;
-      opacity: 0.62;
+      background: rgb(105, 199, 199);
+      border-radius: 15px;
+      // opacity: 0.62;
+      color: #fff;
+      font-size:0.34rem;
+      font-weight: 700;
     }
   }
 
