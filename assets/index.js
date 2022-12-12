@@ -126,8 +126,6 @@ export const img = {
     chatHead: require('./img/chat-head.png'),
     hw: require('./img/hw-jg.png'),
     gn: require('./img/gn-jg.png'),
-    homeTopBg: require('./img/home-top-bg.png'),
-    homeBannerBg: require('./img/home-banner-bg.png'),
     groupTitle: require('./img/group-title.png'),
     jb: require('./img/bj-jb.png'),
 }
@@ -163,8 +161,8 @@ export const tabbar = {
     hospital_active: require('../assets/tabbar/hospital-active.png'),
     user: require('../assets/tabbar/user.png'),
     user_active: require('../assets/tabbar/user-active.png'),
-    service: require('../assets/tabbar/service.png'),
-    service_active: require('../assets/tabbar/service-active.png'),
+    mall: require('../assets/tabbar/mall.png'),
+    mall_active: require('../assets/tabbar/mall-active.png'),
 };
 
 export const setting = {

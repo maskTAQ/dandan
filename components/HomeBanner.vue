@@ -112,13 +112,13 @@ export default {
 </script>
 <style lang="scss">
 .home-banner.swiper-container {
-  height: 1.4rem;
+  height: 1.5rem;
   /* border-radius: 0.2rem; */
   /* box-shadow: 0px -1px 12px 0px rgba(77, 110, 255, 0.8); */
   /* width: 3.3rem; */
 
   .swiper-wrapper {
-    height: 1.4rem;
+    height: 100%;
     
   }
   .swiper-slide {

@@ -3,29 +3,20 @@
     <div class="order-confirm-box page-full">
       <StatusHandle :get="getPreData">
         <div class="order-confirm page-full">
+          <p class="no">订单号： {{ data.orderNo }}</p>
           <div class="goods-card card">
-            <p class="time">{{ time }} 订单号 {{ data.orderNo }}</p>
-            <div class="flex-row">
-              <div
-                class="img"
-                :style="{
-                  background: `url('${cover}') no-repeat center / cover`,
-                }"
-              />
+            <CoverImage :url="cover" class="cover" />
+            <div class="card-info flex-column main-between">
               <div>
-                <p class="title">{{ data.goodsName }}</p>
-                <p class="subtitle">{{ data.bName }}</p>
-                <div v-if="data.gTag" class="tag-list flex-row center">
-                  <div class="tag">{{ data.gTag }}</div>
-                </div>
+                <p class="name">{{ data.goodsName }}</p>
+                <p class="type-name">{{ data.bName }}</p>
               </div>
-            </div>
-            <div class="line flex-row main-between center">
-              <i class="label">{{ itemName }}</i>
-              <i class="value">￥{{ data.cardAmt }}</i>
-            </div>
-            <div class="hint">
-              {{ data.theTitle }}
+              <div class="flex-row">
+                <span class="label">优惠</span>
+                <span class="value">优惠</span>
+                <span class="label">总计</span>
+                <span class="price">￥{{ data.cardAmt }}</span>
+              </div>
             </div>
           </div>
           <SimpleGroup title="价格明细" titleColor="rgba(0, 188, 197, 0.8)">
@@ -59,8 +50,8 @@
             titleColor="rgba(0, 188, 197, 0.8)"
             more
           >
-          <!-- v-if="!!+data.isInv" -->
-            <div  class="invoice-card card">
+            <!-- v-if="!!+data.isInv" -->
+            <div class="invoice-card card">
               <div class="flex-row main-between center">
                 <i class="label">开具发票</i>
                 <van-checkbox
@@ -515,65 +506,10 @@ export default {
   }
 
   .goods-card {
-    margin-bottom: 0.13rem;
-    .time {
-      margin-bottom: 0.11rem;
-      font-size: 0.12rem;
-      color: $color4;
-    }
-    .title {
-      margin-bottom: 0.02rem;
-    }
-    .img {
-      margin-right: 0.06rem;
-      width: 1.2rem;
-      height: 0.8rem;
-    }
-
-    .title {
-      font-size: 0.16rem;
-      color: $color4;
-      font-weight: bold;
-    }
-    .subtitle {
-      margin: 0.02rem 0;
-      font-size: 0.12rem;
-      color: $color15;
-    }
-
-    .tag-list {
-      .tag {
-        margin-top: 0.04rem;
-        margin-right: 0.04rem;
-        padding: 0 0.06rem;
-        height: 0.18rem;
-        line-height: 0.18rem;
-        background: rgba($color: $color21, $alpha: 0.08);
-        font-size: 0.09rem;
-        color: $color21;
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-    .line {
-      padding: 0.1rem 0;
-      font-size: 0.14rem;
-      .label {
-        color: $color16;
-      }
-      .value {
-        color: $color17;
-      }
-    }
-    .hint {
-      /* padding: 0.07rem 0.11rem; */
-      font-size: 0.12rem;
-      color: $color19;
-    }
-    .text {
-      font-size: 0.13rem;
-      color: #7e7e7e;
+    height: 1.22rem;
+    .cover{
+      width: 1.22rem;
+      height: 1.22rem;
     }
   }
   .jf-box {

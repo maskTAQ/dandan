@@ -1,18 +1,20 @@
 <template>
   <div ref="scroll" class="home page-tab" @scroll="throttleScroll">
-    <div class="header-area">
-      <div class="title flex-row main-between center">
-        <span class="logo">旦旦医学</span>
-        <div class="search flex-row center">
-          <img :src="icons.search" alt="" class="icon" />
-          <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
+    <div class="header-area-box">
+      <div class="header-area">
+        <div class="title flex-row main-between center">
+          <span class="logo">旦旦医学</span>
+          <div class="search flex-row center">
+            <img :src="icons.search" alt="" class="icon" />
+            <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
+          </div>
+          <div @click="go({ auth: true, path: '/messages' })" class="msg-box">
+            <img :src="icons.msg" alt="" class="msg" />
+            <div class="dot"></div>
+          </div>
         </div>
-        <div @click="go({ auth: true, path: '/messages' })" class="msg-box">
-          <img :src="icons.msg" alt="" class="msg" />
-          <div class="dot"></div>
-        </div>
+        <HomeBanner class="banner" />
       </div>
-      <HomeBanner class="banner" />
     </div>
     <div class="padding-box">
       <ul class="tab-card-list flex-row">
@@ -781,11 +783,15 @@ export default {
 @import "../assets/theme.scss";
 .home {
   background: #f3f7fa;
+  .header-area-box {
+    height: 2.36rem;
+  }
   .header-area {
-    height: 2.65rem;
+    height: 2.86rem;
     padding: 0.18rem;
-    background:url('../assets/img/home-top-bg.png') no-repeat  center top / 100% auto,url('../assets/img/home-banner-bg.png') no-repeat  center bottom / 100% auto;
-    background-color: rgb(99, 216, 199) ;
+    background: url("../assets/img/home-top-bg.png") no-repeat center top / 100%
+        auto,
+      url("../assets/img/home-head-bg.png") no-repeat center top / 100% auto;
     .title {
       .logo {
         font-size: 0.16rem;
@@ -840,7 +846,7 @@ export default {
     .banner {
       /* margin-top: -0.5rem;
     position: relative; */
-      height: 1.4rem;
+      height: 1.5rem;
       background: #fff;
       /* border-radius: 0.2rem; */
     }
@@ -959,20 +965,6 @@ export default {
           }
         }
       }
-    }
-  }
-  .bg-box {
-    padding: 0.12rem 0;
-    padding-bottom: 0;
-    &.yes {
-      background: url("../assets/img/home-radius.png") no-repeat center top
-          1.34rem / 100% auto,
-        url("../assets/img/home-bg-f.png") no-repeat center top / 100% auto;
-    }
-    &.no {
-      background: url("../assets/img/home-radius.png") no-repeat center top
-          1.34rem / 100% auto,
-        url("../assets/img/home-bg.png") no-repeat center top / 100% auto;
     }
   }
   .padding-box {
