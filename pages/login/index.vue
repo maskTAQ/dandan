@@ -160,9 +160,9 @@
         </van-button>
       </div>
       <div :class="['login-inner', currentType]" v-if="currentType === TYPE.BIND_MOBILE">
-        <div class="back-box" @click="toggle(TYPE.LOGIN_BY_CODE)">
+        <!-- <div class="back-box" @click="toggle(TYPE.LOGIN_BY_CODE)">
           <img :src="icons.back" alt="" class="icon" />
-        </div>
+        </div> -->
         <div class="login-mobile flex-row center">
           <span class="text">验证手机</span>
         </div>
