@@ -5,7 +5,7 @@
       <div class="doctor-detail page-full">
         <div class="ys-photo">
           <CoverImage :url="img.jb" class="ys-jb" />
-          <p class="name">{{ data.exName }}</p>
+          <!-- <p class="name">{{ data.exName }}</p> -->
           <CoverImage :url="data.exPhoto" class="ys-photo-img" />
         </div>
         <div class="doc-bj">

@@ -2,7 +2,7 @@
   <div class="group">
     <div :class="['group-title flex-row main-between center', { border }]">
       <div class="left flex-row center">
-        <img v-if="icon" :src="icon" alt="" class="icon" />
+        <img :src="img.groupTitle" alt="" class="icon" />
         <i class="label">{{ title }}</i>
       </div>
       <slot name="headright" v-if="$slots.headright"></slot>
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import { icons } from "@/assets";
+import { icons,img } from "@/assets";
 export default {
   name: "Group",
   props: {
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       icons,
+      img
     };
   },
   created() {
@@ -63,6 +64,15 @@ export default {
     /* margin: 0.08rem 0; */
     &.border {
       border-bottom: 1px solid #eeeeee;
+    }
+    .left{
+      position: relative;
+      .icon{
+        position: absolute;
+        left: 0;
+        bottom: -0.01rem;
+        width: .74rem;
+      }
     }
     .icon {
       margin-right: 0.06rem;

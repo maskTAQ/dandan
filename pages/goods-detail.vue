@@ -1,7 +1,12 @@
 <template>
-  <Page :title="title">
+  <Page
+    :title="title"
+    fixed
+    ref="scroll"
+    @scroll="onScrollToToggleScrollTopBtn"
+  >
     <StatusHandle :get="getData" ref="statusHandle">
-      <div class="goods-detail page-full" ref="scroll" @scroll="onScroll">
+      <div v-if="data" class="goods-detail">
         <img
           v-if="sticky"
           src="../assets/img/scroll-top.png"
@@ -9,120 +14,177 @@
           class="scroll-to-top"
           @click="scrollToTop"
         />
-        <div class="area radiu-b">
-          <ToolBar
-            :scan="false"
-            rightIconName="share"
-            class="tool-bar"
-            placeholder="这里有您需要的药品"
-            @clickRightIcon="share"
-          />
-          <Banner
-            style="margin-top:.1rem"
-            @click="go({ path: '/gallery', query: { id: data.gid } })"
-            class="banner"
-            :data="banner"
-          />
-          <div class="price flex-row">
-            <i class="unit">￥</i>
-            <i class="value">{{ data.price }}</i>
-          </div>
-          <p class="goods-name">{{ data.gName }} {{ data.gTital }}</p>
-          <div class="tag-list flex-row center">
-            <div
-              v-for="tag in (data.Tag || '').split(';')"
-              :key="tag"
-              class="tag flex-row center"
-            >
-              <i class="point"></i>
-              <i class="label">{{ tag }}</i>
-            </div>
-          </div>
-        </div>
-        <div class="postage flex-row main-between center area radiu">
-          <i class="label"
-            >快递：{{ data.isMail == "1" ? "包邮" : "不包邮" }}</i
-          >
-          <i class="value">销量：{{ data.SalesNum }}</i>
-        </div>
         <div
-          v-if="discountList && discountList.length"
-          class="discount flex-row area radiu"
+          @click="go({ path: '/gallery', query: { id: data.gid } })"
+          ref="swiper"
+          class="swiper-container"
         >
-          <i class="title">优惠</i>
-          <div class="discount-list">
-            <div v-for="item in discountList" :key="item.label" class="item">
-              <span class="tag">{{ item.cardType }}</span>
-              <i class="label">{{ item.cardTitle }}</i>
-            </div>
-          </div>
-        </div>
-        <div v-if="data.goodValue" class="intro" v-html="data.goodValue"></div>
-        <div class="pay-desc area radiu-b">
-          <p class="title">支付说明</p>
-          <div class="item">
-            <i class="label">支付流程:</i>
-            <i class="value" v-html="getHtmlStr(data.PayFlow)"></i>
-          </div>
-          <div class="item">
-            <i class="label">退款流程:</i>
-            <i class="value" v-html="getHtmlStr(data.ReturnFlow)"></i>
-          </div>
-        </div>
-
-        <EvaluateGroup :goods="data" />
-        <div class="recommend">
-          <div class="flex-row center">
-            <div class="title flex-row center">
-              <img :src="icons.shopping" alt="" class="icon" />
-              <i class="label">猜你喜欢</i>
-            </div>
-          </div>
-          <div class="goods-list">
-            <List
-              :request="request"
-              columnNum="2"
-              :renderItem="renderItem"
-              class="list"
-              ref="list"
-              eventPassthrough
+          <div class="swiper-wrapper">
+            <CoverImage
+              class="swiper-slide"
+              v-for="item in data.gImg"
+              :url="item"
+              :key="item"
             />
           </div>
+          <div class="btn-group flex-row align">
+            <button
+              @click="go({ path: '/gallery', query: { id: data.gid } })"
+              class="btn selected"
+            >
+              图片
+            </button>
+            <button
+              @click="go({ path: '/gallery', query: { id: data.gid } })"
+              class="btn"
+            >
+              视频
+            </button>
+          </div>
+          <div class="paging flex-row center">
+            <div class="num flex-row center">
+              <i class="text">{{ current }}/{{ (data.gImg || []).length }}</i>
+            </div>
+          </div>
         </div>
+        <div class="padding-box">
+          <GoodsTitle
+            :data="data"
+            :showCountry="false"
+            :showSuccess="false"
+            :showPrice="false"
+            :showType="false"
+            :showTag="false"
+            showKD
+            yyLayout="goods"
+          />
+          <!-- <SimpleGroup
+            :icon="icons.user_title"
+            size="mini"
+            title="简介"
+            class="intro-card card"
+            border
+          >
+            <p class="intro">{{ data.Smple }}</p>
+          </SimpleGroup> -->
+          <SimpleGroup title="服务内容" border>
+            <div class="service-list">
+              <div
+                class="item flex-row main-between"
+                v-for="item in serviceList"
+                :key="item.label"
+              >
+                <span class="label">{{ item.label }}</span>
+                <span class="value">{{ item.label }}</span>
+              </div>
+            </div>
+          </SimpleGroup>
+          <!-- <SimpleGroup
+            v-if="doctorList.length"
+            title="医院专家"
+            class="doctor-card card"
+            border
+          >
+            <div>
+              <ScrollView>
+                <div class="doctor-list flex-row center">
+                  <div
+                    v-for="(item, index) in doctorList"
+                    :class="[
+                      'portrait-box',
+                      { selected: selectedDoctorIndex === index },
+                    ]"
+                    :key="item.exid"
+                    @click="selectedDoctorIndex = index"
+                  >
+                    <CoverImage :url="item.exPhoto" class="portrait" />
+                   </div>
+                </div>
+              </ScrollView>
+              <div class="doctor-introl">
+                <p class="name">{{ doctorList[selectedDoctorIndex].exName }}</p>
+                <div class="flelds">
+                  <div class="field">
+                    <span class="label">擅长领域</span>
+                    <span class="value">{{
+                      doctorList[selectedDoctorIndex].exCan
+                    }}</span>
+                  </div>
+                  <div class="field">
+                    <span class="label">专家履历</span>
+                    <span
+                      class="value"
+                      v-html="
+                        getHtmlStr(doctorList[selectedDoctorIndex].Resume)
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SimpleGroup> -->
+        </div>
+        <div class="html-content" v-html="data.goodValue" />
+        <div class="padding-box">
+          <SimpleGroup title="支付说明">
+            <div class="pay-desc">
+              <div class="item">
+                <i class="label">支付流程:</i>
+                <i class="value">{{ data.PayFlow }}</i>
+              </div>
+              <div class="item">
+                <i class="label">退款流程:</i>
+                <i class="value" v-html="newline(data.ReturnFlow)"></i>
+              </div>
+            </div>
+          </SimpleGroup>
+          <EvaluateGroup :goods="data" />
+          <SimpleGroup
+            size="mini"
+            title="猜你喜欢"
+            class="hospital-list-card card"
+          >
+            <div>
+              <List
+                customControl
+                :request="getOtherHospitalList"
+                :renderItem="renderGoodsItem"
+                :columnNum="2"
+                class="list"
+                ref="list"
+              />
+            </div>
+          </SimpleGroup>
+        </div>
+
         <van-sku
           v-model="sku.visible"
           :sku="goodsModel.sku"
           :goods="goodsModel.goods"
           :goods-id="goodsModel.goodsId"
-          @buy-clicked="onBuyClicked"
           :show-add-cart-btn="false"
+          @buy-clicked="onBuyClicked"
           @add-cart="onAddCartClicked"
-        />
+        >
+          <template #sku-header-price="props">
+            <div class="van-sku__goods-price flex-row center">
+              <span class="van-sku__price-symbol">￥</span>
+              <span class="van-sku__price-num">{{ props.price }}</span>
+            </div>
+          </template>
+        </van-sku>
         <div class="pay-bar flex-row main-between center">
           <div class="flex-row center">
-            <div @click="call('13715054911')" class="btn flex-column align">
+            <div @click="consulting" class="btn flex-column align">
+              <img class="icon" :src="icons.kf" alt="" />
+            </div>
+            <a :href="`tel:4000913522`" class="btn flex-column align">
               <img class="icon" :src="icons.mobile" alt="" />
-              <i class="label">电话咨询</i>
-            </div>
-            <div class="btn flex-column align">
-              <img class="icon" :src="icons.kf2" alt="" />
-              <i @click="goKf('goods')" class="label">客服</i>
-            </div>
+            </a>
           </div>
-          <div class="btn-group flex-row center">
-            <!-- <van-button
-              @click="showSKU('addShopCar')"
-              :loading="loading.sku && loading.skuTrigger === 'addShopCar'"
-              class="add-shopcar"
-              >加入购物车</van-button
-            > -->
-            <van-button
-              @click="showSKU('buy')"
-              :loading="loading.sku && loading.skuTrigger === 'buy'"
-              class="pay"
-              >{{ buyLabel }}</van-button
-            >
-          </div>
+          <van-button :loading="loading.sku" class="ask" @click="showSKU"
+            >购买</van-button
+          >
         </div>
       </div>
     </StatusHandle>
@@ -130,27 +192,26 @@
 </template>
 <script>
 import Swiper from "swiper";
-// import Swiper styles
 import "swiper/swiper-bundle.css";
 
+import { mock } from "@/api";
 import { icons } from "@/assets";
 import {
+  wxApi,
   LoadingControl,
-  Tip,
   router,
   checkLogin,
-  goKf,
-  call,
-  wxApi,
+  newline,
+  KF_URL,
 } from "@/utils";
-import Banner from "@/components/Banner";
 import EvaluateInfo from "@/components/EvaluateInfo";
 import ShowMore from "@/components/ShowMore";
-import GoodsCard from "@/components/GoodsCard";
+import QA from "@/components/Q";
 import EvaluateGroup from "@/components/EvaluateGroup";
+import GoodsCard from "@/components/GoodsCard.vue";
 import { get } from "@/api/http";
-import { toArray } from "../utils";
 import scroll from "@/mixins/scroll";
+
 const API = {
   LIST(params) {
     return get("/Api/getGoodsList_api.php", params);
@@ -164,94 +225,32 @@ const API = {
   ADD_SHOPCAR(params) {
     return get("/Api/setShopCats_api.php", params);
   },
-};
-const DISCOUNT_TYPE = {
-  JIFEN: {
-    label: "积分",
-    style: {
-      background: "rgba(255, 148, 74,.2)",
-      color: "#FF944A",
-    },
-  },
-  ZENGPING: {
-    label: "赠品",
-    style: {
-      background: "rgba(255, 73, 56,.2)",
-      color: "#FF4938",
-    },
-  },
-  YOUHUI: {
-    label: "优惠",
-    style: {
-      background: "rgba(255, 73, 56,.2)",
-      color: "#FF4938",
-    },
+  HOSPITAL_LIST(params) {
+    return get("/Api/getGoodsList_api.php", params);
   },
 };
 export default {
   name: "goods-detail",
-  head() {
-    return {
-      title: "商品详情",
-    };
-  },
-  mixins:[scroll],
   data() {
     return {
-      title: "旦旦医学",
+      title: "泰国DHC",
       icons,
-      data: {},
-      search: "",
-      current: "",
+      current: "1",
+      selectedDoctorIndex: 0,
+      data: null,
+      sku: {
+        datasource: [],
+        visible: false,
+      },
       loading: {
         sku: false,
       },
-      sku: {
-        visible: false,
-        datasource: [],
-        root: null,
-        children: [],
-      },
-      discountList: [],
-      isMounted: false,
     };
   },
-  watch: {
-    id(v) {
-      if (v && this.$refs.statusHandle) {
-        console.log(v, "call refresh");
-        this.$refs.statusHandle.refresh();
-      }
-    },
-  },
+  mixins: [scroll],
   computed: {
     id() {
       return this.$route.query.id;
-    },
-    banner() {
-      const { gImg } = this.data;
-      return Array.isArray(gImg) ? gImg : [];
-    },
-    payDescList() {
-      return [
-        {
-          label: "画线价格",
-          value:
-            "指商品的专柜价、吊牌价、正品零售价、厂商指导价或该商品的曾经展示过的销售价等，并非原价，仅供参考",
-        },
-        {
-          label: "其他说明",
-          value: "补充其他支付说明",
-        },
-        {
-          label: "其他说明",
-          value: "补充其他支付说明",
-        },
-        {
-          label: "其他说明",
-          value: "补充其他支付说明",
-        },
-      ];
     },
     goodsModel() {
       const { sku } = this;
@@ -291,108 +290,58 @@ export default {
         properties: [],
         goods: {
           // 默认商品 sku 缩略图
-          picture: toArray(this.data.gImg, "||")[0],
+          picture: Array.isArray(this.data.gImg) ? this.data.gImg[0] : "",
         },
       };
       return v;
     },
-    isInsurance() {
-      const { fTypeName } = this.data;
-      return ["试管保险", "助孕保障"].includes(String(fTypeName || ""));
+    doctorList() {
+      const { DoctorJson } = this.data;
+      return DoctorJson || [];
     },
-    buyLabel() {
-      return this.isInsurance ? "立即咨询" : "立即购买";
+    isRed() {
+      return parseInt(this.data.SuccessRate) > 90;
+    },
+    serviceList() {
+      return [
+        {
+          label: "优质蛋白质",
+          value: "含有丰富的矿物质以及微量元素等",
+        },
+        {
+          label: "优质蛋白质",
+          value: "含有丰富的矿物质以及微量元素等",
+        },
+        {
+          label: "优质蛋白质",
+          value: "含有丰富的矿物质以及微量元素等",
+        },
+      ];
     },
   },
   methods: {
-    call,
-    goKf,
-    go({ path, query }) {
-      router.push({
-        path,
-        query,
-      });
-    },
-    share() {
-      const share = document.getElementById("share");
-      console.log(share,'share');
-      if (share) {
-        share.click();
-      }
-    },
     getHtmlStr(str) {
-      return (str || "").replace(/\n/gim, "<br/>");
+      return (str || "").replace(/\n+/gim, "<br/>");
     },
-    showSKU(trigger) {
-      if (this.isInsurance) {
-        return goKf("baoxian1");
-      }
-      if (!checkLogin()) {
-        return;
-      }
-      this.loading.skuTrigger = trigger;
-      LoadingControl({
-        call: API.SKU,
-        params: this.id,
-        change: ({ loading }) => {
-          this.loading.sku = loading;
-        },
-      }).then((res) => {
-        this.sku.datasource = res;
-        this.sku.visible = true;
+    getOtherHospitalList(params) {
+      return API.HOSPITAL_LIST({
+        ...params,
+        gid: this.data.gid,
+        pageIndex: 1,
+        pageNum: 6,
       });
     },
-    getData() {
-      return API.DETAIL({ gid: this.id }).then((res) => {
-        const { gName: title } = res;
-        this.title = title;
-        document.title = title;
-        this.data = res;
-        this.discountList = res.CardJson;
-        this.$nextTick(this.init);
-        wxApi.onMenuShareAppMessage({
-          // desc: res.Tital2, // 描述
-          title: title, // 分享标题
-          // desc: desc, // 分享描述
-          link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: "https://sanshengzhiyun.com/h5/_nuxt/assets/icon/logo.png", // 分享图标
-        });
-        wxApi.updateTimelineShareData({
-          // desc: res.Tital2,
-          title: title, // 分享标题
-          link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: "https://sanshengzhiyun.com/h5/_nuxt/assets/icon/logo.png",
-        });
-      });
-    },
-    init() {
-      return;
-      console.log([this.isMounted, this.banner.length]);
-      if (this.isMounted && this.banner.length <= 1) {
-        return;
-      }
-      setTimeout(() => {
-        const that = this;
-        console.log(document.querySelector(".swiper-container"));
-        this.mySwiper = new Swiper(".swiper-container", {
-          // Optional parameters
-          // direction: "vertical",
-          loop: true,
-          on: {
-            slideChangeTransitionStart() {
-              that.current = this.activeIndex > 3 ? 1 : this.activeIndex;
-            },
-          },
-        });
-        window.a = this.mySwiper;
-      }, 1000);
-    },
-    request(params) {
-      return API.LIST(params);
-    },
-    renderItem(item, i, instance) {
+    renderGoodsItem(item, i, instance) {
       return (
         <GoodsCard
+          onBuy={() => {
+            router.replace({
+              path: "/goods-detail",
+              query: {
+                id: item.gid,
+              },
+            });
+          }}
           onClick={() => {
             router.replace({
               path: "/goods-detail",
@@ -406,15 +355,92 @@ export default {
         />
       );
     },
-    onScroll(e) {
-      const { scrollTop, scrollHeight, offsetHeight } = e.target;
-      // let offsetHeight = Math.ceil(e.target.getBoundingClientRect().height);
-      const currentHeight = scrollTop + offsetHeight;
-      if (currentHeight >= scrollHeight) {
-        this.$refs.list.loadmore();
-        
+
+    newline,
+    consulting() {
+      window.location.href = KF_URL.hospital;
+    },
+    init() {
+      const that = this;
+      this.mySwiper = new Swiper(".swiper-container", {
+        // Optional parameters
+        // direction: "vertical",
+        loop: true,
+        on: {
+          slideChangeTransitionStart() {
+            console.log(this.realIndex, "this.realIndex");
+            that.current = this.realIndex + 1;
+          },
+        },
+      });
+    },
+    getData() {
+      return API.DETAIL({ gid: this.id }).then((res) => {
+        const { gName: title } = res;
+        this.title = title;
+        document.title = title;
+        this.data = res;
+        const cover = res.gImg[0];
+        const subtitle = String(res.Tag || "").replace(/;/gim, " ");
+        wxApi.onMenuShareAppMessage({
+          desc: subtitle,
+          title: res.gName || "泰国DHC生殖医院", // 分享标题
+          // desc: desc, // 分享描述
+          link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: cover || "https://m.dhcivf.com/depu/favicon.ico", // 分享图标
+        });
+        wxApi.updateTimelineShareData({
+          desc: subtitle,
+          title: res.gName || "泰国DHC生殖医院", // 分享标题
+          link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: cover || "https://m.dhcivf.com/depu/favicon.ico",
+        });
+        this.$nextTick(() => {
+          setTimeout(() => {
+            this.init();
+          }, 1000);
+        });
+      });
+    },
+    goMap() {
+      const { Lat, Lng, Address } = this.data;
+      this.$router.push({
+        path: "/map",
+        query: {
+          lat: Lat,
+          lng: Lng,
+          text: Address,
+        },
+      });
+    },
+    goDoctorDetail() {
+      const { doctorList, selectedDoctorIndex } = this;
+      this.$router.push({
+        path: "/doctor-detail",
+        query: {
+          id: doctorList[selectedDoctorIndex].exid,
+        },
+      });
+    },
+    showSKU() {
+      if (!checkLogin()) {
+        return;
       }
-      this.onScrollToToggleScrollTopBtn(e);
+      LoadingControl({
+        call: API.SKU,
+        params: this.id,
+        change: ({ loading }) => {
+          this.loading.sku = loading;
+        },
+      }).then((res) => {
+        this.sku.datasource = res;
+        this.sku.visible = true;
+      });
+    },
+    getSku() {
+      return API.SKU(this.id).then((res) => {
+        this.sku = res;
+      });
     },
     onBuyClicked(goods) {
       const {
@@ -455,53 +481,61 @@ export default {
           Tip.error(e.message);
         });
     },
-  },
-  mounted() {
-    this.isMounted = true;
-    this.init();
+    go({ path, query }) {
+      router.push({
+        path,
+        query,
+      });
+    },
   },
   components: {
-    Banner,
     EvaluateInfo,
     ShowMore,
+    QA,
     EvaluateGroup,
   },
 };
 </script>
 <style lang="scss">
 @import "../assets/theme.scss";
+$margin: 0.12rem;
 .goods-detail {
-  background: $color8;
-  padding-bottom: 0.6rem;
-  overflow: auto;
-  .banner {
-    height: 3.5rem;
-    .swiper-slide {
-      height: 3.5rem;
+  background: #fff;
+  padding-bottom: 0.8rem;
+  .html-content {
+    * {
+      /* display: block; */
+      max-width: 100%;
     }
   }
-  .area {
-    padding: 0.16rem 0.12rem;
-    background: #fff;
-    &.radiu {
-      border-radius: 8px;
-    }
-    &.radiu-b {
-      border-radius: 0px 0px 8px 8px;
-    }
-    &.radiu-t {
-      border-radius: 8px 8px 0px 0px;
-    }
-  }
-  .tool-bar {
-    .search {
-      background: $color9;
-    }
+  .card {
+    /* border-radius: 0.12rem; */
   }
   .swiper-container {
-    /* margin-top: 0.1rem; */
     position: relative;
-    height: 3.5rem;
+    .swiper-slide {
+      height: 2.22rem;
+    }
+    .btn-group {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0.37rem;
+      z-index: 9;
+      .btn {
+        height: 0.22rem;
+        padding: 0 0.22rem;
+        font-size: 0.12rem;
+        color: rgb(51, 51, 51);
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 0.11rem;
+        &.selected {
+          margin-right: 0.4rem;
+          background: rgb(105, 199, 199);
+          color: #fff;
+        }
+      }
+    }
     .paging {
       position: absolute;
       right: 0.24rem;
@@ -509,148 +543,237 @@ export default {
       height: 0.24rem;
       line-height: 0.24rem;
       padding: 0 0.12rem;
-      font-size: 0.14rem;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.2);
+      z-index: 99;
+      background: rgba(0, 0, 0, 0.5);
       border-radius: 0.12rem;
-    }
-  }
-  .price {
-    margin: 0.1rem 0;
-    color: $color2;
-    align-items: flex-end;
-    font-weight: bold;
-    .unit {
-      margin-bottom: 0.04rem;
-      font-size: 0.16rem;
-    }
-    .value {
-      font-size: 0.24rem;
-    }
-  }
-  .goods-name {
-    margin: 0.08rem 0;
-    font-size: 0.16rem;
-    color: $color4;
-  }
-  .tag-list {
-    flex-wrap: wrap;
-    .tag {
-      margin-right: 0.2rem;
-      margin-bottom: 4px;
-      padding: 0 4px;
-      background: #f2f5ff;
-      &:last-child {
-        margin-right: 0;
+      .icon {
+        margin-right: 0.06rem;
+        width: 0.12rem;
+      }
+      .text {
+        font-size: 0.12rem;
+        color: #fff;
+      }
+      .split {
+        margin: 0 0.06rem;
+        width: 1px;
+        height: 6px;
+        background: #fff;
       }
     }
-    .point {
-      width: 4px;
-      height: 4px;
-      background: $color5;
-      border-radius: 50%;
-    }
-    .label {
-      margin-left: 0.08rem;
-      font-size: 0.14rem;
-      color: $color5;
-    }
+  }
+  .padding-box {
+    padding: 0.2rem;
   }
 
-  .postage {
-    margin: 0.12rem 0;
-    font-size: 0.14rem;
+  .service-list {
+    font-size: 0.12rem;
+    font-weight: bold;
+    .item {
+      min-height: 0.3rem;
+    }
     .label {
-      color: $color5;
+      color: rgb(0, 188, 197);
     }
     .value {
-      color: $color6;
+      color: rgb(173, 173, 173);
+    }
+  }
+  .fq {
+    padding: 0.13rem 0;
+    font-size: 0.14rem;
+    font-weight: bold;
+    border-top: 1px solid #eeeeee;
+    .label {
+      color: rgba(82, 82, 82, 0.8);
+    }
+    .value {
+      color: rgba(0, 188, 197, 0.8);
+    }
+    .icon {
+      width: 0.15rem;
+    }
+  }
+  .intro-card {
+    .intro {
+      font-size: 0.14rem;
+      /* font-weight: bold; */
+      color: rgb(173, 173, 173);
     }
   }
   .discount {
-    margin-bottom: 0.12rem;
+    margin: $margin 0;
+    padding-bottom: 0.1rem;
     .title {
-      margin-right: 0.16rem;
-      font-size: 0.14rem;
-      color: $color6;
+      margin-right: 0.06rem;
+      font-size: 0.12rem;
+      color: #999999;
     }
-    .item {
-      margin-bottom: 0.12rem;
-      &:last-child {
-        margin-bottom: 0;
+    .discount-list {
+      width: 0;
+      flex: 1;
+      .item {
+        margin-bottom: 0.06rem;
+      }
+      .tag {
+        height: 0.24rem;
+        padding: 0 0.06rem;
+        font-size: 0.12rem;
+        color: #1ebcc4;
+        border-radius: 3px;
+        border: 1px solid #1ebcc4;
+      }
+      .label {
+        margin-left: 0.06rem;
+        font-size: 0.12rem;
+        color: #333333;
       }
     }
-    .tag {
-      margin-right: 0.08rem;
-      height: 0.16rem;
-      padding: 0 0.04rem;
-      font-size: 0.1rem;
-      line-height: 0.16rem;
-      border-radius: 2px;
-    }
-    .label {
-      font-size: 0.14rem;
-      color: $color4;
-    }
   }
-  .intro {
-    margin-bottom: 0.12rem;
-    padding: 0.16rem 0.12rem;
-    /* height: 1rem; */
-    background: #fff;
-    img {
+  .doctor-card {
+    margin-bottom: $margin;
+    /* padding-left: 0; */
+    .scroll-view {
+      height: 0.9rem;
+    }
+    .doctor-list {
+      /* padding-left: 0.16rem; */
+    }
+    .portrait-box {
+      position: relative;
+      margin-right: 0.15rem;
+      padding-bottom: 0.15rem;
+      .icon {
+        position: absolute;
+        width: 0.12rem;
+        margin-left: 50%;
+        left: -0.06rem;
+        bottom: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      &.selected .portrait {
+        border-color: rgb(0, 188, 197);
+      }
+    }
+    .portrait {
+      width: 0.75rem;
+      height: 0.75rem;
+      border: 1px solid transparent;
+      border-radius: 50%;
+    }
+    .doctor-introl {
+      position: relative;
+      /* margin-top: 0.15rem; */
+      /* padding: 0.16rem; */
+      /* background: #eef0fe; */
+      border-radius: 10px;
+
+      .name {
+        margin-bottom: 0.1rem;
+        font-size: 0.16rem;
+        font-weight: 500;
+        color: rgb(59, 67, 83);
+      }
+      .field {
+        margin-top: 0.05rem;
+        position: relative;
+        font-size: 0.14rem;
+        font-weight: bold;
+        color: rgb(173, 173, 173);
+        /* .label {
+          position: absolute;
+          top: 0.02rem;
+          left: 0;
+          color: #6dc7c6;
+        }
+        .value {
+          display: block;
+          line-height: 0.24rem;
+          text-indent: 0.8rem;
+          color: #666666;
+        } */
+      }
+    }
+    .show-doctor-detail {
       display: block;
-      max-width: 100%;
+      margin: 0 auto;
+      margin-top: 0.16rem;
+      height: 0.3rem;
+      padding: 0 0.3rem;
+      background: #1ebcc4;
+      font-size: 0.12rem;
+      color: #fff;
+      border-radius: 0.13rem;
     }
   }
-  .pay-desc {
-    .title {
-      font-size: 0.14rem;
-      color: $color6;
+  .subscribe-card {
+    .subscribe-list {
+      .item {
+        height: 0.6rem;
+        .dot {
+          margin-right: 0.07rem;
+          width: 0.03rem;
+          height: 0.03rem;
+          background: #7087f8;
+        }
+        .value {
+          font-size: 0.14rem;
+          font-weight: 400;
+          color: #666666;
+        }
+      }
     }
-    .item {
+  }
+  .type-chunk {
+    margin-bottom: $margin;
+    .type-list {
+      .item {
+        margin-right: 0.12rem;
+        padding: 0 0.16rem;
+        height: 0.34rem;
+        line-height: 0.34rem;
+        font-size: 0.14rem;
+        color: #fff;
+        background: #1ebcc4;
+        border-radius: 0.19rem;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+    .type-content {
       margin-top: 0.12rem;
-      font-size: 0.12rem;
       .label {
-        color: $color4;
+        margin-right: 0.12rem;
+        font-size: 0.12rem;
+        color: #999999;
       }
       .value {
-        color: $color6;
+        width: 0;
+        flex: 1;
+        p {
+          margin-bottom: 0.12rem;
+          font-size: 0.12rem;
+          color: #333333;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
       }
     }
   }
-  .evaluation-group {
-    margin-top: 0.12rem;
-    margin-bottom: 0.24rem;
-    .title .icon {
-      margin-right: 0.08rem;
-    }
+  .hospital-intro {
+    height: 1rem;
   }
-
-  .recommend {
-    .title {
-      margin: 0 auto;
-      margin-bottom: 0.16rem;
-      .icon {
-        margin-right: 0.08rem;
-        width: 0.13rem;
-      }
-      .label {
-        font-size: 0.16rem;
-        color: $color4;
-      }
-    }
-    .goods-list {
-      padding: 0 0.12rem;
-      .column-0 {
-        margin-right: 0.13rem;
-      }
-      .goods {
-        margin-bottom: 0.12rem;
-        padding: 0.12rem;
-        background: #fff;
-        border-radius: 8px;
-      }
+  .pay-desc {
+    padding: 0.1rem;
+    background: rgba(105, 199, 199, 0.1);
+    border-radius: 0.04rem;
+    .item {
+      font-size: 0.14rem;
+      color: rgb(173, 173, 173);
     }
   }
   .pay-bar {
@@ -658,41 +781,32 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 0.6rem;
-    padding: 0 0.12rem;
+    height: 0.8rem;
+    padding: 0 0.15rem;
     background: #fff;
-    box-shadow: 0px -1px 12px 0px rgba(76, 135, 249, 0.05);
+    /* box-shadow: 0px 0px 3px 0px rgba(181, 181, 196, 0.5); */
     .btn {
-      &:first-child {
-        margin-right: 0.24rem;
-      }
+      margin-right: 0.13rem;
+      width: 0.44rem;
+      height: 0.44rem;
+      background: rgba(0, 188, 197, 0.1);
+      border-radius: 0.08rem;
       .icon {
-        margin-bottom: 3px;
-        width: 0.22rem;
+        width: 0.3rem;
       }
-      .label {
-        font-size: 0.12rem;
-        color: $color6;
+      &:first-child {
       }
     }
-    .btn-group {
-      border-radius: 1rem;
-      overflow: hidden;
-      button {
-        height: 0.4rem;
-        padding: 0 0.15rem;
-        line-height: 0.4rem;
-        font-size: 0.14rem;
-        color: #fff;
-        border: none;
-        border-radius: 0;
-        &.add-shopcar {
-          background: linear-gradient(90deg, #74a1f9, #84acfb);
-        }
-        &.pay {
-          background: linear-gradient(270deg, #6dc7c6, #6dc7c6);
-        }
-      }
+    .ask {
+      width: 0;
+      flex: 1;
+      height: 0.39rem;
+      font-size: 0.16rem;
+      font-weight: 600;
+      color: #fff;
+      background: #1ebcc4;
+      border-radius: 0.23rem;
+      border: none;
     }
   }
 }
