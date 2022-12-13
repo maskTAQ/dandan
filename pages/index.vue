@@ -1,6 +1,5 @@
 <template>
   <div ref="scroll" class="home page-tab" @scroll="throttleScroll">
-    <SearchTool2 text="搜索/说三道四的" :isNew="true"></SearchTool2>
     <div class="header-area-box">
       <div class="header-area">
         <div class="title flex-row main-between center">
@@ -324,6 +323,7 @@ export default {
       // this.groupCover = res[0].theImg;
     });
     this.bannerY = getRoot() * (3.75 - 0.6);
+    globalThis.h = this;
   },
   // beforeRouteEnter(){
   //   console.log('beforeRouteEnter');
@@ -356,7 +356,7 @@ export default {
     data() {
       setTimeout(() => {
         this.computedY();
-      });
+      },10);
     },
   },
   computed: {
@@ -487,11 +487,13 @@ export default {
     getDoctorLiveList() {
       return API.GOODS_TYPE_LIST("医院").then((res) => {
         this.data.doctorLiveList = res;
+        this.data = {...this.data};
       });
     },
     getDoctorList() {
       return API.GOODS_TYPE_LIST("医院").then((res) => {
         this.data.doctorList = res;
+        this.data = {...this.data};
       });
     },
     getGoodsType() {
@@ -510,6 +512,7 @@ export default {
           // });
         }
         this.data.goodsTypeList = res;
+        this.data = {...this.data};
       });
     },
     goPunchTab() {
@@ -599,6 +602,7 @@ export default {
     getAD() {
       return API.AD().then((res) => {
         this.data.adList = res;
+        this.data = {...this.data};
       });
     },
     goAD(ad) {
@@ -618,6 +622,7 @@ export default {
     getInsuranceInfo() {
       return API.INSURANCE_INFO().then((res) => {
         this.data.insuranceInfo = res;
+        this.data = {...this.data};
       });
     },
     goLive() {
@@ -629,6 +634,7 @@ export default {
     getGroupList() {
       return API.GORUP_LIST({ top: 4 }).then((res) => {
         this.data.groupList = res;
+        this.data = {...this.data};
       });
     },
     getCourseList() {
@@ -636,6 +642,7 @@ export default {
         // res.length = 2;
         // this.data.courseList = res;
         this.data.recommend = res[0];
+        this.data = {...this.data};
       });
     },
     getGoodsList() {
@@ -644,6 +651,7 @@ export default {
         root: "医院",
       }).then((res) => {
         this.data.goodsList = res;
+        this.data = {...this.data};
       });
     },
     computedY() {
@@ -651,13 +659,14 @@ export default {
       if (tab && tab.$el) {
         const y = tab.$el.getBoundingClientRect().y;
         //需要减去固定的头部的高度
-        this.tabY = scroll.scrollTop + y; //- getRoot() * 0.6;
+        this.tabY = scroll.scrollTop + y;// + getRoot() * 0.5;
         console.log("computedY", this.tabY, { y, screenTop: scroll.scrollTop });
       }
     },
     getTabList() {
       return API.TAB_LIST().then((res) => {
         this.data.tabList = res;
+        this.data = {...this.data};
         this.$nextTick(() => {
           setTimeout(this.goTab, 100, this.$route.query.tab);
         });
