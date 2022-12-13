@@ -1,18 +1,21 @@
 <template>
   <div ref="scroll" class="home page-tab" @scroll="throttleScroll">
-    <div class="header-area">
-      <div class="title flex-row main-between center">
-        <span class="logo">旦旦医学</span>
-        <div class="search flex-row center">
-          <img :src="icons.search" alt="" class="icon" />
-          <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
+    <SearchTool2 text="搜索/说三道四的" :isNew="true"></SearchTool2>
+    <div class="header-area-box">
+      <div class="header-area">
+        <div class="title flex-row main-between center">
+          <span class="logo">旦旦医学</span>
+          <div class="search flex-row center">
+            <img :src="icons.search" alt="" class="icon" />
+            <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
+          </div>
+          <div @click="go({ auth: true, path: '/messages' })" class="msg-box">
+            <img :src="icons.msg" alt="" class="msg" />
+            <div class="dot"></div>
+          </div>
         </div>
-        <div @click="go({ auth: true, path: '/messages' })" class="msg-box">
-          <img :src="icons.msg" alt="" class="msg" />
-          <div class="dot"></div>
-        </div>
+        <HomeBanner class="banner" />
       </div>
-      <HomeBanner class="banner" />
     </div>
     <div class="padding-box">
       <ul class="tab-card-list flex-row">
