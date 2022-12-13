@@ -73,11 +73,16 @@ export default {
     }
     .van-password-input__item {
       background: rgb(105, 199, 199);
-      border-radius: 15px;
+      border-radius: .15rem;
       // opacity: 0.62;
       color: #fff;
       font-size:0.34rem;
       font-weight: 700;
+      &.van-password-input__item--focus{
+        background: #fff;
+        border: 1px solid rgb(105, 199, 199);
+        color: rgb(105, 199, 199);
+      }
     }
   }
 

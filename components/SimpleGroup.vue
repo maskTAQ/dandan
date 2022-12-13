@@ -2,7 +2,7 @@
   <div :class="['simple-group', { 'has-border': border }]">
     <div :class="['title flex-row main-between center']">
       <div class="left flex-row center">
-        <i class="label">{{ title }}</i>
+        <i class="label" :style="titleStyle">{{ title }}</i>
       </div>
       <slot name="headright" v-if="$slots.headright"></slot>
       <template v-else>
@@ -33,6 +33,7 @@ export default {
     moreText: String,
     card: Boolean,
     size: String,
+    titleColor: String,
     rightIcon: {
       type: String,
       default: icons.right,
@@ -50,6 +51,18 @@ export default {
   },
   created() {
     console.log(this, "simple-group");
+  },
+  computed:{
+    titleStyle(){
+      const {titleColor} = this;
+      if(titleColor){
+        return {
+          color:titleColor
+        }
+      }else{
+        return {}
+      }
+    }
   },
   methods: {
     clickMore() {

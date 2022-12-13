@@ -47,7 +47,7 @@
         <!-- <div class="back-box" @click="toggle(TYPE.LOGIN_BY_CODE)"> -->
         <img :src="icons.back1" alt="" class="icon-back1" @click="toggle(TYPE.LOGIN_BY_CODE)">
         <!-- </div> -->
-        <p class="timedown" v-if="!timeDown">
+        <p class="timedown" v-if="timeDown">
           00:{{ String(timeDown).length === 1 ? `0${timeDown}` : timeDown }}
         </p>
         <!-- <div class="login-mobile flex-row center">
@@ -62,7 +62,7 @@
           <img :src="icons.inputCode" alt="" class="img" />
         </div> -->
         <InputVerifyCode @focus="handleFocus" @complete="handleCodeChange" />
-        <van-button class="send-code" @click="requestSendCode">重新发送</van-button>
+        <van-button v-if="!timeDown" class="send-code" @click="requestSendCode">重新发送</van-button>
 
         <van-button @click="confirm" class="confirm" :loading="loading" :disabled="disabled">
           {{ confirmBtnLabel }}
@@ -748,7 +748,8 @@ export default {
   .timedown {
     margin-top: 1.19rem;
     margin-bottom: 0.23rem;
-    font-size: 0.34rem;
+    font-size: 0.3rem;
+    color: rgb(0, 0, 0);
     // font-weight: bold;
     // color: #ffa638;
     text-align: center;
@@ -1171,9 +1172,9 @@ export default {
     .hint {
       font-size: 0.14rem;
       font-weight: 400;
-      color: #777777;
+      color:rgb(66, 64, 90);
       line-height: 0.25rem;
-      width: 75%;
+      /* width: 75%; */
       margin: 0 auto;
       text-align: center;
       margin-bottom: 0.55rem;

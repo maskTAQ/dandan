@@ -37,10 +37,10 @@ export default {
           selectedIcon: tabbar.hospital_active,
         },
         {
-          label: "服务",
+          label: "周边",
           path: "/mall",
-          icon: tabbar.service,
-          selectedIcon: tabbar.service_active,
+          icon: tabbar.mall,
+          selectedIcon: tabbar.mall_active,
         },
         {
           label: "我的",
@@ -83,7 +83,7 @@ export default {
       font-size: 0.12rem;
       color: #A2A2B0;
       &.selected {
-        color: #2A2A2A;
+        color: rgb(103, 210, 210);
       }
     }
   }
