@@ -1,8 +1,7 @@
 <template>
   <div class="mall page-tab">
     <div class="mall-top">
-      <Header :icons="icons" />
-      <Search class="search" placeholder="搜索医院/服务/笔记等内容" />
+      <SearchTool2 placeholder="搜索医院/服务/笔记等内容" />
       <StatusHandle :get="getAD">
         <Banner class="banner" :root="bannerType" />
       </StatusHandle>
@@ -215,10 +214,10 @@ export default {
 <style lang="scss">
 @import "@/assets/theme.scss";
 .mall {
-  background: #f3f6f9;
+  background: #f1f5f8;
   .mall-top {
-    height: 2.7rem;
-    padding: 0.15rem;
+    height: 2.57rem;
+    padding: 0 0.15rem;
     .search {
       margin-top: 0.1rem;
       margin-bottom: 0.15rem;
@@ -230,7 +229,6 @@ export default {
       }
     }
     .banner {
-      
     }
   }
   .sidebar {

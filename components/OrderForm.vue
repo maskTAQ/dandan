@@ -1,95 +1,107 @@
 <template>
-  <div v-if="fields && fields.length" class="order-form flex-column center">
-    <p class="title">完善表单</p>
-    <div v-if="readonly" class="fields">
-      <div
-        v-for="(item, index) in fields"
-        @click="handleItemClick(item, index)"
-        :key="item.goid"
-        class="field"
-      >
-        <p class="label">{{ item.theTitle }}</p>
-        <div v-if="item.theType === FORM_TYPE.IMAGE" class="img-list flex-row">
-          <CoverImage
-            v-for="url in item.theValue"
-            class="img"
-            :key="url"
-            :url="url"
-          />
-        </div>
-        <p v-else class="value">{{ item.theValue }}</p>
-      </div>
-    </div>
-    <div v-else class="fields">
-      <div
-        v-for="(item, index) in fields"
-        @click="handleItemClick(item, index)"
-        :key="item.goid"
-        class="field"
-      >
-        <p class="label">{{ item.theTitle }}</p>
-        <van-field
-          :value="item.theValue"
-          @input="(value) => handleChange({ index, value })"
-          v-if="item.theType === FORM_TYPE.INPUT"
-          :placeholder="item.theMessage"
-          type="text"
-          class="input"
-        />
-        <van-field
-          v-if="item.theType === FORM_TYPE.TEXTAREA"
-          :value="item.theValue"
-          @input="(value) => handleChange({ index, value })"
-          class="textarea"
-          rows="4"
-          type="textarea"
-          autosize
-          :placeholder="item.theMessage"
-        />
-        <van-uploader
-          v-if="item.theType === FORM_TYPE.IMAGE"
-          class="uploader"
-          :max-count="+item.theMessage || undefined"
-          :fileList="getFileList(item, index)"
-          :after-read="(file) => afterRead(file, index)"
-          @delete="(file, data) => handleDeleteImg(index, data.index)"
+  <SimpleGroup
+    title="表单信息"
+    titleColor="rgba(0, 188, 197, 0.8)"
+    border
+    v-if="fields && fields.length"
+    class="order-form"
+  >
+    <div>
+      <div v-if="readonly" class="fields">
+        <div
+          v-for="(item, index) in fields"
+          @click="handleItemClick(item, index)"
+          :key="item.goid"
+          class="field"
         >
-          <div slot="default" class="upload-hint align">
-            <img :src="icons.add_grey" alt="" class="icon" />
+          <p class="label">{{ item.theTitle }}</p>
+          <div
+            v-if="item.theType === FORM_TYPE.IMAGE"
+            class="img-list flex-row"
+          >
+            <CoverImage
+              v-for="url in item.theValue"
+              class="img"
+              :key="url"
+              :url="url"
+            />
           </div>
-        </van-uploader>
-        <div
-          v-if="item.theType === FORM_TYPE.DATE"
-          class="date flex-row main-between center"
-        >
-          <i class="date-label">{{ item.theValue }}</i>
-          <img :src="icons.bottom" alt="" class="icon" />
-        </div>
-        <div
-          v-if="item.theType === FORM_TYPE.TIME"
-          class="date flex-row main-between center"
-        >
-          <i class="date-label">{{ item.theValue }}</i>
-          <img :src="icons.bottom" alt="" class="icon" />
+          <p v-else class="value">{{ item.theValue }}</p>
         </div>
       </div>
+      <div v-else class="fields">
+        <div
+          v-for="(item, index) in fields"
+          @click="handleItemClick(item, index)"
+          :key="item.goid"
+          class="field"
+        >
+          <p class="label">{{ item.theTitle }}</p>
+          <van-field
+            :value="item.theValue"
+            @input="(value) => handleChange({ index, value })"
+            v-if="item.theType === FORM_TYPE.INPUT"
+            :placeholder="item.theMessage"
+            type="text"
+            class="input"
+          />
+          <van-field
+            v-if="item.theType === FORM_TYPE.TEXTAREA"
+            :value="item.theValue"
+            @input="(value) => handleChange({ index, value })"
+            class="textarea"
+            rows="4"
+            type="textarea"
+            autosize
+            :placeholder="item.theMessage"
+          />
+          <van-uploader
+            v-if="item.theType === FORM_TYPE.IMAGE"
+            class="uploader"
+            :max-count="+item.theMessage || undefined"
+            :fileList="getFileList(item, index)"
+            :after-read="(file) => afterRead(file, index)"
+            @delete="(file, data) => handleDeleteImg(index, data.index)"
+          >
+            <div slot="default" class="upload-hint align">
+              <img :src="icons.add_grey" alt="" class="icon" />
+            </div>
+          </van-uploader>
+          <div
+            v-if="item.theType === FORM_TYPE.DATE"
+            class="date flex-row main-between center"
+          >
+            <i class="date-label">{{ item.theValue }}</i>
+            <img :src="icons.bottom" alt="" class="icon" />
+          </div>
+          <div
+            v-if="item.theType === FORM_TYPE.TIME"
+            class="date flex-row main-between center"
+          >
+            <i class="date-label">{{ item.theValue }}</i>
+            <img :src="icons.bottom" alt="" class="icon" />
+          </div>
+        </div>
+      </div>
+      <div class="align">
+        <van-button
+          v-if="!readonly"
+          :loading="loading"
+          @click="submit"
+          class="confirm align"
+          >保存</van-button
+        >
+      </div>
+      <DatetimePicker
+        :title="picker.title"
+        :type="picker.type"
+        :visible="picker.visible"
+        :value="picker.value"
+        @change="change"
+        @visible-change="hide"
+      />
     </div>
-    <van-button
-      v-if="!readonly"
-      :loading="loading"
-      @click="submit"
-      class="confirm align"
-      >确定表单</van-button
-    >
-    <DatetimePicker
-      :title="picker.title"
-      :type="picker.type"
-      :visible="picker.visible"
-      :value="picker.value"
-      @change="change"
-      @visible-change="hide"
-    />
-  </div>
+  </SimpleGroup>
 </template>
 <script>
 import day from "dayjs";
@@ -295,20 +307,6 @@ export default {
 </script>
 <style lang="scss">
 .order-form {
-  margin-top: 0.13rem;
-  padding: 0.13rem 0.15rem;
-  background: #ffffff;
-  border-radius: 8px;
-  .title {
-    width: 100%;
-    font-size: 0.15rem;
-    font-weight: bold;
-    color: #5d5d5d;
-    .required {
-      color: #d81e06;
-    }
-  }
-  .title,
   .fields {
     width: 100%;
   }
@@ -317,13 +315,14 @@ export default {
     .label {
       padding-top: 0.14rem;
       padding-bottom: 0.09rem;
-      font-size: 0.13rem;
-      color: #828282;
+      font-size: 0.14rem;
+      color: rgb(85, 85, 85);
     }
     .value {
       padding-left: 0.1rem;
-      font-size: 0.14rme;
-      color: #363636;
+      font-size: 0.12rem;
+      font-weight: 500;
+      color: rgba(126, 126, 126, 0.5);
     }
     .img-list {
       flex-wrap: wrap;
@@ -335,21 +334,20 @@ export default {
     }
     .input {
       width: 100%;
-      height: 0.32rem;
-      line-height: 0.32rem;
+      height: 0.4rem;
+      line-height: 0.4rem;
       padding: 0;
       padding-left: 0.07rem;
       background: #ffffff;
-      border-radius: 5px;
-      border: 1px solid #bcbcbc;
+      border-radius: 0.11rem;
+      border: 1px solid rgb(232, 243, 241);
     }
     .textarea {
       /* width: 100%; */
-      padding: 0;
-      padding-left: 0.07rem;
+      padding: 0.07rem;
       background: #ffffff;
-      border-radius: 5px;
-      border: 1px solid #bcbcbc;
+      border-radius: 0.11rem;
+      border: 1px solid rgb(232, 243, 241);
     }
     .van-image,
     .upload-hint {
@@ -378,12 +376,12 @@ export default {
   }
   .confirm {
     margin-top: 0.37rem;
+    width: 1.22rem;
     height: 0.33rem;
-    padding: 0 0.2rem;
-    border-radius: 0.17rem;
-    font-size: 0.15rem;
+    border-radius: 0.15rem;
+    font-size: 0.14rem;
     color: #fff;
-    background: #508af6;
+    background: rgba(0, 188, 197, 0.8);
   }
 }
 </style>

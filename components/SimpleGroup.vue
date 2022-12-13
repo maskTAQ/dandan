@@ -5,13 +5,13 @@
         <i class="label" :style="titleStyle">{{ title }}</i>
       </div>
       <slot name="headright" v-if="$slots.headright"></slot>
-      <template v-else>
+      <div class="flex-row" @click="clickMore" v-else>
         <img v-if="link" :src="icons.right" alt="" class="right" />
-        <div v-if="more" @click="clickMore" class="more flex-row center">
+        <div v-if="more" class="more flex-row center">
           <i class="label">{{ moreText || "更多" }}</i>
           <!-- <img :src="rightIcon" alt="" class="right-icon" /> -->
         </div>
-      </template>
+      </div>
     </div>
     <div :class="['content', { padding }]">
       <slot></slot>
@@ -28,7 +28,7 @@ export default {
       default: icons.groupIcon,
     },
     title: String,
-    link: String,
+    link: Boolean,
     more: Boolean,
     moreText: String,
     card: Boolean,
@@ -52,17 +52,17 @@ export default {
   created() {
     console.log(this, "simple-group");
   },
-  computed:{
-    titleStyle(){
-      const {titleColor} = this;
-      if(titleColor){
+  computed: {
+    titleStyle() {
+      const { titleColor } = this;
+      if (titleColor) {
         return {
-          color:titleColor
-        }
-      }else{
-        return {}
+          color: titleColor,
+        };
+      } else {
+        return {};
       }
-    }
+    },
   },
   methods: {
     clickMore() {
@@ -91,7 +91,7 @@ export default {
       color: rgb(16, 22, 35);
     }
     .right {
-      width: 0.07rem;
+      width: 0.2rem;
     }
     .more {
       /* margin-right: 0.16rem; */

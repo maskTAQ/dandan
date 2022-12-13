@@ -4,14 +4,14 @@
       <StatusHandle :get="getPreData">
         <div class="order-confirm page-full">
           <p class="no">订单号： {{ data.orderNo }}</p>
-          <div class="goods-card card">
+          <div class="goods-card flex-row">
             <CoverImage :url="cover" class="cover" />
-            <div class="card-info flex-column main-between">
+            <div class="goods-info flex-column main-between">
               <div>
                 <p class="name">{{ data.goodsName }}</p>
                 <p class="type-name">{{ data.bName }}</p>
               </div>
-              <div class="flex-row">
+              <div class="flex-row text">
                 <span class="label">优惠</span>
                 <span class="value">优惠</span>
                 <span class="label">总计</span>
@@ -19,10 +19,35 @@
               </div>
             </div>
           </div>
-          <SimpleGroup title="价格明细" titleColor="rgba(0, 188, 197, 0.8)">
-            {{ steps.others }}
+          <SimpleGroup
+            title="价格明细"
+            titleColor="rgba(0, 188, 197, 0.8)"
+            border
+          >
+            <ul class="goods-item-list">
+              <li
+                class="goods-item flex-row main-between"
+                v-for="item in data.itemData"
+                :key="item.itemid"
+              >
+                <div>
+                  <p class="name">{{ item.itemName }}</p>
+                  <p class="remark">{{ item.Remark }}</p>
+                </div>
+                <div>
+                  <p class="price">￥{{ item.itemPrice }}</p>
+                  <p class="status">{{ ORDER_STATUS[item.Flag] }}</p>
+                </div>
+              </li>
+            </ul>
           </SimpleGroup>
-          <SimpleGroup title="积分钱包" titleColor="rgba(0, 188, 197, 0.8)">
+          <SimpleGroup
+            title="积分钱包"
+            titleColor="rgba(0, 188, 197, 0.8)"
+            link
+            border
+            @more="go({path:'/integral'})"
+          >
             <div class="jf-box flex-row main-between">
               <div>
                 <p class="label">积分（12321分）</p>
@@ -34,7 +59,8 @@
           <SimpleGroup
             title="选择优惠"
             titleColor="rgba(0, 188, 197, 0.8)"
-            more
+            link
+            border
             @more="goCardPackage"
           >
             <div class="jf-box flex-row main-between">
@@ -49,78 +75,48 @@
             title="开具发票"
             titleColor="rgba(0, 188, 197, 0.8)"
             more
+            border
           >
+            <van-checkbox
+              slot="headright"
+              v-model="params.invoice"
+              checked-color="rgba(0, 188, 197, 0.8)"
+              icon-size=".16rem"
+              shape="round"
+            />
             <!-- v-if="!!+data.isInv" -->
-            <div class="invoice-card card">
-              <div class="flex-row main-between center">
-                <i class="label">开具发票</i>
-                <van-checkbox
-                  v-model="params.invoice"
-                  checked-color="#1ebcc4"
-                  shape="square"
-                />
-              </div>
-              <div v-if="params.invoice" class="address">
-                <div
-                  v-if="invoice"
-                  @click="selectedInvoice"
-                  class="info flex-row center"
-                >
-                  <img :src="icons.invoice" alt="" class="icon" />
-                  <div class="full flex-row main-between center">
-                    <div>
-                      <div class="flex-row center">
-                        <i class="name" style="width: 0.8rem">发票抬头</i>
-                        <i class="mobile"> {{ invoice.invName }}</i>
-                      </div>
-                      <div class="flex-row center">
-                        <i class="name" style="width: 0.8rem">税号</i>
-                        <i class="mobile"> {{ invoice.invBankNo }}</i>
-                      </div>
+            <div v-if="params.invoice" class="invoice-card">
+              <div
+                v-if="invoice"
+                @click="selectedInvoice"
+                class="info flex-row center"
+              >
+                <img :src="icons.invoice" alt="" class="icon" />
+                <div class="full flex-row main-between center">
+                  <div>
+                    <div class="flex-row center">
+                      <i class="name" style="width: 0.8rem">发票抬头</i>
+                      <i class="mobile"> {{ invoice.invName }}</i>
                     </div>
-                    <img :src="icons.right" alt="" class="right" />
+                    <div class="flex-row center">
+                      <i class="name" style="width: 0.8rem">税号</i>
+                      <i class="mobile"> {{ invoice.invBankNo }}</i>
+                    </div>
                   </div>
+                  <img :src="icons.right" alt="" class="right" />
                 </div>
-                <div v-else class="no-selected" @click="selectedInvoice">
-                  <p class="label">暂无开票信息 请添加开票信息</p>
-                  <img :src="icons.right" alt="" class="icon" />
-                </div>
+              </div>
+              <div v-else class="align" @click="selectedInvoice">
+                <van-empty description="暂无开票信息 请添加开票信息" />
               </div>
             </div>
           </SimpleGroup>
-
-          <div v-if="false" class="goods-card card">
-            <p class="title" style="margin-bottom: 0.13rem">买赠活动</p>
-            <div class="flex-row">
-              <div
-                class="img"
-                :style="{
-                  background: `url('${cover}') no-repeat center / cover`,
-                }"
-              />
-              <div>
-                <p class="title">{{ data.goodsName }}</p>
-                <p class="subtitle">{{ data.bName }}</p>
-                <div class="text flex-row main-between center">
-                  <i>首笔定金</i>
-                  <i>¥2555.20</i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div v-if="!!+data.buycid" class="gift-coupon-card card">
-            <p class="title">买赠活动</p>
-            <Coupon
-              :data="{
-                cardName: data.cardName2,
-                cardValue: data.cardValue2,
-                overTime: data.overTime2,
-              }"
-              :use="false"
-            />
-          </div>
-          <div v-if="isNeedAddress" class="address card">
-            <p class="title">收货地址 <i class="required">*</i></p>
+          <SimpleGroup
+            v-if="isNeedAddress"
+            title="地址选择"
+            titleColor="rgba(0, 188, 197, 0.8)"
+            border
+          >
             <div
               v-if="address"
               @click="selectedAddress"
@@ -138,48 +134,43 @@
                 <img :src="icons.right" alt="" class="right" />
               </div>
             </div>
-            <div v-else class="no-selected" @click="selectedAddress">
-              <p class="label">暂无地址 请添加收货地址</p>
-              <img :src="icons.right" alt="" class="icon" />
+            <div v-else class="align" @click="selectedAddress">
+              <van-empty description="暂无地址 请添加收货地址" />
             </div>
-          </div>
+          </SimpleGroup>
 
           <OrderForm v-model="data.otherForm" :handleSubmit="saveForm" />
-          <div class="pay-method card">
-            <p class="title">支付方式</p>
-            <div class="flex-row main-between center">
-              <div class="flex-row">
-                <img :src="icons.wepay" alt="" class="icon" />
-                <i class="label">微信支付</i>
-              </div>
-              <van-checkbox
-                value="true"
-                checked-color="#1ebcc4"
-                shape="square"
-              />
-            </div>
-          </div>
+          <SimpleGroup
+            title="支付方式"
+            titleColor="rgba(0, 188, 197, 0.8)"
+            border
+          >
+            <ul class="pay-method-list">
+              <li class="pay-method-item flex-row main-between center">
+                <div class="flex-row">
+                  <img :src="icons.wepay" alt="" class="icon" />
+                  <i class="label">微信支付</i>
+                </div>
+                <van-checkbox
+                  icon-size="0.14rem"
+                  value="true"
+                  checked-color="rgba(0, 188, 197, 0.8)"
+                />
+              </li>
+            </ul>
+          </SimpleGroup>
+
           <div class="pay-bar flex-row main-between center">
-            <div class="flex-row center">
-              <div @click="call('13715054911')" class="btn flex-column align">
-                <img class="icon" :src="icons.mobile" alt="" />
-                <i class="label">电话咨询</i>
-              </div>
-              <div class="btn flex-column align">
-                <img class="icon" :src="icons.kf2" alt="" />
-                <i @click="goKf('goods')" class="label">客服</i>
-              </div>
+            <div>
+              <p class="label">当前支付</p>
+              <p class="price">￥{{ data.cardAmt }}</p>
             </div>
-            <div class="right flex-row center">
-              <i class="label">合计:</i>
-              <div class="price flex-row center">
-                <i class="unit">￥</i>
-                <i class="value">{{ data.cardAmt }}</i>
-              </div>
-              <van-button :loading="loading" @click="confirm" class="confirm"
-                >支付金额</van-button
-              >
-            </div>
+            <van-button
+              :loading="loading"
+              @click="confirm"
+              class="confirm algin"
+              >支付金额</van-button
+            >
           </div>
         </div>
       </StatusHandle>
@@ -202,6 +193,7 @@ import {
   goKf,
 } from "@/utils";
 import { TYPE } from "./card-package";
+import { ORDER_STATUS } from "@/constant";
 const API = {
   PRE_DATA(params) {
     return get("/Api/getNoOrderInfo_api.php", params);
@@ -244,6 +236,7 @@ export default {
         value: null,
         title: "",
       },
+      ORDER_STATUS,
     };
   },
   created() {
@@ -331,6 +324,9 @@ export default {
   methods: {
     call,
     goKf,
+    go(params){
+      router.push(params);
+    },
     requestPay(code) {
       const { href, search } = location;
       API.REQUEST_PAY({
@@ -485,7 +481,7 @@ export default {
 <style lang="scss">
 @import "../assets/theme.scss";
 .order-confirm-box {
-  padding-bottom: 0.45rem;
+  padding-bottom: 0.8rem;
   background: #fff;
   .order-confirm {
     padding: 0.12rem;
@@ -504,12 +500,78 @@ export default {
       }
     }
   }
-
+  .no {
+    font-size: 0.14rem;
+    color: rgb(85, 85, 85);
+  }
   .goods-card {
+    margin-top: 0.27rem;
     height: 1.22rem;
-    .cover{
+    border: 1px solid rgb(232, 243, 241);
+    border-radius: 0.11rem;
+    overflow: hidden;
+    .cover {
       width: 1.22rem;
       height: 1.22rem;
+    }
+    .goods-info {
+      padding-left: 0.1rem;
+      padding-top: 0.1rem;
+      .text {
+        position: relative;
+        top: 0.1rem;
+      }
+      .name {
+        font-size: 0.18rem;
+        font-weight: 600;
+        line-height: 0.22rem;
+        color: rgb(16, 22, 35);
+      }
+      .type-name {
+        margin-top: 0.1rem;
+        font-size: 0.12rem;
+        font-weight: 500;
+        color: rgb(173, 173, 173);
+      }
+      .label {
+        font-size: 0.12rem;
+        color: rgba(51, 51, 51, 0.51);
+      }
+      .value {
+        font-size: 0.12rem;
+        font-weight: 600;
+        color: rgb(85, 85, 85);
+      }
+      .price {
+        position: relative;
+        top: -0.1rem;
+        font-size: 0.22rem;
+        font-weight: 600;
+        color: rgb(16, 22, 35);
+      }
+    }
+  }
+  .goods-item-list {
+    .name {
+      font-size: 0.16rem;
+      font-weight: 500;
+      color: rgb(85, 85, 85);
+    }
+    .remark {
+      margin-top: 0.05rem;
+      font-size: 0.12rem;
+      font-weight: 500;
+      color: rgba(126, 126, 126, 0.5);
+    }
+    .price {
+      font-size: 0.14rem;
+      color: rgb(85, 85, 85);
+    }
+    .status {
+      margin-top: 0.05rem;
+      font-size: 0.14rem;
+      font-weight: 600;
+      color: rgba(51, 51, 51, 0.51);
     }
   }
   .jf-box {
@@ -609,19 +671,20 @@ export default {
     }
   }
 
-  .pay-method {
-    margin-top: 0.13rem;
-    .title {
-      margin-bottom: 0.17rem;
-    }
-    .icon {
-      margin-right: 0.09rem;
-      width: 0.22rem;
-      height: 0.22rem;
-    }
-    .label {
-      font-size: 0.15rem;
-      color: #5d5d5d;
+  .pay-method-list {
+    .pay-method-item {
+      height: 0.5rem;
+      padding: 0 0.12rem;
+      border: 1px solid rgb(232, 243, 241);
+      border-radius: 0.11rem;
+      .icon {
+        margin-right: 0.08rem;
+        width: 0.2rem;
+      }
+      .label {
+        font-size: 0.12rem;
+        color: rgb(173, 173, 173);
+      }
     }
   }
   .pay-bar {
@@ -629,44 +692,28 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 0.45rem;
-    padding: 0 0.12rem;
+    padding: 0.2rem;
+    padding-top: .1rem;
+    align-items: flex-end;
     background: #fff;
-    box-shadow: 0px -1px 12px 0px rgba(76, 135, 249, 0.05);
-    .btn {
-      &:first-child {
-        margin-right: 0.1rem;
-      }
-      .icon {
-        margin-bottom: 3px;
-        width: 0.18rem;
-      }
-      .label {
-        font-size: 0.12rem;
-        color: $color6;
-      }
-    }
-    .right {
-      font-size: 0.13rem;
-      color: #545454;
+    .label {
+      font-size: 0.14rem;
+      font-weight: 500;
+      color: rgb(173, 173, 173);
     }
     .price {
-      color: #ff4938;
-      .unit {
-        font-size: 0.13rem;
-      }
-      .value {
-        font-size: 0.17rem;
-      }
+      font-size: 0.18rem;
+      font-weight: 600;
+      color: rgb(16, 22, 35);
     }
     .confirm {
-      margin-left: 0.13rem;
-      height: 0.33rem;
-      padding: 0 0.2rem;
-      font-size: 0.15rem;
+      width: 1.92rem;
+      height: 0.5rem;
+      font-size: 0.14rem;
+      font-weight: 500;
       color: #fff;
-      border-radius: 0.17rem;
-      background: $color1;
+      border-radius: 0.32rem;
+      background: rgb(0, 188, 197);
     }
   }
 }

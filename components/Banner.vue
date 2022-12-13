@@ -144,7 +144,7 @@ export default {
     z-index: 99;
     left: 0;
     right: 0;
-    bottom: -0.2rem;
+    bottom: -0.26rem;
     .outer {
       /* margin: 0 4px; */
       width: 15px;
@@ -165,11 +165,10 @@ export default {
       }
     }
   }
-}
-.swiper-container {
-  /* margin-top: 0.1rem; */
-
-  height: 1.6rem;
-  border-radius: 0.1rem;
+  .swiper-container {
+    /* margin-top: 0.1rem; */
+    height: 1.6rem;
+    border-radius: 0.1rem;
+  }
 }
 </style>

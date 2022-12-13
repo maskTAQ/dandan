@@ -32,6 +32,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  flex-shrink:0;
   &.circle {
     border-radius: 50%;
   }

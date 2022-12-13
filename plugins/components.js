@@ -25,6 +25,7 @@ import CoverIcon from '@/components/CoverIcon.vue'
 import CoverImage from '@/components/CoverImage.vue'
 import TagList from '@/components/TagList.vue'
 import SimpleGroup from '@/components/SimpleGroup.vue'
+import SearchTool2 from '@/components/SearchTool2.vue'
 
 Vue.component('Page', Page);
 Vue.component('Input', Input);
@@ -51,3 +52,4 @@ Vue.component('Coupon', Coupon);
 Vue.component('CoverIcon', CoverIcon);
 Vue.component('SimpleGroup', SimpleGroup); 
 Vue.component('GoodsTitle', GoodsTitle); 
+Vue.component('SearchTool2', SearchTool2); 
