@@ -3,7 +3,10 @@
     <div class="order-confirm-box page-full">
       <StatusHandle :get="getPreData">
         <div class="order-confirm page-full">
-          <p class="no">订单号： {{ data.orderNo }}</p>
+          <div class="flex-row main-between center">
+            <span class="no">订单号： {{ data.orderNo }}</span>
+          </div>
+
           <div class="goods-card flex-row">
             <CoverImage :url="cover" class="cover" />
             <div class="goods-info flex-column main-between">
@@ -22,7 +25,6 @@
           <SimpleGroup
             title="价格明细"
             titleColor="rgba(0, 188, 197, 0.8)"
-            border
           >
             <ul class="goods-item-list">
               <li
@@ -468,7 +470,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "../assets/theme.scss";
+@import "@/assets/theme.scss";
 .order-confirm-box {
   padding-bottom: 0.8rem;
   background: #fff;
