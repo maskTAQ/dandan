@@ -46,7 +46,7 @@
             titleColor="rgba(0, 188, 197, 0.8)"
             link
             border
-            @more="go({path:'/integral'})"
+            @more="go({ path: '/integral' })"
           >
             <div class="jf-box flex-row main-between">
               <div>
@@ -89,22 +89,16 @@
               <div
                 v-if="invoice"
                 @click="selectedInvoice"
-                class="info flex-row center"
+                class="invoice-card flex-row main-between center"
               >
-                <img :src="icons.invoice" alt="" class="icon" />
-                <div class="full flex-row main-between center">
-                  <div>
-                    <div class="flex-row center">
-                      <i class="name" style="width: 0.8rem">发票抬头</i>
-                      <i class="mobile"> {{ invoice.invName }}</i>
-                    </div>
-                    <div class="flex-row center">
-                      <i class="name" style="width: 0.8rem">税号</i>
-                      <i class="mobile"> {{ invoice.invBankNo }}</i>
-                    </div>
-                  </div>
-                  <img :src="icons.right" alt="" class="right" />
+                <div>
+                  <p class="name">
+                    {{ invoice.invType === "1" ? "个人发票" : "企业发票" }}
+                  </p>
+                  <p class="value">{{ invoice.invName }}</p>
+                  <p class="mobile">{{ invoice.invBankNo }}</p>
                 </div>
+                <img :src="icons.right" alt="" class="right" />
               </div>
               <div v-else class="align" @click="selectedInvoice">
                 <van-empty description="暂无开票信息 请添加开票信息" />
@@ -120,19 +114,14 @@
             <div
               v-if="address"
               @click="selectedAddress"
-              class="info flex-row center"
+              class="address-card flex-row main-between center"
             >
-              <img :src="icons.address" alt="" class="icon" />
-              <div class="full flex-row main-between center">
-                <div>
-                  <div class="flex-row center">
-                    <i class="name">{{ address.mailPeople }}</i>
-                    <i class="mobile"> {{ address.mailTel }}</i>
-                  </div>
-                  <p class="value">{{ address.mailAdd }}</p>
-                </div>
-                <img :src="icons.right" alt="" class="right" />
+              <div>
+                <p class="name">{{ address.mailPeople }}</p>
+                <p class="value">{{ address.mailAdd }}</p>
+                <p class="mobile">{{ address.mailTel }}</p>
               </div>
+              <img :src="icons.right" alt="" class="right" />
             </div>
             <div v-else class="align" @click="selectedAddress">
               <van-empty description="暂无地址 请添加收货地址" />
@@ -324,7 +313,7 @@ export default {
   methods: {
     call,
     goKf,
-    go(params){
+    go(params) {
       router.push(params);
     },
     requestPay(code) {
@@ -617,50 +606,23 @@ export default {
       margin-bottom: 0.02rem;
     }
   }
-  .address {
-    .info {
-      padding-top: 0.14rem;
-      .icon {
-        margin-right: 0.13rem;
-        width: 0.22rem;
-      }
-      .full {
-        width: 0;
-        flex: 1;
-        .name {
-          font-size: 0.15rem;
-          font-weight: bold;
-          color: #292828;
-        }
-        .mobile {
-          font-size: 0.13rem;
-          color: #292828;
-        }
-        .value {
-          margin-top: 0.09rem;
-          font-size: 0.13rem;
-          color: #565656;
-        }
-        .right {
-          width: 0.13rem;
-        }
-      }
+  .invoice-card,
+  .address-card {
+    align-items: flex-end;
+    .name {
+      font-size: 0.14rem;
+      color: rgb(85, 85, 85);
     }
-    .no-selected {
-      margin-top: 0.17rem;
-      position: relative;
-      .label {
-        font-size: 0.15rem;
-        line-height: 0.3rem;
-        color: #b6b6b6;
-        text-align: center;
-      }
-      .icon {
-        position: absolute;
-        top: 0.08rem;
-        right: 0.13rem;
-        width: 0.13rem;
-      }
+    .value {
+      margin: 0.05rme;
+    }
+    .value,
+    .mobile {
+      font-size: 0.14rem;
+      color: rgb(85, 85, 85);
+    }
+    .right {
+      width: 0.2rem;
     }
   }
   .invoice-card {
@@ -693,7 +655,7 @@ export default {
     right: 0;
     bottom: 0;
     padding: 0.2rem;
-    padding-top: .1rem;
+    padding-top: 0.1rem;
     align-items: flex-end;
     background: #fff;
     .label {
