@@ -661,8 +661,9 @@ export default {
 
   .icon-back1 {
     position: absolute;
-    left: -11px;
-    top: 7px;
+    left: 16px;
+    top: 22px;
+    height: 31px;
   }
 
   .line-qt {

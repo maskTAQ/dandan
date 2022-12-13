@@ -52,8 +52,10 @@ export const icons = {
     checked: require('./icon/checked.png'),
 
     search2: require('./icon/search2.png'),
+    search3: require('./icon/search3.png'),
     msg: require('./icon/msg.png'),
     more: require('./icon/more.png'),
+    ry: require('./icon/r-y.png'),
 
     dlgy: require('./icon/dlgy.png'),
     mytj: require('./icon/mytj.png'),
@@ -112,6 +114,10 @@ export const icons = {
     money1:require('./icon/money1.png'),
     wiki:require('./icon/wiki.png'),
     tag:require('./icon/tag.png'),
+
+    logor:require('./icon/login-r.png'),
+    logoTextT:require('./icon/logo-text-sc.png'),
+    xiaox:require('./icon/xiaox.png'),
 };
 export const img = {
     logo: require('./img/logo.png'),

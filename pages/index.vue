@@ -1,5 +1,6 @@
 <template>
   <div ref="scroll" class="home page-tab" @scroll="throttleScroll">
+    <SearchTool2 @onOpen="" text="搜索/说三道四的" :isNew="true"></SearchTool2>
     <div class="header-area">
       <div class="title flex-row main-between center">
         <span class="logo">旦旦医学</span>
@@ -192,6 +193,7 @@ import DoctorLiveCard from "@/components/DoctorLiveCard.vue";
 import ScrollView from "@/components/ScrollView";
 import TopGoods from "@/components/TopGoods";
 import PartnerAgencies from "@/components/PartnerAgencies";
+import SearchTool2 from "@/components/SearchTool2.vue";
 //
 const BASE_TABS = [
   // {
@@ -774,6 +776,7 @@ export default {
     DoctorLiveCard,
     TopGoods,
     PartnerAgencies,
+    SearchTool2
   },
 };
 </script>
