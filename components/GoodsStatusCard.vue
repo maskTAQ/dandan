@@ -72,9 +72,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .goods-status-card-wrap {
-    padding: 0.17rem;
     background: #fff;
-
     .icon {
         height: 0.08rem;
         width: 0.08rem;

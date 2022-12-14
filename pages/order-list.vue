@@ -2,7 +2,6 @@
   <Page title="订单列表">
     <div class="order-list flex-column page-full">
       <Tabs :value="selected" @change="select" :data="tabs" />
-
       <List
         :request="request"
         :pageSize="20"
@@ -372,19 +371,14 @@ export default {
 
 .order-list {
   position: relative;
-  background: $color8;
-  background: #f2f3f8;
-  .tabs {
-     background: #ffffff;
-  }
+  padding: 0 0.12rem;
+  background: #fff;
   .list {
     flex: 1;
     height: 0;
-    padding: 0.16rem 0.12rem;
     .item {
       margin-bottom: 0.14rem;
       padding: 0.13rem 0.15rem;
-      background: #ffffff;
       border-radius: 8px;
       .top {
         margin-bottom: 0.1rem;

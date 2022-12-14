@@ -4,7 +4,7 @@
 
       <div class="user-info">
         <!-- <Header /> -->
-        <CoverImage :url="user.setting" size="0.5rem" class="setting" @click="go({ path: '/setting' })" />
+        <img :src="user.setting" class="setting-icon" @click="go({ path: '/setting' })" />
         <div class="bgxx"></div>
         <div @click="go({ path: '/setting' })" class="top flex-row main-between center">
           <div class="user-head">
@@ -288,6 +288,7 @@ export default {
 
 .user-page {
   background: #f3f6f9;
+  overflow-x: hidden;
 
   .user-info {
     display: flex;
@@ -308,13 +309,12 @@ export default {
       right: -189px;
     }
 
-    .setting {
-      height: 25px;
-      width: 20px;
-      background-size: contain;
+    .setting-icon {
+      width: .05rem;
       position: absolute;
-      right: 18px;
-      top: 23px;
+      right: .18rem;
+      top: .23rem;
+      z-index: 9;
     }
 
     .user-head {
@@ -417,8 +417,10 @@ export default {
   }
 
   .card {
+    position: relative;
+    z-index: 10;
     box-shadow: 0px 2px 6px 0px rgba(139, 156, 164, 0.17);
-    border-radius: 0.2rem 0.2rem 0px 0px;
+    border-radius: 0.28rem 0.28rem 0px 0px;
     background: #fff;
 
     .header {
