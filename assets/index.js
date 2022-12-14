@@ -123,6 +123,10 @@ export const icons = {
     jf:require('./icon/jf-icon.png'),
     dd:require('./icon/dd-icon.png'),
 
+    goodCalendar:require('./icon/goodCalendar.png'),
+    dd:require('./icon/dd-icon.png'),
+    goodTime:require('./icon/goodTime.png'),
+
 };
 export const img = {
     logo: require('./img/logo.png'),

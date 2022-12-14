@@ -384,13 +384,13 @@ export default {
   }
 
   .content {
-    padding: 0.1rem 0rem;
+    // padding: 0.1rem 0rem;
     padding-top: 0;
   }
 
   .card {
     box-shadow: 0px 2px 6px 0px rgba(139, 156, 164, 0.17);
-    border-radius: 0.2rem;
+    border-radius: 0.2rem 0.2rem 0px 0px;
     background: #fff;
 
     .header {
@@ -519,7 +519,7 @@ export default {
 
   .setting-card {
     margin-top: -0.15rem;
-    margin-bottom: 0.25rem;
+    // margin-bottom: 0.25rem;
 
     .list {
       padding: 0.2rem 0.32rem;
@@ -540,6 +540,14 @@ export default {
 
         .right {
           width: 0.24rem;
+        }
+      }
+      .item:last-child{
+        border: none;
+        .label {
+          font-size: 0.15rem;
+          color: #fb0606;
+          font-weight: 500;
         }
       }
     }
