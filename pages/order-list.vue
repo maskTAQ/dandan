@@ -14,6 +14,7 @@
   </Page>
 </template>
 <script>
+import GoodsStatusCard from '@/components/GoodsStatusCard'
 import { LoadingControl, formatTime, size, Tip, router } from "@/utils";
 import { get, mock } from "@/api/http";
 import { icons, img } from "@/assets";
@@ -71,6 +72,9 @@ export default {
     return {
       title: "订单列表",
     };
+  },
+  components:{
+    GoodsStatusCard
   },
   data() {
     return {
@@ -267,6 +271,8 @@ export default {
       } = item;
       const [firstOrder = {}, ...orderList] = itemData || [{}];
       return (
+       <div>
+         <GoodsStatusCard data={item}></GoodsStatusCard>
         <div key={oid} class="item">
           <div class="top flex-row main-between center">
             <i class="time text-1">
@@ -355,6 +361,7 @@ export default {
             </div>
           )}
         </div>
+       </div>
       );
     },
   },

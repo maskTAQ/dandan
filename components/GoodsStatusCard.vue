@@ -3,7 +3,7 @@
         <div class="goods-box">
             <div class="goods-head">
                 <div class="flex-row main-between">
-                    <span>订单号：9090909</span>
+                    <span>订单号：{{data.orderNo}}</span>
                     <span class="flex-row center">
                         <span class="circular"></span>进行中</span>
                 </div>
@@ -14,11 +14,11 @@
             <div class="goods-content">
                 <div class="goods-info flex-row  center">
                     <div class="cover">
-                        <img :src="icons.like1" alt="">
+                        <img :src="data.gImg" alt="">
                     </div>
                     <div class="info">
-                        <div class="title">商品名称</div>
-                        <div class="type">商品规格</div>
+                        <div class="title">{{data.goodsName}}</div>
+                        <div class="type">{{data.bName}}</div>
                         <div class="money" v-if="goodsType === 'yhj'">
                             <span class="type">优惠</span>
                             <span class="sizey">¥90</span>
@@ -62,7 +62,7 @@
 import { icons } from "@/assets";
 export default {
     name: "GoodsStatusCard",
-    props: ["goodsType"],
+    props: ["goodsType",'data'],
     data() {
         return {
             icons,
@@ -121,6 +121,9 @@ export default {
                     height: 1.22rem;
                     width: 1.22rem;
                     background: rebeccapurple;
+                    img{
+                        width: 100%;
+                    }
                 }
 
                 .info {

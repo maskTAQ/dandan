@@ -118,6 +118,11 @@ export const icons = {
     logor:require('./icon/login-r.png'),
     logoTextT:require('./icon/logo-text-sc.png'),
     xiaox:require('./icon/xiaox.png'),
+
+    yhj:require('./icon/yhj-icon.png'),
+    jf:require('./icon/jf-icon.png'),
+    dd:require('./icon/dd-icon.png'),
+
 };
 export const img = {
     logo: require('./img/logo.png'),
@@ -158,6 +163,7 @@ export const user = {
     safe: require('./user/safe.png'),
     badge: require('./user/badge.png'),
     contact: require('./user/contact.png'),
+    gl: require('./user/dd-gl.png'),
     
 };
 export const tabbar = {

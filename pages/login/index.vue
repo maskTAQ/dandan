@@ -4,7 +4,7 @@
       <div :class="['login-inner', currentType]" v-if="currentType === TYPE.LOGIN_BY_CODE">
         <img :src="icons.back1" alt="" class="icon-back1" @click="toggle(TYPE.LOGIN_BY_PASSWORD)">
         <div class="logo-box flex-column center">
-          <img :src="icons.logoText" alt="" class="logo"  />
+          <img :src="icons.logoText" alt="" class="logo" />
           <p class="logo-text">旦旦医学</p>
         </div>
         <div class="field-header">
@@ -659,6 +659,15 @@ export default {
   position: relative;
   overflow: auto;
 
+  .field-input-box {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      flex: 1;
+    }
+  }
+
   .icon-back1 {
     position: absolute;
     left: 16px;
@@ -1025,6 +1034,8 @@ export default {
         }
       }
 
+
+
       .field-input-box {
         height: 0.45rem;
         padding: 0 0.33rem;
@@ -1172,7 +1183,7 @@ export default {
     .hint {
       font-size: 0.14rem;
       font-weight: 400;
-      color:rgb(66, 64, 90);
+      color: rgb(66, 64, 90);
       line-height: 0.25rem;
       /* width: 75%; */
       margin: 0 auto;
@@ -1305,30 +1316,34 @@ export default {
     height: 100%;
     background: #fff;
     overflow: auto;
-    .request-code {
-    font-size: 0.14rem;
-    font-weight: 400;
-    color: #fff;
-    white-space: nowrap;
-    display: inline-block;
-    background: #1ebcc4;
-    height: 55px;
-    line-height: 55px;
-    border-radius: 15px;
-    padding: 0px 0.1rem;
-    /* width: 94px; */
-}
-    .input-box {
-          height: 100%;
-          border-bottom: none;
-          background: #fff !important;
-        }
-        .area-code{
-          font-size: 0.14rem;
-          font-weight: 400;
-          background: #fff !important;
 
-        }
+    .request-code {
+      font-size: 0.14rem;
+      font-weight: 400;
+      color: #fff;
+      white-space: nowrap;
+      display: inline-block;
+      background: #1ebcc4;
+      height: 55px;
+      line-height: 55px;
+      border-radius: 15px;
+      padding: 0px 0.1rem;
+      /* width: 94px; */
+    }
+
+    .input-box {
+      height: 100%;
+      border-bottom: none;
+      background: #fff !important;
+    }
+
+    .area-code {
+      font-size: 0.14rem;
+      font-weight: 400;
+      background: #fff !important;
+
+    }
+
     .login-inner {
       // padding: 0 0.3rem;
       padding-bottom: 0.8rem;
@@ -1387,12 +1402,12 @@ export default {
       background: #1ebcc4;
       color: #fff;
     }
-  
+
     .field-box {
       margin-top: 0.25rem;
       padding: 0 0.3rem;
       position: relative;
-      background: #fff ;
+      background: #fff;
 
       .field-header {
         padding-left: 0.13rem;
@@ -1409,10 +1424,10 @@ export default {
           left: 50px;
           background: #fff;
           padding: 0px 0.1rem;
-          font-size:0.12rem;
+          font-size: 0.12rem;
         }
       }
-    
+
       .field-input-box {
         height: 0.45rem;
         padding: 0 0.33rem;
@@ -1429,7 +1444,7 @@ export default {
           }
         }
 
-       
+
       }
     }
 
