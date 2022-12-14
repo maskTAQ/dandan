@@ -168,7 +168,8 @@ export const user = {
     badge: require('./user/badge.png'),
     contact: require('./user/contact.png'),
     gl: require('./user/dd-gl.png'),
-    
+    updata: require('./user/updata.png'),
+    setting: require('./user/setting.png'),
 };
 export const tabbar = {
     home: require('../assets/tabbar/home.png'),
