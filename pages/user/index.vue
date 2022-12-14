@@ -4,10 +4,12 @@
 
       <div class="user-info">
         <!-- <Header /> -->
+        <CoverImage :url="user.setting" size="0.5rem" class="setting" @click="go({ path: '/setting' })" />
         <div class="bgxx"></div>
         <div @click="go({ path: '/setting' })" class="top flex-row main-between center">
           <div class="user-head">
             <CoverImage :url="userInfo.UserPhoto" size="0.5rem" style="margin: 0 auto;" circle class="portrait" />
+            <CoverImage :url="user.updata" size="0.5rem" circle class="updata" />
             <div class="info">
               <p class="name">{{ userInfo.NickName || "--" }}</p>
               <!-- <p class="slogan">
@@ -21,7 +23,7 @@
           <template v-for="(menu, index) in menus">
             <div :key="menu.label" @click="go(menu)" class="menu flex-column align">
               <!-- {{menu}} -->
-             <CoverImage :url="menu.img" size="0.5rem"  class="cover" />  
+              <CoverImage :url="menu.img" size="0.5rem" class="cover" />
               <p class="label">{{ menu.label }}</p>
               <p class="value" v-if="index == 0">{{ menu.value }}笔订单</p>
               <p class="value" v-if="index == 1">{{ menu.value }}张有效</p>
@@ -187,26 +189,26 @@ export default {
         {
           label: "我的订单",
           value: OrderNum,
-          img:icons.dd,
+          img: icons.dd,
           path: "/order-list",
         },
         {
           label: "我的优惠券",
           value: CardNum,
-          img:icons.yhj,
+          img: icons.yhj,
           path: "/card-package",
         },
         {
           label: "我的积分",
           value: CardNum,
-          img:icons.jf,
+          img: icons.jf,
           path: "/integral",
         },
       ];
     },
     others() {
       return [
-      {
+        {
           label: "好孕笔记",
           icon: user.notes,
           path: "/notes",
@@ -226,7 +228,7 @@ export default {
           icon: user.invoice,
           path: "/invoice",
         },
-       
+
         {
           label: "微信订阅",
           icon: user.wechat,
@@ -291,8 +293,9 @@ export default {
     display: flex;
     height: 3.57rem;
     flex-direction: column;
-    padding: 0.17rem 0.15rem 0 0.15rem;
+    padding: 0.25rem 0.15rem 0 0.15rem;
     background: linear-gradient(rgba(82, 209, 198, 1) 0%, rgba(48, 173, 162, 1) 100%);
+    position: relative;
 
     // background: url("./imgs/bg.png") no-repeat center center / 100% 100%;
     .bgxx {
@@ -305,12 +308,33 @@ export default {
       right: -189px;
     }
 
+    .setting {
+      height: 25px;
+      width: 20px;
+      background-size: contain;
+      position: absolute;
+      right: 18px;
+      top: 23px;
+    }
+
     .user-head {
       text-align: center;
       width: 100%;
+      position: relative;
 
       .portrait {
         margin: 0 auto;
+      }
+
+      .updata {
+        height: 20px;
+        width: 20px;
+        // margin: 0 auto;
+        // margin-left: 100px;
+
+        position: absolute;
+        top: 61px;
+        left: 194px;
       }
     }
 
@@ -344,17 +368,20 @@ export default {
     }
 
     .menus {
-      margin-top: 0.35rem; 
+      margin-top: 0.35rem;
       width: 100%;
       height: 0.6rem;
-      .cover{
+
+      .cover {
         height: 0.26rem;
         width: 0.26rem;
-        margin:0.07rem 0px
+        margin: 0.07rem 0px
       }
+
       .menu {
         flex: 1;
         border-right: 1px solid #fff;
+
         .value {
           margin-bottom: 0.05rem;
           font-size: 0.15rem;
@@ -365,11 +392,12 @@ export default {
         .label {
           font-size: 0.12rem;
           margin-bottom: 0.05rem;
-          
+
           color: rgb(192, 243, 238);
         }
       }
-      .menu:last-child{
+
+      .menu:last-child {
         border: none;
       }
 
@@ -384,13 +412,13 @@ export default {
   }
 
   .content {
-    padding: 0.1rem 0rem;
+    // padding: 0.1rem 0rem;
     padding-top: 0;
   }
 
   .card {
     box-shadow: 0px 2px 6px 0px rgba(139, 156, 164, 0.17);
-    border-radius: 0.2rem;
+    border-radius: 0.2rem 0.2rem 0px 0px;
     background: #fff;
 
     .header {
@@ -519,10 +547,11 @@ export default {
 
   .setting-card {
     margin-top: -0.15rem;
-    margin-bottom: 0.25rem;
+    // margin-bottom: 0.25rem;
 
     .list {
       padding: 0.2rem 0.32rem;
+
       .item {
         height: 0.6rem;
         border-bottom: 1px solid rgb(232, 243, 241);
@@ -540,6 +569,16 @@ export default {
 
         .right {
           width: 0.24rem;
+        }
+      }
+
+      .item:last-child {
+        border: none;
+
+        .label {
+          font-size: 0.15rem;
+          color: #fb0606;
+          font-weight: 500;
         }
       }
     }

@@ -123,6 +123,10 @@ export const icons = {
     jf:require('./icon/jf-icon.png'),
     dd:require('./icon/dd-icon.png'),
     groupMore:require('./icon/group-more.png'),
+    goodCalendar:require('./icon/goodCalendar.png'),
+    dd:require('./icon/dd-icon.png'),
+    goodTime:require('./icon/goodTime.png'),
+
 };
 export const img = {
     logo: require('./img/logo.png'),
@@ -164,7 +168,8 @@ export const user = {
     badge: require('./user/badge.png'),
     contact: require('./user/contact.png'),
     gl: require('./user/dd-gl.png'),
-    
+    updata: require('./user/updata.png'),
+    setting: require('./user/setting.png'),
 };
 export const tabbar = {
     home: require('../assets/tabbar/home.png'),
