@@ -7,8 +7,8 @@
                     <span class="flex-row center">
                         <span class="circular"></span>进行中</span>
                 </div>
-                <div><img :src="icons.goodCalendar" class="time-icon" alt="" />2022/22/33
-                    <img :src="icons.goodTime" class="time-icon" alt="" />10:90:11
+                <div class="flex-row center"><img :src="icons.goodCalendar" class="time-icon" alt="" />2022/22/33
+                    <img :src="icons.goodTime" class="time-icon ttime" alt="" />10:90:11
                 </div>
             </div>
             <div class="goods-content">
@@ -105,9 +105,12 @@ export default {
             }
 
             .time-icon {
-                height: 10px;
-                width: 10px;
+                height:0.13rem;
+                width: 0.13rem;
                 margin-right: 3px;
+            }
+            .ttime{
+                margin-left: 0.1rem;
             }
         }
 
