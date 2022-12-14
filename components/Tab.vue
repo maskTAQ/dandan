@@ -215,7 +215,7 @@ export default {
       color: #868e9e;
       &.selected {
         margin-top: -0.02rem;
-        padding: 0 0.08rem;
+        /* padding: 0 0.08rem; */
         font-size: 0.16rem;
         font-weight: bold;
       }

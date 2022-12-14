@@ -383,7 +383,7 @@ export const router = {
             router.list.push(params.path)
         }
     },
-    login(){
+    login() {
         router.replace({
             path: "/login", query: {
                 redirect: URL.decode(app.$route.fullPath)
@@ -642,6 +642,21 @@ export class Timing {
         }
         this.reset();
     }
+}
+
+export function getTagList({ text, max }) {
+    const string = String(text || "");
+    let result;
+    if (typeof string === "string") {
+        result = string.split(";");
+    } else {
+        result = toArray(string);
+    }
+    if (max && result.length > max) {
+        result.length = max;
+        result.push("...");
+    }
+    return result;
 }
 if (process.browser) {
     window.UID = UID;

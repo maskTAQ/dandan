@@ -4,7 +4,7 @@
       <div class="header-area">
         <div class="title flex-row main-between center">
           <span class="logo">旦旦医学</span>
-          <div class="search flex-row center">
+          <div class="search flex-row center" @click="go({path:'/search'})">
             <img :src="icons.search" alt="" class="icon" />
             <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
           </div>
@@ -32,6 +32,8 @@
         <Group
           title="名医直播"
           class="doctor-live-list-card"
+          more
+          @more="go({path:'/live-list'})"
           v-if="data.doctorLiveList.length"
         >
           <ScrollView>
@@ -50,6 +52,8 @@
         <Group
           title="专家直达"
           class="doctor-info-list-card"
+          more
+          @more="go({path:'/doctor-list'})"
           v-if="data.doctorList.length"
         >
           <ScrollView>
@@ -66,13 +70,15 @@
       </StatusHandle>
     </div>
     <div class="padding-box white-area">
-      <Group title="合作机构">
+      <Group title="合作机构" more>
         <PartnerAgencies />
       </Group>
       <StatusHandle :get="getGoodsList">
         <Group
           title="精选周边"
           class="goods-list-card"
+          more
+          @more="go({path:'/mall'})"
           v-if="data.doctorList.length"
         >
           <ScrollView>
@@ -714,8 +720,6 @@ export default {
 
       return (
         <ArticleCard
-          // imgH={i % 2 === 0 ? "1.5rem" : "1.4rem"}
-          imgH={"0.95rem"}
           class="article-card"
           data={item}
           onCoverLoad={() => {
@@ -918,6 +922,8 @@ export default {
         color: rgb(42, 42, 42);
       }
       .price-box {
+        justify-content: flex-end;
+        padding-right: .1rem;
         font-weight: bold;
         color: rgb(217, 51, 26);
         .unit {

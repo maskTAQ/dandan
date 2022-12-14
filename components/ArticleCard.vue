@@ -32,7 +32,7 @@
 import { icons } from "@/assets";
 export default {
   name: "ArticleCard",
-  props: ["imgH", "data"],
+  props: [ "data"],
   data() {
     return {
       icons,
@@ -41,6 +41,7 @@ export default {
   computed: {
     src() {
       const { PageImg, cover } = this.data;
+      console.log(this.data,'this.data');
       return PageImg && PageImg[0] ? PageImg : cover;
     },
   },
@@ -65,6 +66,7 @@ export default {
     border: none;
     outline: none;
     border-image-width: 0;
+    border-radius: 0.08rem ;
   }
 
   .info {

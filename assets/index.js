@@ -122,7 +122,7 @@ export const icons = {
     yhj:require('./icon/yhj-icon.png'),
     jf:require('./icon/jf-icon.png'),
     dd:require('./icon/dd-icon.png'),
-
+    groupMore:require('./icon/group-more.png'),
 };
 export const img = {
     logo: require('./img/logo.png'),

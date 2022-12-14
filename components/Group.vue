@@ -29,14 +29,14 @@ export default {
       default: icons.groupIcon,
     },
     title: String,
-    link: String,
+    link: Boolean,
     more: Boolean,
     moreText: String,
     card: Boolean,
     size: String,
     rightIcon: {
       type: String,
-      default: icons.right,
+      default: icons.groupMore,
     },
     border: Boolean,
   },
@@ -89,13 +89,14 @@ export default {
     .more {
       /* margin-right: 0.16rem; */
       .label {
-        font-size: 0.13rem;
-        color: #989898;
+        font-size: 0.12rem;
+        font-weight: 500;
+        color: rgb(168, 184, 184);
       }
       .right-icon {
         margin-left: 0.04rem;
         display: block;
-        width: 0.07rem;
+        width: 0.12rem;
         height: auto;
       }
     }
