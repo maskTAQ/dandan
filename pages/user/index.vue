@@ -1,37 +1,92 @@
 <template>
   <div class="user-page page-tab">
     <StatusHandle :get="getUserInfo" class="user-info">
-
       <div class="user-info">
         <!-- <Header /> -->
-        <img :src="user.setting" class="setting-icon" @click="go({ path: '/setting' })" />
-        <div class="bgxx"></div>
-        <div @click="go({ path: '/setting' })" class="top flex-row main-between center">
-          <div class="user-head">
-            <CoverImage :url="userInfo.UserPhoto" size="0.5rem" style="margin: 0 auto;" circle class="portrait" />
-            <CoverImage :url="user.updata" size="0.5rem" circle class="updata" />
-            <div class="info">
-              <p class="name">{{ userInfo.NickName || "--" }}</p>
-              <!-- <p class="slogan">
+        <div class="padding-box">
+          <img
+            :src="user.setting"
+            class="setting-icon"
+            @click="go({ path: '/setting' })"
+          />
+          <div class="bgxx"></div>
+          <div
+            @click="go({ path: '/setting' })"
+            class="top flex-row main-between center"
+          >
+            <div class="user-head">
+              <CoverImage
+                :url="userInfo.UserPhoto"
+                size="0.5rem"
+                style="margin: 0 auto"
+                circle
+                class="portrait"
+              />
+              <CoverImage
+                :url="user.updata"
+                size="0.5rem"
+                circle
+                class="updata"
+              />
+              <div class="info">
+                <p class="name">{{ userInfo.NickName || "--" }}</p>
+                <!-- <p class="slogan">
                 {{ userInfo.UserRemarks || "旦旦医学 一站式备孕服务平台" }}
               </p> -->
+              </div>
             </div>
+            <!-- <img :src="icons.right" alt="" class="more" /> -->
           </div>
-          <!-- <img :src="icons.right" alt="" class="more" /> -->
+          <div class="menus flex-row center">
+            <template v-for="(menu, index) in menus">
+              <div
+                :key="menu.label"
+                @click="go(menu)"
+                class="menu flex-column align"
+              >
+                <!-- {{menu}} -->
+                <CoverImage :url="menu.img" size="0.5rem" class="cover" />
+                <p class="label">{{ menu.label }}</p>
+                <p class="value" v-if="index == 0">{{ menu.value }}笔订单</p>
+                <p class="value" v-if="index == 1">{{ menu.value }}张有效</p>
+                <p class="value" v-if="index == 2">{{ menu.value }}积分</p>
+              </div>
+              <span
+                v-if="index !== menus.length - 1"
+                :key="index"
+                class="split"
+              />
+            </template>
+          </div>
         </div>
-        <div class="menus flex-row center">
-          <template v-for="(menu, index) in menus">
-            <div :key="menu.label" @click="go(menu)" class="menu flex-column align">
-              <!-- {{menu}} -->
-              <CoverImage :url="menu.img" size="0.5rem" class="cover" />
-              <p class="label">{{ menu.label }}</p>
-              <p class="value" v-if="index == 0">{{ menu.value }}笔订单</p>
-              <p class="value" v-if="index == 1">{{ menu.value }}张有效</p>
-              <p class="value" v-if="index == 2">{{ menu.value }}积分</p>
+        <StatusHandle :get="getUserInfo" class="kf-card">
+          <div
+            v-if="userInfo.AdminId"
+            class="kf-card flex-row main-between center"
+          >
+            <div class="badge align">专属客服</div>
+            <div class="flex-row center">
+              <CoverImage
+                :url="userInfo.AdminPhoto"
+                size="0.5rem"
+                circle
+                class="cover"
+              />
+              <div class="info">
+                <div class="flex-row center">
+                  <p class="name">{{ userInfo.AdminName }}</p>
+                  <!-- <p class="title">国家生殖咨询管理师</p> -->
+                </div>
+                <p class="position">-</p>
+              </div>
             </div>
-            <span v-if="index !== menus.length - 1" :key="index" class="split" />
-          </template>
-        </div>
+            <div class="flex-column align">
+              <img :src="user.msg" alt="" class="icon" />
+              <span class="label">联系客服</span>
+            </div>
+            <!-- <button class="contact align">联系客服</button> -->
+          </div>
+        </StatusHandle>
       </div>
     </StatusHandle>
     <div class="content">
@@ -51,28 +106,18 @@
           </div>
         </div>
       </div> -->
-      <StatusHandle :get="getUserInfo" class="kf-card">
-        <div v-if="userInfo.AdminId" class="kf-card card flex-row main-between center">
-          <div class="badge align">专属客服</div>
-          <div class="flex-row center">
-            <CoverImage :url="userInfo.AdminPhoto" size="0.5rem" circle class="cover" />
-            <div class="info">
-              <div class="flex-row center">
-                <p class="name">{{ userInfo.AdminName }}</p>
-                <!-- <p class="title">国家生殖咨询管理师</p> -->
-              </div>
-              <p class="position">-</p>
-            </div>
-          </div>
-          <!-- <button class="contact align">联系客服</button> -->
-        </div>
-      </StatusHandle>
+
       <div class="setting-card card">
         <!-- <div class="header flex-row main-between center">
           <p class="title">更多设置</p>
         </div> -->
         <ul class="list">
-          <li class="item flex-row main-between center" v-for="item in others" :key="item.label" @click="go(item)">
+          <li
+            class="item flex-row main-between center"
+            v-for="item in others"
+            :key="item.label"
+            @click="go(item)"
+          >
             <div class="flex-row center">
               <img :src="item.icon" alt="" class="icon" />
               <span class="label">{{ item.label }}</span>
@@ -251,7 +296,7 @@ export default {
         //   icon: user.safe,
         //   path: "/password",
         // },
-        // !!+this.userInfo.isZY && 
+        // !!+this.userInfo.isZY &&
         {
           label: "新生大使",
           icon: user.agent,
@@ -287,17 +332,22 @@ export default {
 @import "@/assets/theme.scss";
 
 .user-page {
-  background: #f3f6f9;
+  background: #fff;
   overflow-x: hidden;
 
   .user-info {
     display: flex;
-    height: 3.57rem;
+    /* height: 3.57rem; */
     flex-direction: column;
-    padding: 0.25rem 0.15rem 0 0.15rem;
-    background: linear-gradient(rgba(82, 209, 198, 1) 0%, rgba(48, 173, 162, 1) 100%);
+    padding-bottom: 0.5rem;
+    background: linear-gradient(
+      rgba(82, 209, 198, 1) 0%,
+      rgba(48, 173, 162, 1) 100%
+    );
     position: relative;
-
+    .padding-box {
+      padding: 0.25rem 0.15rem;
+    }
     // background: url("./imgs/bg.png") no-repeat center center / 100% 100%;
     .bgxx {
       background: url("./imgs/bg-xx.png") no-repeat center center / 100% 100%;
@@ -310,10 +360,10 @@ export default {
     }
 
     .setting-icon {
-      width: .05rem;
+      width: 0.05rem;
       position: absolute;
-      right: .18rem;
-      top: .23rem;
+      right: 0.18rem;
+      top: 0.23rem;
       z-index: 9;
     }
 
@@ -344,14 +394,14 @@ export default {
 
       .portrait {
         margin-right: 0.15rem;
-        width: 0.80rem;
-        height: 0.80rem;
+        width: 0.8rem;
+        height: 0.8rem;
         border: 3px solid #fff;
       }
 
       .name {
         font-size: 0.18rem;
-        font-weight: bolds;
+        font-weight: bold;
         color: #fff;
         margin-top: 0.19rem;
       }
@@ -375,12 +425,12 @@ export default {
       .cover {
         height: 0.26rem;
         width: 0.26rem;
-        margin: 0.07rem 0px
+        margin: 0.07rem 0px;
       }
 
       .menu {
         flex: 1;
-        border-right: 1px solid #fff;
+        border-right: 1px solid rgb(192, 243, 238);
 
         .value {
           margin-bottom: 0.05rem;
@@ -497,25 +547,28 @@ export default {
     margin-top: 0.2rem;
     height: 1rem;
     position: relative;
-    padding: 0 0.15rem;
+    padding: 0 0.4rem;
+    border-radius: 1rem;
+    background: #fff;
 
     .badge {
       position: absolute;
       top: -0.05rem;
-      left: 0;
+      left: 0.35rem;
       width: 0.68rem;
       height: 0.21rem;
 
       font-size: 0.11rem;
       color: #ffffff;
-      background: url("../../assets/user/badge.png") no-repeat center center / 100% 100%;
+      background: url("../../assets/user/badge.png") no-repeat center center /
+        100% 100%;
     }
 
     .cover {
       margin-right: 0.09rem;
       width: 0.58rem;
       height: 0.58rem;
-      border-radius: 0.1rem;
+      border-radius: 0.15rem;
       background-color: #e6edf3;
     }
 
@@ -541,14 +594,23 @@ export default {
       /* width: 0.58rem; */
       height: 0.28rem;
       padding: 0 0.1rem;
-      background: url("../../assets/user/contact.png") no-repeat center center / 100% 100%;
+      background: url("../../assets/user/contact.png") no-repeat center center /
+        100% 100%;
       font-size: 0.11rem;
       color: #fff;
+    }
+    .icon {
+      width: 0.2rem;
+    }
+    .label {
+      margin-top: 0.1rem;
+      font-size: 0.12rem;
+      color: rgb(76, 76, 76);
     }
   }
 
   .setting-card {
-    margin-top: -0.15rem;
+    margin-top: -0.3rem;
     // margin-bottom: 0.25rem;
 
     .list {

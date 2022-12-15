@@ -428,7 +428,7 @@ export default {
         agree,
         loginRes,
       } = this;
-      if (currentType !== TYPE.SET_PASSWORD && !agree) {
+      if (![TYPE.SET_PASSWORD,TYPE.BIND_MOBILE].includes(currentType) && !agree) {
         return Tip.success("请先阅读并同意《用户协议》");
       }
       switch (currentType) {
