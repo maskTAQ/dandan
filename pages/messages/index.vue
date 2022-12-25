@@ -13,9 +13,10 @@
 <script>
 import { mock } from "@/api";
 import { get } from "@/api/http";
-import DoctorCard from "@/components/DoctorCard";
+import CoverImage from "@/components/CoverImage";
 import { router, formatTime } from "@/utils";
 import dayjs from "dayjs";
+import { link } from "../../utils";
 
 const API = {
   LIST(params) {
@@ -32,42 +33,55 @@ export default {
   },
   methods: {
     request(params) {
-      return API.LIST(params)//.then((res) => [{}]);
+      return API.LIST(params); //.then((res) => [{}]);
     },
     go(item) {
-      const { cid } = item;
+      const { OrderNo, WxUrl, theName } = item;
+      switch (+OrderNo) {
+        case 1: {
+          if (WxUrl) {
+            link({
+              title: theName,
+              src: WxUrl,
+            });
+          }
+          break;
+        }
+        case 2: {
+          router.push({
+            path: "/chat",
+          });
+          break;
+        }
+        case 3: {
+          router.push({
+            path: "/messages/system",
+          });
+          break;
+        }
+        case 4: {
+          router.push({
+            path: "/messages/comments",
+          });
+          break;
+        }
+      }
+      console.log(item, "item");
       // router.push({
       //   path: "/consult-doctor",
       //   query: {
       //     id: bid,
       //   },
       // });
-      router.push({
-        path: "/card-list",
-        query: {
-          id: cid,
-        },
-      });
+      // router.push({
+      //   path: "/card-list",
+      //   query: {
+      //     id: cid,
+      //   },
+      // });
     },
     renderItem(item, i, instance) {
-      const {
-        adminPhoto,
-        adminName,
-        adminType,
-        cType,
-        cardText,
-        SendDate,
-        ...o
-      } = item;
-      const data = {
-        ...o,
-        exPhoto: adminPhoto,
-        exName: adminName,
-        exRoom: adminType,
-        exLevel: cType,
-        HsName: "--",
-        time: formatTime(SendDate, "MM-DD HH:mm"),
-      };
+      const { theName, Icon, IsTag, Msg, isRead } = item;
       return (
         <div
           onClick={() => {
@@ -75,13 +89,15 @@ export default {
           }}
           class="item flex-row center"
         >
-          <CoverImage class="portrait" />
+          <CoverImage url={Icon} class="portrait">
+            {!!isRead && <div class="dot" />}
+          </CoverImage>
           <div class="info">
             <div class="flex-row center">
-              <span class="name">王博超</span>
-              <span class="tag align">专属顾问</span>
+              <span class="name">{theName}</span>
+              {!!IsTag && <span class="tag align">专属顾问</span>}
             </div>
-            <p class="desc">国家生殖咨询管理师</p>
+            {!!Msg && <p class="desc">{Msg}</p>}
           </div>
         </div>
       );
@@ -102,10 +118,19 @@ export default {
       background: #fff;
       padding: 0.15rem;
       .portrait {
+        position: relative;
         margin-right: 0.09rem;
         width: 0.57rem;
         height: 0.57rem;
-        border: 1px solid red;
+        .dot {
+          position: absolute;
+          top: -3px;
+          right: -3px;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #fd4548;
+        }
       }
       .name {
         margin-right: 0.05rem;

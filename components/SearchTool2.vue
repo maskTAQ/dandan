@@ -6,8 +6,10 @@
       <img class="search-icon" :src="icons.search3" alt="" />
       {{ placeholder || text }}
     </div>
-    <img :src="icons.xiaox" class="xiaox" alt="" />
-    <img v-if="isNew" :src="icons.ry" alt="" class="show-red" />
+    <div @click="goMessage">
+      <img :src="icons.xiaox" class="xiaox" alt="" />
+      <img v-if="isNew" :src="icons.ry" alt="" class="show-red" />
+    </div>
   </div>
 </template>
 <script>
@@ -24,6 +26,11 @@ export default {
     go() {
       router.push({
         path: "/search",
+      });
+    },
+    goMessage() {
+      router.push({
+        path: "/messages",
       });
     },
   },

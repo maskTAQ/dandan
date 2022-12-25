@@ -4,7 +4,7 @@
       <div class="header-area">
         <div class="title flex-row main-between center">
           <span class="logo">旦旦医学</span>
-          <div class="search flex-row center" @click="go({path:'/search'})">
+          <div class="search flex-row center" @click="go({ path: '/search' })">
             <img :src="icons.search" alt="" class="icon" />
             <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
           </div>
@@ -33,7 +33,7 @@
           title="名医直播"
           class="doctor-live-list-card"
           more
-          @more="go({path:'/live-list'})"
+          @more="go({ path: '/live-list' })"
           v-if="data.doctorLiveList.length"
         >
           <ScrollView>
@@ -53,7 +53,7 @@
           title="专家直达"
           class="doctor-info-list-card"
           more
-          @more="go({path:'/doctor-list'})"
+          @more="go({ path: '/doctor-list' })"
           v-if="data.doctorList.length"
         >
           <ScrollView>
@@ -78,7 +78,7 @@
           title="精选周边"
           class="goods-list-card"
           more
-          @more="go({path:'/mall'})"
+          @more="go({ path: '/mall' })"
           v-if="data.doctorList.length"
         >
           <ScrollView>
@@ -362,7 +362,7 @@ export default {
     data() {
       setTimeout(() => {
         this.computedY();
-      },10);
+      }, 10);
     },
   },
   computed: {
@@ -493,13 +493,13 @@ export default {
     getDoctorLiveList() {
       return API.GOODS_TYPE_LIST("医院").then((res) => {
         this.data.doctorLiveList = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     getDoctorList() {
       return API.GOODS_TYPE_LIST("医院").then((res) => {
         this.data.doctorList = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     getGoodsType() {
@@ -518,7 +518,7 @@ export default {
           // });
         }
         this.data.goodsTypeList = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     goPunchTab() {
@@ -608,7 +608,7 @@ export default {
     getAD() {
       return API.AD().then((res) => {
         this.data.adList = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     goAD(ad) {
@@ -628,7 +628,7 @@ export default {
     getInsuranceInfo() {
       return API.INSURANCE_INFO().then((res) => {
         this.data.insuranceInfo = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     goLive() {
@@ -640,7 +640,7 @@ export default {
     getGroupList() {
       return API.GORUP_LIST({ top: 4 }).then((res) => {
         this.data.groupList = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     getCourseList() {
@@ -648,7 +648,7 @@ export default {
         // res.length = 2;
         // this.data.courseList = res;
         this.data.recommend = res[0];
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     getGoodsList() {
@@ -657,7 +657,7 @@ export default {
         root: "医院",
       }).then((res) => {
         this.data.goodsList = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
       });
     },
     computedY() {
@@ -665,14 +665,14 @@ export default {
       if (tab && tab.$el) {
         const y = tab.$el.getBoundingClientRect().y;
         //需要减去固定的头部的高度
-        this.tabY = scroll.scrollTop + y;// + getRoot() * 0.5;
+        this.tabY = scroll.scrollTop + y; // + getRoot() * 0.5;
         console.log("computedY", this.tabY, { y, screenTop: scroll.scrollTop });
       }
     },
     getTabList() {
       return API.TAB_LIST().then((res) => {
         this.data.tabList = res;
-        this.data = {...this.data};
+        this.data = { ...this.data };
         this.$nextTick(() => {
           setTimeout(this.goTab, 100, this.$route.query.tab);
         });
@@ -791,7 +791,7 @@ export default {
     DoctorLiveCard,
     TopGoods,
     PartnerAgencies,
-    SearchTool2
+    SearchTool2,
   },
 };
 </script>
@@ -805,6 +805,7 @@ export default {
   .header-area {
     height: 2.86rem;
     padding: 0.18rem;
+    padding-top: 0;
     background: url("../assets/img/home-top-bg.png") no-repeat center top / 100%
         auto,
       url("../assets/img/home-head-bg.png") no-repeat center top / 100% auto;
@@ -923,7 +924,7 @@ export default {
       }
       .price-box {
         justify-content: flex-end;
-        padding-right: .1rem;
+        padding-right: 0.1rem;
         font-weight: bold;
         color: rgb(217, 51, 26);
         .unit {

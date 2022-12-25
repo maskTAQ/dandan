@@ -46,20 +46,6 @@ export default {
       !isChild && (children || []).find((item) => item.reType === "2");
     return (
       <div class="message-card">
-        <div class="top flex-row center">
-          <img src={portrait} class="portrait" />
-          <div class="flex-column">
-            <div class="flex-row center">
-              <p class="user-name">{name}</p>
-              {classify && (
-                <div class={"classify customer-service "}>
-                  <p>{classify}</p>
-                </div>
-              )}
-            </div>
-            <p class="label">{type}</p>
-          </div>
-        </div>
         <p class="message">{message}</p>
         {imgList && (
           <div class="img-list flex-row">
@@ -81,6 +67,20 @@ export default {
             })}
           </div>
         )}
+        <div class="user-info flex-row center">
+          <CoverImage url={portrait} class="portrait" />
+          <div class="flex-column">
+            <div class="flex-row center">
+              <p class="user-name">{name}</p>
+              {classify && (
+                <div class={"classify customer-service "}>
+                  <p>{classify}</p>
+                </div>
+              )}
+            </div>
+            <p class="label">{type}</p>
+          </div>
+        </div>
         {!isChild && (
           <div class="btn-group flex-row center">
             {isHF === "1" && (
@@ -117,11 +117,11 @@ export default {
 .message-card {
   margin-bottom: 0.15rem;
   padding: 0.16rem;
-  box-shadow: 0px 2px 6px 0px rgba(139, 156, 164, 0.17);
-  border-radius: 0.1rem;
   background: #fff;
+  box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.1);
+  border-radius: 0.2rem;
 
-  .top {
+  .user-info {
     margin-bottom: 0.18rem;
   }
 
@@ -158,8 +158,8 @@ export default {
     }
 
     &.customer-service {
-      background: rgba($color: #4C87F9, $alpha: 0.1);
-      color: #4C87F9;
+      background: rgba($color: #4c87f9, $alpha: 0.1);
+      color: #4c87f9;
     }
   }
 
@@ -183,7 +183,7 @@ export default {
     .img {
       margin-right: 0.1rem;
       margin-bottom: 0.1rem;
-      width: .61rem;
+      width: 0.61rem;
       height: 0.61rem;
 
       &:last-child {

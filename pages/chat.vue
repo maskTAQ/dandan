@@ -1,22 +1,17 @@
 <template>
-  <Page title="备孕管理" fixed>
+  <Page title="备孕管理">
     <div class="chat-page page-full">
-      <div class="head flex-column">
-        <p class="hi">Hi ~ 欢迎来到备孕管理专区</p>
-        <p class="name">{{userInfo.NickName}}</p>
-        <div class="tabs flex-row">
-          <div
-            v-for="item in tabs"
-            :key="item.key"
-            :class="[
-              'tab flex-column align',
-              { selected: selectedTab === item.value },
-            ]"
-            @click="select(item)"
-          >
-            <span class="label">{{ item.label }}</span>
-            <span v-if="selectedTab === item.value" class="border"></span>
-          </div>
+      <div class="tabs flex-row">
+        <div
+          v-for="item in tabs"
+          :key="item.key"
+          :class="[
+            'tab flex-column align',
+            { selected: selectedTab === item.value },
+          ]"
+          @click="select(item)"
+        >
+          {{ item.label }}
         </div>
       </div>
       <div class="content">
@@ -74,26 +69,22 @@ export default {
           value: "",
         },
         {
-          label: "档案",
-          value: "档案",
+          label: "医疗",
+          value: "医疗",
         },
         {
           label: "服务",
           value: "服务",
         },
-        {
-          label: "医疗",
-          value: "医疗",
-        },
       ],
     };
   },
-  computed:{
-    userInfo(){
+  computed: {
+    userInfo() {
       return this.$store.state.userInfo.data || {};
-    }
+    },
   },
-  created(){
+  created() {
     this.getUserInfo();
   },
   methods: {
@@ -129,15 +120,15 @@ export default {
       };
     },
     renderItem(item, index, that) {
-      const { day, year, children = [] } = item;
+      const { day, time, children = [] } = item;
       return (
-        <div key={index} class="time-line">
+        <div key={index} class="time-line flex-row">
+          <div class="time flex-column">
+            <p class="day">{day}</p>
+            <p class="date">{time}</p>
+          </div>
           <div class="line" />
           <div class="card-list">
-            <div class="time flex-row main-between center">
-              <span class="m">{day}</span>
-              <span class="y">{year}</span>
-            </div>
             <MessageCard
               classify="patient"
               data={item}
@@ -246,85 +237,63 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/theme";
 .chat-page {
-  background: #f5f6fa;
-  .head {
-    height: 2rem;
-    padding: 0 0.15rem;
-    justify-content: flex-end;
-    background: #fff url("../assets/img/chat-head.png") no-repeat left top /
-      100% auto;
-    .hi {
-      font-size: 0.12rem;
-      color: #fff;
-    }
-    .name {
-      margin-top: 0.13rem;
-      margin-bottom: 0.35rem;
-      font-size: 0.19rem;
-      font-family: PingFangSC-Semibold, PingFang SC;
-      font-weight: 600;
-      color: #ffffff;
-    }
-    .tabs {
-      width: 100%;
-      height: 0.4rem;
-      .tab {
-        flex: 1;
-        .label {
-          font-size: 0.15rem;
-          color: #666666;
-        }
-        &.selected {
-          .label {
-            font-size: 0.17rem;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
-            color: #2a2a2a;
-          }
-        }
-        .border {
-          width: 0.11rem;
-          height: 0.03rem;
-          background: #6dc7c6;
-          border-radius: 2px;
-        }
+  background: #fff;
+  .tabs {
+    margin: 0.2rem;
+    margin-bottom: 0;
+    background: #e8f3f1;
+    border-radius: 0.05rem;
+    overflow: hidden;
+    .tab {
+      height: 0.46rem;
+      flex: 1;
+      
+      font-size: 0.14rem;
+      color: rgb(67, 67, 67);
+      border-radius: 0.05rem;
+      overflow: hidden;
+      &.selected {
+        background: #1ebcc4;
+        color: #fff;
+        border-radius: 0.05rem;
       }
     }
   }
-  .tabs {
-    height: 0.5rem;
-    background: #fff;
-  }
   .content {
-    height: calc(100% - 2rem);
-    padding: 0.1rem 0.15rem;
+    height: calc(100% - 0.66rem);
+    /* margin: -0.3rem; */
+    /* padding: 0.1rem 0.15rem; */
   }
   .list {
     height: 100%;
+    padding: 0.2rem;
   }
   .time-line {
     position: relative;
+    align-items: flex-start;
     .time {
+      margin-right: 0.15rem;
       font-size: 0.12rem;
-      margin-bottom: 0.12rem;
-      .m {
-        font-size: 0.2rem;
-        font-weight: bold;
-        color: #6dc7c6;
+      flex-shrink: 0;
+      .day {
+        font-size: 0.15rem;
+        font-weight: 700;
+        color: rgb(0, 0, 0);
       }
-      .d {
-        font-size: 0.14rem;
-        color: #999999;
+      .date {
+        margin-top: 0.04rem;
+        font-size: 0.15rem;
+        color: rgb(147, 147, 147);
       }
     }
     .line {
       position: absolute;
-      top: 0.1rem;
-      left: 0.05rem;
+      top: 0;
+      left: 0.6rem;
       bottom: 0;
       width: 1px;
-      background: rgba($color: #6dc7c6, $alpha: 0.1);
-      &::after {
+      background: rgb(237, 237, 237);
+      /* &::after {
         content: "";
         position: absolute;
         left: -0.035rem;
@@ -334,14 +303,14 @@ export default {
         background: #6dc7c6;
         box-shadow: inset 0px 0px 4px 0px rgb(255 255 255 / 50%);
         border-radius: 50%;
-      }
+      } */
     }
   }
 
   .card-list {
     margin-left: 0.2rem;
-    /* width: 0;
-    flex: 1; */
+    width: 0;
+    flex: 1;
   }
   .nodata {
     display: block;

@@ -74,10 +74,10 @@
               />
               <div class="info">
                 <div class="flex-row center">
-                  <p class="name">{{ userInfo.AdminName }}</p>
+                  <p class="name">{{ userInfo.AdminDept }}</p>
                   <!-- <p class="title">国家生殖咨询管理师</p> -->
                 </div>
-                <p class="position">-</p>
+                <p class="position">{{ userInfo.AdminRemark }}</p>
               </div>
             </div>
             <div class="flex-column align">

@@ -1,19 +1,18 @@
 <template>
-  <div class="messages page-tab">
+  <Page title="系统消息" class="system-messages">
     <List :request="request" :renderItem="renderItem" class="list" ref="list" />
-    <TabBar />
-  </div>
+  </Page>
 </template>
 <script>
 import { mock } from "@/api";
 import { get } from "@/api/http";
-import DoctorCard from "@/components/DoctorCard";
+import MessageCard from "./components/MessageCard";
 import { router, formatTime } from "@/utils";
 import dayjs from "dayjs";
 
 const API = {
   LIST(params) {
-    return get("/Api/getDoctorMessageList_api.php", params);
+    return get("/Api/getSysMsgList_api.php", params);
   },
 };
 
@@ -21,7 +20,7 @@ export default {
   name: "Messages",
   head() {
     return {
-      title: "消息",
+      title: "系统消息",
     };
   },
   methods: {
@@ -54,39 +53,19 @@ export default {
         SendDate,
         ...o
       } = item;
-      const data = {
-        ...o,
-        exPhoto: adminPhoto,
-        exName: adminName,
-        exRoom: adminType,
-        exLevel: cType,
-        HsName: "--",
-        time: formatTime(SendDate, "MM-DD HH:mm"),
-      };
-      return (
-        <DoctorCard
-          data={data}
-          ask={false}
-          reply={cardText}
-          badge={item.NoRead}
-          class="item"
-          click={this.go}
-        />
-      );
+
+      return <MessageCard data={item} class="item" click={this.go} />;
     },
   },
 };
 </script>
 <style lang="scss">
 @import "@/assets/theme.scss";
-.messages {
+.system-messages {
+  height: 100%;
   background: $color8;
   .list {
     height: 100%;
-    padding: 0.1rem 0.12rem;
-    .item {
-      margin-bottom: 0.1rem;
-    }
   }
 }
 </style>

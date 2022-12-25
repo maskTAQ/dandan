@@ -272,8 +272,13 @@ export function initApp(instance) {
 
 }
 export function link(query) {
+    const { src } = query;
+    if (src.includes('dandan.cn/h5')) {
+        window.location.href = src;
+        return;
+    }
     if (app) {
-        app.router.push({
+        router.push({
             path: '/webview',
             query
         });
