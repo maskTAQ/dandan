@@ -1,19 +1,21 @@
 <template>
-  <div class="doctor-live-card">
+  <div class="doctor-live-card" @click="go">
     <div class="status-tag flex-row center">
       <span class="dot" :style="{ background: liveInfo.color }" />
       <span class="label">{{ liveInfo.label }}</span>
     </div>
-    <CoverImage class="cover">
+    <CoverImage class="cover" :url="data.PageImg">
       <img src="" alt="" class="play" />
     </CoverImage>
     <div class="info">
-      <p class="card-title">title</p>
-      <p class="date">12/01 14:21</p>
+      <p class="card-title">{{ data.Tital }}</p>
+      <p class="date">{{ formatTime(data.CreateTime, "MM/DD HH:mm") }}</p>
     </div>
   </div>
 </template>
 <script>
+import { formatTime, router } from "@/utils";
+
 export default {
   name: "DoctorLiveCard",
   props: {
@@ -47,6 +49,17 @@ export default {
       };
     },
   },
+  methods: {
+    formatTime,
+    go() {
+      router.push({
+        path: "/class-detail",
+        query: {
+          id: this.data.bid,
+        },
+      });
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -68,7 +81,7 @@ export default {
     border-radius: 0.08rem;
     .dot {
       width: 5px;
-      height:  5px;
+      height: 5px;
       border-radius: 50%;
     }
     .label {

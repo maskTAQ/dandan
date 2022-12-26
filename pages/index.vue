@@ -79,7 +79,7 @@
           class="goods-list-card"
           more
           @more="go({ path: '/mall' })"
-          v-if="data.doctorList.length"
+          v-if="data.goodsList.length"
         >
           <ScrollView>
             <div class="goods-list flex-row">
@@ -225,6 +225,12 @@ const API = {
   },
   GORUP_LIST(params) {
     return get("/Api/getQQGroupList_api.php", params);
+  },
+  DOCTOR_LIVE_LIST(params) {
+    return get("/Api2/getLiveList_api.php", params);
+  },
+  DOCTOR_LIST(params) {
+    return get("/Api/getDoctorList_api.php", params);
   },
   GORUP_DETAIL() {
     return get("/Api/getQQGroupInfo_api.php");
@@ -491,13 +497,13 @@ export default {
       }
     },
     getDoctorLiveList() {
-      return API.GOODS_TYPE_LIST("医院").then((res) => {
+      return API.DOCTOR_LIVE_LIST().then((res) => {
         this.data.doctorLiveList = res;
         this.data = { ...this.data };
       });
     },
     getDoctorList() {
-      return API.GOODS_TYPE_LIST("医院").then((res) => {
+      return API.DOCTOR_LIST().then((res) => {
         this.data.doctorList = res;
         this.data = { ...this.data };
       });
@@ -653,8 +659,7 @@ export default {
     },
     getGoodsList() {
       return API.GOODS_LIST({
-        tid: this.currentGoodsTab,
-        root: "医院",
+        root: "精选周边",
       }).then((res) => {
         this.data.goodsList = res;
         this.data = { ...this.data };

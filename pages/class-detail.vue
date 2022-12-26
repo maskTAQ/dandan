@@ -44,7 +44,6 @@
           </template>
           <Banner
             v-else
-            style="height: 300px;"
             :data="data.PageImg"
           />
           <!-- <div
