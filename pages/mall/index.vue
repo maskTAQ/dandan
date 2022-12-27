@@ -8,7 +8,7 @@ export default {
   name: "Hospital",
   head() {
     return {
-      title: "周边",
+      title: "服务",
     };
   },
 
@@ -16,7 +16,7 @@ export default {
     return {
       config: {
         type: "mall",
-        title: "周边",
+        title: "服务",
         root: "服务",
         defaultBanner: "陪诊服务",
       },

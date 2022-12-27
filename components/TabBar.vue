@@ -37,7 +37,7 @@ export default {
           selectedIcon: tabbar.hospital_active,
         },
         {
-          label: "周边",
+          label: "服务",
           path: "/mall",
           icon: tabbar.mall,
           selectedIcon: tabbar.mall_active,

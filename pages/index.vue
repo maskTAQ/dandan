@@ -5,7 +5,7 @@
         <div class="title flex-row main-between center">
           <span class="logo">旦旦医学</span>
           <div class="search flex-row center" @click="go({ path: '/search' })">
-            <img :src="icons.search" alt="" class="icon" />
+            <img :src="icons.searchWhite" alt="" class="icon" />
             <p class="placeholder">关键字搜索百科/服务/周边/医生</p>
           </div>
           <div @click="go({ auth: true, path: '/messages' })" class="msg-box">
@@ -22,6 +22,7 @@
           class="tab-card flex-column align"
           v-for="tab in tabCardList"
           :key="tab.label"
+          @click="go(tab)"
         >
           <img :src="tab.icon" alt="" class="icon" />
           <p class="label">{{ tab.title }}</p>
@@ -87,7 +88,7 @@
                 v-for="item in data.goodsList"
                 :key="item.gid"
                 class="goods-card"
-                @click="go({ path: '/goods-detail', id: item.gid })"
+                @click="go({ path: '/goods-detail', query: { id: item.gid } })"
               >
                 <CoverImage class="cover" :url="item.gImg" />
                 <div class="info flex-column main-between">
@@ -201,24 +202,7 @@ import ScrollView from "@/components/ScrollView";
 import TopGoods from "@/components/TopGoods";
 import PartnerAgencies from "@/components/PartnerAgencies";
 import SearchTool2 from "@/components/SearchTool2.vue";
-//
-const BASE_TABS = [
-  // {
-  //   TypeName: "好孕笔记",
-  //   type: "note",
-  //   tid: "note",
-  // },
-  {
-    TypeName: "精选打卡",
-    type: "punch",
-    tid: "punch",
-  },
-  // {
-  //   TypeName: "好物分享",
-  //   type: "goods",
-  //   tid: "goods",
-  // },
-];
+
 const API = {
   AD() {
     return get("/Api/getBannerList_api.php", { root: "主页banner1" });
@@ -261,7 +245,7 @@ const API = {
     return get("/Api/getBxInfo_api.php");
   },
   PREGNANT_STATUS() {
-    return get("/Api/getUserInfo_api.php");
+    return get("/Api/getUserInfo_api.php",{},{showError:false});
   },
   NOTES(params) {
     return get("/Api/getForumList_api.php", params);
@@ -378,12 +362,12 @@ export default {
       return [
         {
           title: "服务",
-          path: "/propaganda/static/zytl",
+          path: "/mall",
           icon: icons.service,
         },
         {
           title: "金融",
-          path: "/propaganda/static/sgqzqzyfw",
+          path: "/mall",
           icon: icons.money1,
         },
         {
@@ -528,7 +512,7 @@ export default {
       });
     },
     goPunchTab() {
-      this.goTab("好孕接力");
+      this.goTab("试管科普");
     },
     goRecommend() {
       router.push({
@@ -560,6 +544,7 @@ export default {
       const match = this.data.tabList.find(
         (item) => String(item.tid) === String(tid) || item.TypeName === tid
       );
+      // console.log(this.data.tabList,'this.data.tabList');
       if (match) {
         // console.log({
         //   children: match.children,

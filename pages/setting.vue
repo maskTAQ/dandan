@@ -107,7 +107,7 @@ const API = {
     return get("/Api/getWxSQ_api.php", { redirect_uri });
   },
   DEDAIL() {
-    return get("/Api/getUserInfo_api.php");
+    return get("/Api/getUserInfo_api.php",{},{showError:false});
   },
   EDIT(params) {
     return get("/Api/editUserInfo_api.php", params);

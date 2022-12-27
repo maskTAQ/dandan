@@ -126,7 +126,7 @@ export const icons = {
     goodCalendar:require('./icon/goodCalendar.png'),
     dd:require('./icon/dd-icon.png'),
     goodTime:require('./icon/goodTime.png'),
-
+    searchWhite:require('./icon/search-white.png'),
 };
 export const img = {
     logo: require('./img/logo.png'),

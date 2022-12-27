@@ -54,7 +54,7 @@ import { icons } from "@/assets";
 
 const API = {
   DEDAIL() {
-    return get("/Api/getUserInfo_api.php");
+    return get("/Api/getUserInfo_api.php",{},{showError:false});
   },
   GET_CODE(tel) {
     return get("/Api/sendTelCode_api.php", { tel });

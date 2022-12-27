@@ -5,7 +5,7 @@ import { Tip, UID } from '@/utils';
 
 const NO_NEED_TOKEN_API_LIST = [];
 
-axios.defaults.baseURL = 'https://xxyybaby.com/';
+axios.defaults.baseURL = 'https://dandan.cn/';
 // axios.defaults.baseURL = 'https://m.dhcivf.com/';
 
 axios.defaults.headers.common['Content-Type'] = "application/x-www-form-urlencoded";

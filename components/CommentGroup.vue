@@ -275,7 +275,7 @@ export default {
       }).then((res) => {
         const next = [...list];
         const { UserPhoto, NickName } = userInfo;
-        const defaultIcon = "https://xxyybaby.com/Tool/user.png";
+        const defaultIcon = "https://dandan.cn/Tool/user.png";
         const comment = {
           UserPhoto: isNoUser ? defaultIcon : UserPhoto,
           UserName: isNoUser ? "匿名用户" : NickName,

@@ -95,7 +95,7 @@ const API = {
     return get("/Api/getBxInfo_api.php");
   },
   PREGNANT_STATUS() {
-    return get("/Api/getUserInfo_api.php");
+    return get("/Api/getUserInfo_api.php",{},{showError:false});
   },
 };
 export default {

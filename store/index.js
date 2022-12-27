@@ -3,7 +3,7 @@ import qs from 'qs';
 import { Tip, UID, router, URL, app } from '@/utils';
 import { get } from "@/api/http";
 
-const fields = ['departmentList', 'areaList', 'myDoctor', 'goodsClassify','hospitalClassify', 'addressList', 'invoiceList','hospitalClassify', 'agentUserInfo','userInfo'];
+const fields = ['departmentList', 'areaList', 'myDoctor', 'goodsClassify', 'hospitalClassify', 'addressList', 'invoiceList', 'hospitalClassify', 'agentUserInfo', 'userInfo'];
 const locale = ['userinfo'];
 const wait = (timeout = 3000) => {
     return new Promise((resolve) => {
@@ -23,10 +23,10 @@ const API = {
         return get('/Api/getDoctorCity_api.php')
     },
     GOODS_CLASSIFY() {
-        return get("/Api/getGoodsType_api.php", { root:'服务'});
+        return get("/Api/getGoodsType_api.php", { root: '服务' });
     },
     HOSPITAL_CLASSIFY() {
-        return get("/Api/getGoodsType_api.php", { root:'医院'});
+        return get("/Api/getGoodsType_api.php", { root: '医院' });
     },
     ADDRESS_LIST() {
         return get("/Api/getMailList_api.php");
@@ -35,16 +35,16 @@ const API = {
         return get("/Api/getInvList_api.php");
     },
     USER_INFO() {
-        if(!UID.GET()){
+        if (!UID.GET()) {
             return Promise.reject({});
         }
-        return get("/Api/getUserInfo_api.php");
+        return get("/Api/getUserInfo_api.php", {}, { showError: false });
     },
     AGENT_USER_INFO() {
-        return get('/Api/xcx/getUserInfo_api.php')
+        return get('/Api/xcx/getUserInfo_api.php', {}, { showError: false })
     },
     HOSPITAL_CLASSIFY() {
-        return get("/Api/getGoodsType_api.php", { root:'医院'});
+        return get("/Api/getGoodsType_api.php", { root: '医院' });
     },
 };
 export const state = () => {
@@ -58,7 +58,7 @@ export const state = () => {
             visible: false,
             type: 'login'//登录或活动
         },
-        forceLoginModalVisible:false
+        forceLoginModalVisible: false
     };
     fields.forEach(field => {
         initState[field] = {

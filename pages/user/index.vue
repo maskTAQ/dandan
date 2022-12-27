@@ -141,7 +141,7 @@ import { router, goKf } from "@/utils";
 
 const API = {
   DEDAIL() {
-    return get("/Api/getUserInfo_api.php");
+    return get("/Api/getUserInfo_api.php",{},{showError:false});
   },
   STATUS() {
     return get("/Api/getUserIsClock_api.php", {}, { showError: false });
