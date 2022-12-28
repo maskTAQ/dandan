@@ -1,11 +1,10 @@
 <template>
   <Page title="医生详情" fixed>
     <StatusHandle :get="getDetail">
-
-      <div class="doctor-detail page-full">
+      <div class="doctor-detail">
         <div class="ys-photo">
           <CoverImage :url="img.jb" class="ys-jb" />
-          <!-- <p class="name">{{ data.exName }}</p> -->
+          <p class="name">{{ data.exName }}</p>
           <CoverImage :url="data.exPhoto" class="ys-photo-img" />
         </div>
         <div class="doc-bj">
@@ -16,22 +15,37 @@
               <span class="tag" v-if="tag">{{ data.tag }}</span>
               <span class="exLevel">
                 <span class="circular"></span>
-                {{ data.exLevel }}</span>
+                {{ data.exLevel }}</span
+              >
             </div>
-            <StatusHandle :get="getDoctorLiveList">
-              <SimpleGroup title="名医直播" more class="doctor-live-list-card line">
-                <ScrollView>
-                  <div class="doctor-live-list flex-row">
-                    <DoctorLiveCard class="card" :data="item" v-for="item in doctorLiveList" :key="item.gid" />
-                  </div>
-                </ScrollView>
-              </SimpleGroup>
-            </StatusHandle>
-            <SimpleGroup title="所在医院" more moreText="进入" class="line">
+            <SimpleGroup
+              title="名医直播"
+              more
+              class="doctor-live-list-card line"
+              @more="go({ path: '/live-list' })"
+            >
+              <ScrollView>
+                <div class="doctor-live-list flex-row">
+                  <DoctorLiveCard
+                    class="card"
+                    :data="item"
+                    v-for="item in data.LiveData"
+                    :key="item.bid"
+                  />
+                </div>
+              </ScrollView>
+            </SimpleGroup>
+            <SimpleGroup
+              title="所在医院"
+              more
+              moreText="进入"
+              class="line"
+              @more="go({ path: '/hospital-detail', query: { id: data.gid } })"
+            >
               <div class="flex-row center">
-                <CoverImage url="" class="ys-tx" />
+                <CoverImage :url="data.gImg" class="ys-tx" />
                 <div class="ys-info">
-                  <p class="ys-title ellipsis">标题</p>
+                  <p class="ys-title ellipsis">{{ data.HsName }}</p>
                   <p class="content">{{ data.Resume }}</p>
                 </div>
               </div>
@@ -42,23 +56,21 @@
             <SimpleGroup title="专业履历" class="line">
               {{ data.Resume }}
             </SimpleGroup>
-            <div class="sx-btn">
-              私信医生
-            </div>
+            <div class="sx-btn">私信医生</div>
             <!-- <p v-if="data.exCan">【擅长】：{{ data.exCan }}</p>
         <p v-if="data.Resume">【履历】：{{ data.Resume }}</p> -->
           </div>
         </div>
-
       </div>
     </StatusHandle>
   </Page>
 </template>
 <script>
 import { mapState } from "vuex";
-import CoverImage from "@/components/CoverImage.vue"
+import CoverImage from "@/components/CoverImage.vue";
 import { icons, img } from "@/assets";
 
+import { router } from "@/utils";
 import { mock, get } from "@/api/http";
 import EvaluateInfo from "@/components/EvaluateInfo";
 
@@ -91,9 +103,12 @@ export default {
     };
   },
   components: {
-    CoverImage
+    CoverImage,
   },
   methods: {
+    go(params) {
+      router.push(params);
+    },
     getDoctorLiveList() {
       return API.DOCTOR_LIVE_LIST().then((res) => {
         this.doctorLiveList = res;
@@ -146,7 +161,7 @@ export default {
     .name {
       font-size: 0.32rem;
       color: #fff;
-      padding-top: 0.70rem;
+      padding-top: 0.7rem;
       padding-left: 0.34rem;
     }
 
@@ -221,13 +236,11 @@ export default {
 
     // height: 100px;
     .ys-tx {
-      border: 1px solid red;
       height: 70px;
       width: 70px;
       margin-right: 18px;
       border-radius: 50px;
       overflow: hidden;
-      background: red;
     }
 
     .ys-info {

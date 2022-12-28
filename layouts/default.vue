@@ -201,8 +201,8 @@ export default {
   z-index: 2000;
   button {
     background: rgba($color: #fff, $alpha: 0.85);
-    width: 0.48rem;
-    height: 0.48rem;
+    width: 0.4rem;
+    height: 0.4rem;
     border-radius: 50%;
     img {
       display: block;
@@ -213,6 +213,21 @@ export default {
       margin-bottom: 0.13rem;
     }
   }
+}
+.scroll-to-top {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 0.2rem;
+  background: rgba($color: #fff, $alpha: 0.5);
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  img {
+    display: block;
+    width: 70%;
+    /* background: #e5e9f0; */
+  }
+  z-index: 999;
 }
 .copy-input {
   position: fixed;

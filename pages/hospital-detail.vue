@@ -7,13 +7,9 @@
   >
     <StatusHandle :get="getData" ref="statusHandle">
       <div v-if="data" class="hospital-detail">
-        <img
-          v-if="sticky"
-          src="../assets/img/scroll-top.png"
-          alt=""
-          class="scroll-to-top"
-          @click="scrollToTop"
-        />
+        <button v-if="sticky" class="scroll-to-top align" @click="scrollToTop">
+          <img src="../assets/img/scroll-top.png" alt="" />
+        </button>
         <div
           @click="go({ path: '/gallery', query: { id: data.gid } })"
           ref="swiper"

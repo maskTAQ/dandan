@@ -8,8 +8,10 @@
       <img src="" alt="" class="play" />
     </CoverImage>
     <div class="info">
-      <p class="card-title">{{ data.Tital }}</p>
-      <p class="date">{{ formatTime(data.CreateTime, "MM/DD HH:mm") }}</p>
+      <p class="card-title">{{ data.Tital || "-" }}</p>
+      <p class="date">
+        {{ formatTime(data.CreateTime || data.LiveSTime, "MM/DD HH:mm") }}
+      </p>
     </div>
   </div>
 </template>

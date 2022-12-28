@@ -176,11 +176,3 @@ iframe[id^="utp__"] {
 iframe[src*="ucweb.com"] {
     display: none !important;
 }
-
-.scroll-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 0.15rem;
-    width: 0.3rem;
-    z-index: 999;
-}
