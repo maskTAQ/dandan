@@ -70,6 +70,8 @@ import InsuranceItem from "./InsuranceItem.vue";
 import OuterHospitalCard from "./OuterHospitalCard.vue";
 import InnerHospitalCard from "./InnerHospitalCard.vue";
 import PZItem from "./PZItem.vue";
+import BYItem from "./BYItem.vue";
+import JRItem from "./JRItem.vue";
 
 const API = {
   AD() {
@@ -242,26 +244,38 @@ export default {
           />
         );
       } else {
-        if (!this.currentType) {
-          return (
-            <PZItem
-              data={item}
-              onClick={() => {
-                router.push({
-                  path: "/goods-detail",
-                  query: {
-                    id: item.gid,
-                  },
-                });
-              }}
-            />
-          );
-        }
+        // return (
+        //   <JRItem
+        //     data={item}
+        //     onClick={() => {
+        //       router.push({
+        //         path: "/goods-detail",
+        //         query: {
+        //           id: item.gid,
+        //         },
+        //       });
+        //     }}
+        //   />
+        // );
+        // if (!this.currentType) {
+        //   return (
+        //     <PZItem
+        //       data={item}
+        //       onClick={() => {
+        //         router.push({
+        //           path: "/goods-detail",
+        //           query: {
+        //             id: item.gid,
+        //           },
+        //         });
+        //       }}
+        //     />
+        //   );
+        // }
         switch (item.TypeName) {
-          case "试管保险":
-          case "保险服务": {
+          case "备孕服务": {
             return (
-              <InsuranceItem
+              <BYItem
                 data={item}
                 onClick={() => {
                   router.push({
@@ -274,10 +288,9 @@ export default {
               />
             );
           }
-          case "陪诊服务":
-          case "备孕门诊": {
+          case "试管金融": {
             return (
-              <PZItem
+              <JRItem
                 data={item}
                 onClick={() => {
                   router.push({
@@ -290,8 +303,7 @@ export default {
               />
             );
           }
-
-          default: {
+          case "精选周边": {
             return (
               <IntegralGoodsCard
                 onBuy={() => {
@@ -312,6 +324,21 @@ export default {
                 }}
                 class="goods"
                 data={item}
+              />
+            );
+          }
+          default: {
+            return (
+              <BYItem
+                data={item}
+                onClick={() => {
+                  router.push({
+                    path: "/goods-detail",
+                    query: {
+                      id: item.gid,
+                    },
+                  });
+                }}
               />
             );
           }
@@ -377,7 +404,7 @@ export default {
     }
   }
   .content {
-    height: calc(100% - 2.82rem);
+    min-height: calc(100% - 3.02rem);
     padding-top: 0.16rem;
     background: #fff;
     /* height: 100%; */

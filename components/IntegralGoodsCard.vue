@@ -1,20 +1,25 @@
 <template>
-  <div class="goods-card" @click="click">
-    <div
-      class="img"
-      :style="{ background: `url('${data.gImg}') no-repeat center / cover` }"
-    />
-    <p class="name ellipsis line-2">{{ data.gName }}</p>
-    <p class="old-price">￥{{ data.linePrice }}</p>
-    <div class="bottom flex-row main-between center">
-      <div class="price flex-row center">
-        <i class="label">积分</i>
-        <i class="value">{{ data.tallyPrice }}</i>
-        <i class="add">+</i>
-        <i class="unit">￥</i>
-        <i class="value">{{ data.price }}</i>
+  <div class="goods-card flex-row" @click="click">
+    <CoverImage class="img" :url="data.gImg"></CoverImage>
+    <div>
+      <p class="name ellipsis line-2">{{ data.gName }}</p>
+      <div class="old-price flex-row center">
+        <span class="label">原价</span>
+        <span class="value">￥{{ data.linePrice }}</span>
       </div>
-      <!-- <button class="buy align">购买</button> -->
+      <div class="bottom flex-row main-between center">
+        <div class="price flex-row center">
+          <i class="label">总计</i>
+          <i class="unit">￥</i>
+          <i class="value">{{ data.ThePrice }}</i>
+          <template v-if="!data.tallyPrice">
+            <i class="add">+</i>
+            <i class="label">积分</i>
+            <i class="value">80{{ data.tallyPrice }}</i>
+          </template>
+        </div>
+        <!-- <button class="buy align">购买</button> -->
+      </div>
     </div>
   </div>
 </template>
@@ -36,22 +41,23 @@ export default {
 @import "../assets/theme.scss";
 .goods-card {
   .img {
-    margin: 0 auto;
-    width: 1.32rem;
-    height: 1.32rem;
-    margin-bottom: 0.04rem;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.1rem;
   }
   .name {
-    margin: 0.05rem 0;
-    font-size: 0.15rem;
+    margin-bottom: 0.05rem;
+    font-size: 0.16rem;
     font-weight: 400;
-    color: #333333;
+    color: rgb(16, 22, 35);
   }
   .old-price {
     font-size: 0.12rem;
-    color: #999999;
+    color: rgb(173, 173, 173);
     font-weight: 500;
-    text-decoration: line-through;
+    .value {
+      text-decoration: line-through;
+    }
   }
   .bottom {
     /* margin: 10px 0;
@@ -70,21 +76,20 @@ export default {
         font-size: 0.12rem;
         color: #999999;
       }
+      .unit,
       .value {
-        font-size: 0.18rem;
-        color: #ff5601;
-      }
-      .unit {
         position: relative;
-        top: 0.02rem;
-        font-size: 0.12rem;
-        color: #ff5601;
+        top: -0.02rem;
+        font-size: 0.22rem;
+        color: rgb(255, 136, 9);
       }
       .add {
-        font-size: 0.16rem;
+        position: relative;
+        top: -0.02rem;
+        font-size: 0.22rem;
         margin: 0 0.04rem;
-        font-weight: bold;
-        color: #ff5601;
+        font-weight: 600;
+        color: rgba(51, 51, 51, 0.51);
       }
     }
     .buy {
