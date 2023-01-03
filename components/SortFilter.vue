@@ -16,13 +16,13 @@
           <Triangle
             direction="top"
             size="6"
-            :color="params[item.key] === 'asc' ? '#6dc7c6' : '#999'"
+            :color="params[item.key] === 'asc' ? '#2D4EF5' : '#999'"
           />
           <Triangle
             class="bottom"
             direction="bottom"
             size="6"
-            :color="params[item.key] === 'desc' ? '#6dc7c6' : '#999'"
+            :color="params[item.key] === 'desc' ? '#2D4EF5' : '#999'"
           />
         </div>
       </div>
@@ -31,7 +31,14 @@
         :class="['radio flex-row center']"
         @click="onClick(item)"
       >
-        <img src="params[item.key]" alt="" class="icon" />
+        <img
+          class="icon"
+          :src="
+            params[item.key] ? icons.checkboxChecked : icons.checkboxUnchecked
+          "
+          alt=""
+          srcset=""
+        />
         <i class="label">{{ item.label }}</i>
       </div>
     </div>
@@ -113,9 +120,7 @@ export default {
   .radio {
     .icon {
       margin-right: 4px;
-      width: 0.09rem;
-      height: 0.09rem;
-      border: 1px solid red;
+      width: 0.14rem;
     }
   }
 }

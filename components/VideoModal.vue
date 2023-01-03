@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" @click="close" class="code-modal flex-row align">
+  <div v-if="visible" @click="close" class="video-modal flex-row align">
     <div @click.stop class="modal flex-column align">
       <img @click="close" :src="icons.close" alt="" class="close" />
       <Player :src="data" />
@@ -33,7 +33,7 @@ export default {
 </script>
 <style lang="scss">
 @import "../assets/theme.scss";
-.code-modal {
+.video-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -52,12 +52,18 @@ export default {
     .close {
       position: absolute;
       width: 0.3rem;
-      top: 0.15rem;
-      right: .15rem;
+      top: 0.25rem;
+      right: 0.25rem;
       z-index: 999;
     }
-    .video-js{
+    .video-js {
       width: 100%;
+    }
+    .vjs-big-play-button {
+      top: 50%;
+      margin-top: -0.8em;
+      left: 50%;
+      margin-left: -1.5em;
     }
   }
 }

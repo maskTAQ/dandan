@@ -1,5 +1,5 @@
 
-const  version = '1.4.60';
+const  version = '1.4.62';
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)

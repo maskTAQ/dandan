@@ -199,6 +199,7 @@ import {
   checkLogin,
   newline,
   KF_URL,
+  toArray
 } from "@/utils";
 import EvaluateInfo from "@/components/EvaluateInfo";
 import ShowMore from "@/components/ShowMore";
@@ -299,20 +300,26 @@ export default {
       return parseInt(this.data.SuccessRate) > 90;
     },
     serviceList() {
-      return [
-        {
-          label: "优质蛋白质",
-          value: "含有丰富的矿物质以及微量元素等",
-        },
-        {
-          label: "优质蛋白质",
-          value: "含有丰富的矿物质以及微量元素等",
-        },
-        {
-          label: "优质蛋白质",
-          value: "含有丰富的矿物质以及微量元素等",
-        },
-      ];
+      return toArray(this.data.ServeJson || []).map(({ServeName,ServeValue})=>{
+        return {
+          label:ServeName,
+          value:ServeValue
+        }
+      })
+      // return [
+      //   {
+      //     label: "优质蛋白质",
+      //     value: "含有丰富的矿物质以及微量元素等",
+      //   },
+      //   {
+      //     label: "优质蛋白质",
+      //     value: "含有丰富的矿物质以及微量元素等",
+      //   },
+      //   {
+      //     label: "优质蛋白质",
+      //     value: "含有丰富的矿物质以及微量元素等",
+      //   },
+      // ];
     },
   },
   methods: {

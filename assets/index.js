@@ -127,6 +127,8 @@ export const icons = {
     dd:require('./icon/dd-icon.png'),
     goodTime:require('./icon/goodTime.png'),
     searchWhite:require('./icon/search-white.png'),
+    checkboxUnchecked:require('./icon/checkbox-unchecked.png'),
+    checkboxChecked:require('./icon/checkbox-checked.png')
 };
 export const img = {
     logo: require('./img/logo.png'),

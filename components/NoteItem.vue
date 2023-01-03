@@ -77,12 +77,12 @@ export default {
                     <span class="value">{readNum || 0}</span>
                   </div>
                 </div>
-                {ApplyRemark && (
+                {ApplyRemark && isShow == -1 ? (
                   <div class="flex-row center">
                     <span class="label">拒绝原因</span>
                     <span class="value">{ApplyRemark}</span>
                   </div>
-                )}
+                ) : null}
               </div>
               <ul class="tags flex-row">
                 {Tag.map((text, index) => {
@@ -119,7 +119,7 @@ export default {
                   Tip.success("下架成功");
                 });
               }}
-              class="btn edit"
+              class="btn down"
             >
               下 架
             </button>
@@ -146,7 +146,7 @@ export default {
                   Tip.success("上架成功");
                 });
               }}
-              class="btn edit"
+              class="btn up"
             >
               上 架
             </button>
@@ -261,7 +261,7 @@ export default {
       }
       .value {
         font-size: 0.12rem;
-        color: #1ebcc4;
+         color: #1ebcc4;
       }
     }
     .tags {
@@ -289,8 +289,16 @@ export default {
       border-radius: 0.17rem;
 
       &.edit {
-        border: 1px solid #1ebcc4;
-        color: #1ebcc4;
+        border: 1px solid #4d6eff;
+        color: #4d6eff;
+      }
+      &.up {
+        border: 1px solid #4D6EFF;
+        color: #4D6EFF;
+      }
+      &.down {
+        border: 1px solid #FF4E80;
+        color: #FF4E80;
       }
       &.delete {
         border: 1px solid #f03434;

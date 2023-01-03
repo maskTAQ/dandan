@@ -67,7 +67,8 @@ import Banner from "@/components/Banner.vue";
 import GoodsCard from "@/components/GoodsCard";
 import IntegralGoodsCard from "@/components/IntegralGoodsCard";
 import InsuranceItem from "./InsuranceItem.vue";
-import HospitalCard from "./HospitalCard.vue";
+import OuterHospitalCard from "./OuterHospitalCard.vue";
+import InnerHospitalCard from "./InnerHospitalCard.vue";
 import PZItem from "./PZItem.vue";
 
 const API = {
@@ -135,10 +136,10 @@ export default {
   },
   computed: {
     ...mapState(["hospitalClassify", "goodsClassify"]),
-    classify(){
-      if(this.config.type === 'hospital'){
+    classify() {
+      if (this.config.type === "hospital") {
         return this.hospitalClassify;
-      }else{
+      } else {
         return this.goodsClassify;
       }
     },
@@ -194,8 +195,32 @@ export default {
     },
     renderItem(item, i, instance) {
       if (this.config.type === "hospital") {
+        if (String(item.TypeName).includes("国内")) {
+          return (
+            <InnerHospitalCard
+              onBuy={() => {
+                router.push({
+                  path: "/hospital-detail",
+                  query: {
+                    id: item.gid,
+                  },
+                });
+              }}
+              onClick={() => {
+                router.push({
+                  path: "/hospital-detail",
+                  query: {
+                    id: item.gid,
+                  },
+                });
+              }}
+              class="goods"
+              data={item}
+            />
+          );
+        }
         return (
-          <HospitalCard
+          <OuterHospitalCard
             onBuy={() => {
               router.push({
                 path: "/hospital-detail",
