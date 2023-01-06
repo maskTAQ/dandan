@@ -8,7 +8,6 @@ import { get } from "@/api/http";
 import { router, formatTime } from "@/utils";
 import { OS } from "@/utils";
 
-console.log(Badge, "Badge");
 const API = {
   LIST(params) {
     return get("/Api/xcx/getDoctorUserList_api.php", params);
@@ -111,7 +110,7 @@ export default {
   render() {
     const { sort, seachValue } = this;
     return (
-      <Page title="患者管理">
+      <Page title="客户管理">
         <StatusHandle get={this.getAgentUserInfo}>
           <div class="patient page-full">
             <SearchTool
@@ -207,7 +206,7 @@ export default {
         padding: 0 0.12rem;
         font-size: 0.14rem;
         color: #fff;
-        background: #1ebcc4;
+        background:rgb(25, 154, 142);
         border-radius: 0.13rem;
       }
     }

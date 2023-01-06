@@ -118,7 +118,7 @@
             :key="item.label"
             @click="go(item)"
           >
-            <div class="flex-row center">
+            <div class="item-left flex-row center">
               <img :src="item.icon" alt="" class="icon" />
               <span class="label">{{ item.label }}</span>
             </div>
@@ -141,7 +141,7 @@ import { router, goKf } from "@/utils";
 
 const API = {
   DEDAIL() {
-    return get("/Api/getUserInfo_api.php",{},{showError:false});
+    return get("/Api/getUserInfo_api.php", {}, { showError: false });
   },
   STATUS() {
     return get("/Api/getUserIsClock_api.php", {}, { showError: false });
@@ -619,6 +619,10 @@ export default {
       .item {
         height: 0.6rem;
         border-bottom: 1px solid rgb(232, 243, 241);
+
+        .item-left {
+          flex: 1;
+        }
 
         .icon {
           margin-right: 0.12rem;

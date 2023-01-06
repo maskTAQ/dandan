@@ -1,21 +1,44 @@
 <template>
   <div :class="['login page-full', currentType]" ref="container">
     <client-only>
-      <div :class="['login-inner', currentType]" v-if="currentType === TYPE.LOGIN_BY_CODE">
-        <img :src="icons.back1" alt="" class="icon-back1" @click="toggle(TYPE.LOGIN_BY_PASSWORD)">
+      <div
+        :class="['login-inner', currentType]"
+        v-if="currentType === TYPE.LOGIN_BY_CODE"
+      >
+        <img
+          :src="icons.back1"
+          alt=""
+          class="icon-back1"
+          @click="toggle(TYPE.LOGIN_BY_PASSWORD)"
+        />
         <div class="logo-box flex-column center">
           <img :src="icons.logoText" alt="" class="logo" />
           <p class="logo-text">旦旦医学</p>
         </div>
         <div class="field-header">
           <div class="text">手机号/账号</div>
-          <Input v-model="params.mobile" class="input-mobile-get-code" type="mobile" placeholder="请输入您的手机号"
-            :request="getCode" :icon="icons.bottomWhite" @areaCodeChange="handleAreaCodeChange" />
+          <Input
+            v-model="params.mobile"
+            class="input-mobile-get-code"
+            type="mobile"
+            placeholder="请输入您的手机号"
+            :request="getCode"
+            :icon="icons.bottomWhite"
+            @areaCodeChange="handleAreaCodeChange"
+          />
         </div>
         <div class="agreen-box">
-          <van-checkbox class="agree" v-model="agree" checked-color="#fff" shape="square">
+          <van-checkbox
+            class="agree"
+            v-model="agree"
+            checked-color="#fff"
+            shape="square"
+          >
             <template #icon="props">
-              <img class="icon" :src="props.checked ? icons.checked : icons.unchecked" />
+              <img
+                class="icon"
+                :src="props.checked ? icons.checked : icons.unchecked"
+              />
             </template>
             <div class="flex-row center">
               <i>我已经阅读并同意</i>
@@ -24,7 +47,12 @@
           </van-checkbox>
         </div>
         <div class="flex-row center main-center">
-          <van-button @click="confirm" class="confirm yzm-btn" :loading="loading" :disabled="disabled">
+          <van-button
+            @click="confirm"
+            class="confirm yzm-btn"
+            :loading="loading"
+            :disabled="disabled"
+          >
             {{ confirmBtnLabel }}
           </van-button>
         </div>
@@ -36,16 +64,26 @@
             <img :src="icons.wechat1" alt="" class="icon" />
             <!-- <span class="label">微信登录</span> -->
           </button>
-          <button @click="toggle(TYPE.LOGIN_BY_PASSWORD)" class="login-way flex-column align">
+          <button
+            @click="toggle(TYPE.LOGIN_BY_PASSWORD)"
+            class="login-way flex-column align"
+          >
             <img :src="icons.mm" alt="" class="icon" />
             <!-- <span class="label">密码登录</span> -->
           </button>
         </div>
-
       </div>
-      <div :class="['login-inner', currentType]" v-if="currentType === TYPE.INPUT_CODE">
+      <div
+        :class="['login-inner', currentType]"
+        v-if="currentType === TYPE.INPUT_CODE"
+      >
         <!-- <div class="back-box" @click="toggle(TYPE.LOGIN_BY_CODE)"> -->
-        <img :src="icons.back1" alt="" class="icon-back1" @click="toggle(TYPE.LOGIN_BY_CODE)">
+        <img
+          :src="icons.back1"
+          alt=""
+          class="icon-back1"
+          @click="toggle(TYPE.LOGIN_BY_CODE)"
+        />
         <!-- </div> -->
         <p class="timedown" v-if="timeDown">
           00:{{ String(timeDown).length === 1 ? `0${timeDown}` : timeDown }}
@@ -62,15 +100,23 @@
           <img :src="icons.inputCode" alt="" class="img" />
         </div> -->
         <InputVerifyCode @focus="handleFocus" @complete="handleCodeChange" />
-        <van-button v-if="!timeDown" class="send-code" @click="requestSendCode">重新发送</van-button>
+        <van-button v-if="!timeDown" class="send-code" @click="requestSendCode"
+          >重新发送</van-button
+        >
 
-        <van-button @click="confirm" class="confirm" :loading="loading" :disabled="disabled">
+        <van-button
+          @click="confirm"
+          class="confirm"
+          :loading="loading"
+          :disabled="disabled"
+        >
           {{ confirmBtnLabel }}
         </van-button>
-
       </div>
-      <div :class="['login-inner', currentType]" v-if="currentType === TYPE.LOGIN_BY_PASSWORD">
-
+      <div
+        :class="['login-inner', currentType]"
+        v-if="currentType === TYPE.LOGIN_BY_PASSWORD"
+      >
         <div class="logo-box flex-column center">
           <img :src="icons.logoText1" alt="" class="logo" />
           <p class="logo-text">旦旦医学</p>
@@ -81,7 +127,11 @@
             <span class="text">手机号/账号</span>
           </div>
           <div class="field-input-box">
-            <input type="text" v-model="params.mobile" placeholder="请输入您的账号" />
+            <input
+              type="text"
+              v-model="params.mobile"
+              placeholder="请输入您的账号"
+            />
           </div>
         </div>
         <div class="field-box">
@@ -91,24 +141,55 @@
           </div>
           <div class="field-input-box flex-row center main-between">
             <!-- {{openPassword}} -->
-            <input :type="openPassword ? 'password' : ''" v-model="params.password" placeholder="请输入您的密码" />
-            <img v-if="openPassword" :src="icons.openEye" alt="" class="icon-eye" @click="openPassword = false" />
-            <img v-else :src="icons.closeEye" alt="" class="icon-eye" @click="openPassword = true" />
+            <input
+              :type="openPassword ? 'password' : ''"
+              v-model="params.password"
+              placeholder="请输入您的密码"
+            />
+            <img
+              v-if="openPassword"
+              :src="icons.openEye"
+              alt=""
+              class="icon-eye"
+              @click="openPassword = false"
+            />
+            <img
+              v-else
+              :src="icons.closeEye"
+              alt=""
+              class="icon-eye"
+              @click="openPassword = true"
+            />
           </div>
         </div>
         <div class="agreen-box">
-          <van-checkbox class="agree" v-model="agree" checked-color="#fff" shape="square">
+          <van-checkbox
+            class="agree"
+            v-model="agree"
+            checked-color="#fff"
+            shape="square"
+          >
             <template #icon="props">
-              <img class="icon" :src="props.checked ? icons.checked : icons.unchecked" />
+              <img
+                class="icon"
+                :src="props.checked ? icons.checked : icons.unchecked"
+              />
             </template>
             <div class="flex-row center">
               <i>我已经阅读并同意</i>
               <i @click.stop="goProtocol" class="protocol">《用户隐私协议》</i>
             </div>
           </van-checkbox>
-          <div class="no-pass" @click="toggle(TYPE.SET_PASSWORD)">忘记密码？</div>
+          <div class="no-pass" @click="toggle(TYPE.SET_PASSWORD)">
+            忘记密码？
+          </div>
         </div>
-        <van-button @click="confirm" class="confirm" :loading="loading" :disabled="disabled">
+        <van-button
+          @click="confirm"
+          class="confirm"
+          :loading="loading"
+          :disabled="disabled"
+        >
           {{ confirmBtnLabel }}
         </van-button>
         <div class="line-qt flex-row center flex-column main-center">
@@ -119,14 +200,19 @@
             <img :src="icons.wechat1" alt="" class="icon" />
             <!-- <span class="label">微信登录</span> -->
           </button>
-          <button @click="toggle(TYPE.LOGIN_BY_CODE)" class="login-way flex-column align">
+          <button
+            @click="toggle(TYPE.LOGIN_BY_CODE)"
+            class="login-way flex-column align"
+          >
             <img :src="icons.password1" alt="" class="icon" />
             <!-- <span class="label">验证登录</span> -->
           </button>
         </div>
-
       </div>
-      <div :class="['login-inner', currentType]" v-if="currentType === TYPE.SET_PASSWORD">
+      <div
+        :class="['login-inner', currentType]"
+        v-if="currentType === TYPE.SET_PASSWORD"
+      >
         <!-- <div class="back-box" @click="toggle(TYPE.LOGIN_BY_CODE)">
           <img :src="icons.back" alt="" class="icon" />
         </div> -->
@@ -144,7 +230,11 @@
             <span class="text">请输入密码</span>
           </div>
           <div class="field-input-box">
-            <input type="password" v-model="params.password" placeholder="请输入密码" />
+            <input
+              type="password"
+              v-model="params.password"
+              placeholder="请输入密码"
+            />
           </div>
         </div>
         <div class="field-box">
@@ -152,14 +242,26 @@
             <span class="text">请再次输入密码</span>
           </div>
           <div class="field-input-box">
-            <input type="password" v-model="params.passwordT" placeholder="请再次输入密码" />
+            <input
+              type="password"
+              v-model="params.passwordT"
+              placeholder="请再次输入密码"
+            />
           </div>
         </div>
-        <van-button @click="confirm" class="confirm" :loading="loading" :disabled="disabled">
+        <van-button
+          @click="confirm"
+          class="confirm"
+          :loading="loading"
+          :disabled="disabled"
+        >
           {{ confirmBtnLabel }}
         </van-button>
       </div>
-      <div :class="['login-inner', currentType]" v-if="currentType === TYPE.BIND_MOBILE">
+      <div
+        :class="['login-inner', currentType]"
+        v-if="currentType === TYPE.BIND_MOBILE"
+      >
         <!-- <div class="back-box" @click="toggle(TYPE.LOGIN_BY_CODE)">
           <img :src="icons.back" alt="" class="icon" />
         </div> -->
@@ -171,21 +273,41 @@
           <div class="field-header flex-row center">
             <span class="text">请输入手机号</span>
           </div>
-          <Input v-model="params.mobile" class="mt-25" type="mobile" placeholder="请输入您的手机号" :request="getCode"
-            @areaCodeChange="handleAreaCodeChange" />
+          <Input
+            v-model="params.mobile"
+            class="mt-25"
+            type="mobile"
+            placeholder="请输入您的手机号"
+            :request="getCode"
+            @areaCodeChange="handleAreaCodeChange"
+          />
         </div>
         <div class="field-box">
           <div class="field-header flex-row center">
             <span class="text">验证码</span>
           </div>
-          <Input v-model="params.code" class="mt-25" type="code" placeholder="请输入验证码" :request="getCode"
-            maxlength="4" />
+          <Input
+            v-model="params.code"
+            class="mt-25"
+            type="code"
+            placeholder="请输入验证码"
+            :request="getCode"
+            maxlength="4"
+          />
         </div>
-        <van-button @click="confirm" class="confirm" :loading="loading" :disabled="disabled">
+        <van-button
+          @click="confirm"
+          class="confirm"
+          :loading="loading"
+          :disabled="disabled"
+        >
           {{ confirmBtnLabel }}
         </van-button>
       </div>
-      <div v-if="currentType === TYPE.LOGIN_BY_WX" class="in-login flex-column align">
+      <div
+        v-if="currentType === TYPE.LOGIN_BY_WX"
+        class="in-login flex-column align"
+      >
         <div class="spinner">
           <div class="rect1"></div>
           <div class="rect2"></div>
@@ -348,7 +470,6 @@ export default {
     },
   },
   methods: {
-
     handleFocus() {
       setTimeout(() => {
         const container = this.$refs.container;
@@ -428,11 +549,12 @@ export default {
         agree,
         loginRes,
       } = this;
-      if (![TYPE.SET_PASSWORD,TYPE.BIND_MOBILE].includes(currentType) && !agree) {
-        return Tip.success("请先阅读并同意《用户协议》");
-      }
+
       switch (currentType) {
         case TYPE.LOGIN_BY_CODE: {
+          if (!agree) {
+            return Tip.success("请先阅读并同意《用户协议》");
+          }
           if (!isMobile(mobile)) {
             return Tip.error("请输入正确的手机号");
           }
@@ -478,6 +600,9 @@ export default {
           break;
         }
         case TYPE.LOGIN_BY_PASSWORD: {
+          if (!agree) {
+            return Tip.success("请先阅读并同意《用户协议》");
+          }
           const { result, message } = this.verify(["mobile", "password"]);
           if (!result) {
             return Tip.error(message);
@@ -781,7 +906,6 @@ export default {
     margin-top: 0.16rem;
     font-size: 0.12rem;
     color: $color6;
-
   }
 
   .confirm {
@@ -881,8 +1005,6 @@ export default {
       .logo {
         width: 0.82rem;
       }
-
-
     }
 
     .input-mobile-get-code {
@@ -909,7 +1031,7 @@ export default {
     }
 
     .confirm {
-      margin-top: 0.30rem;
+      margin-top: 0.3rem;
     }
 
     .field-header {
@@ -930,9 +1052,11 @@ export default {
       height: 0.6rem;
       font-size: 0.2rem;
       line-height: 60px;
-      background: linear-gradient(rgba(105, 215, 196, 1) 0%, rgba(105, 199, 199, 1) 100%);
+      background: linear-gradient(
+        rgba(105, 215, 196, 1) 0%,
+        rgba(105, 199, 199, 1) 100%
+      );
       box-shadow: 0px 10px 40px rgba(54, 166, 147, 0.2);
-      ;
       border-radius: 28.5px;
       color: #fff;
       width: 80%;
@@ -1034,8 +1158,6 @@ export default {
         }
       }
 
-
-
       .field-input-box {
         height: 0.45rem;
         padding: 0 0.33rem;
@@ -1071,18 +1193,17 @@ export default {
       height: 0.6rem;
       font-size: 0.2rem;
       line-height: 60px;
-      background: linear-gradient(rgba(105, 215, 196, 1) 0%, rgba(105, 199, 199, 1) 100%);
+      background: linear-gradient(
+        rgba(105, 215, 196, 1) 0%,
+        rgba(105, 199, 199, 1) 100%
+      );
       box-shadow: 0px 10px 40px rgba(54, 166, 147, 0.2);
-      ;
       border-radius: 28.5px;
       color: #fff;
     }
 
-
-
     .other-login-ways {
       margin-top: 0.38rem;
-
     }
 
     .login-way {
@@ -1143,8 +1264,6 @@ export default {
       height: 100%;
     }
 
-
-
     .back-box {
       position: absolute;
       top: 0.17rem;
@@ -1163,11 +1282,8 @@ export default {
       height: 100px;
       background: rgb(255, 255, 255);
       box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
-      ;
       background: rgb(255, 255, 255);
       box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
-      ;
-
       .text {
         color: #000000;
         text-align: center;
@@ -1189,7 +1305,6 @@ export default {
       margin: 0 auto;
       text-align: center;
       margin-bottom: 0.55rem;
-
     }
 
     .img-box {
@@ -1261,7 +1376,6 @@ export default {
       justify-content: center;
       display: flex;
       margin-top: 0.35rem;
-
     }
 
     .confirm,
@@ -1269,9 +1383,11 @@ export default {
       height: 0.6rem;
       font-size: 0.2rem;
       line-height: 60px;
-      background: linear-gradient(rgba(105, 215, 196, 1) 0%, rgba(105, 199, 199, 1) 100%);
+      background: linear-gradient(
+        rgba(105, 215, 196, 1) 0%,
+        rgba(105, 199, 199, 1) 100%
+      );
       box-shadow: 0px 10px 40px rgba(54, 166, 147, 0.2);
-      ;
       border-radius: 28.5px;
       color: #fff;
     }
@@ -1341,7 +1457,6 @@ export default {
       font-size: 0.14rem;
       font-weight: 400;
       background: #fff !important;
-
     }
 
     .login-inner {
@@ -1368,11 +1483,8 @@ export default {
       height: 100px;
       background: rgb(255, 255, 255);
       box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
-      ;
       background: rgb(255, 255, 255);
       box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
-      ;
-
       .text {
         color: #000000;
         text-align: center;
@@ -1394,7 +1506,6 @@ export default {
       margin: 0 auto;
       text-align: center;
       margin-bottom: 0.55rem;
-
     }
 
     .confirm,
@@ -1443,8 +1554,6 @@ export default {
             color: #909090;
           }
         }
-
-
       }
     }
 
@@ -1455,7 +1564,6 @@ export default {
       justify-content: center;
       display: flex;
       margin-top: 0.35rem;
-
     }
 
     .confirm,
@@ -1463,9 +1571,11 @@ export default {
       height: 0.6rem;
       font-size: 0.2rem;
       line-height: 60px;
-      background: linear-gradient(rgba(105, 215, 196, 1) 0%, rgba(105, 199, 199, 1) 100%);
+      background: linear-gradient(
+        rgba(105, 215, 196, 1) 0%,
+        rgba(105, 199, 199, 1) 100%
+      );
       box-shadow: 0px 10px 40px rgba(54, 166, 147, 0.2);
-      ;
       border-radius: 28.5px;
       color: #fff;
     }
@@ -1513,7 +1623,7 @@ export default {
   text-align: center;
   font-size: 10px;
 
-  &>div {
+  & > div {
     background-color: $color1;
     height: 100%;
     width: 6px;
@@ -1545,7 +1655,6 @@ export default {
 }
 
 @-webkit-keyframes stretchdelay {
-
   0%,
   40%,
   100% {
@@ -1558,7 +1667,6 @@ export default {
 }
 
 @keyframes stretchdelay {
-
   0%,
   40%,
   100% {

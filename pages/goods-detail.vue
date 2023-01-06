@@ -145,7 +145,6 @@
                 customControl
                 :request="getOtherHospitalList"
                 :renderItem="renderGoodsItem"
-                :columnNum="2"
                 class="list"
                 ref="list"
               />

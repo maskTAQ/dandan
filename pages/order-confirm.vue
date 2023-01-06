@@ -64,6 +64,7 @@
             link
             border
             @more="goCardPackage"
+            v-if="coupon && +coupon.cardValue"
           >
             <div class="jf-box flex-row main-between">
               <div>
@@ -172,7 +173,6 @@
 import { mapState } from "vuex";
 import day from "dayjs";
 import { mock, get, post } from "@/api/http";
-import GoodsCard from "@/components/GoodsCard";
 import OrderForm from "@/components/OrderForm";
 import { icons } from "@/assets";
 import {
@@ -182,6 +182,7 @@ import {
   router,
   call,
   goKf,
+  COUPON
 } from "@/utils";
 import { TYPE } from "./card-package";
 import { ORDER_STATUS } from "@/constant";
@@ -228,6 +229,7 @@ export default {
         title: "",
       },
       ORDER_STATUS,
+      coupon: null,
     };
   },
   created() {
@@ -419,7 +421,12 @@ export default {
       if (!this.goods) {
         return Promise.resolve({});
       }
-      return API.PRE_DATA(this.goods).then((res) => {
+      const params = { ...this.goods };
+      const coupon = COUPON.GET();
+      if (coupon) {
+        params.cid = coupon.cid;
+      }
+      return API.PRE_DATA(params).then((res) => {
         //如果是微信支付重定向来的
         if (this.query.code) {
           const data = localStorage.getItem("order.data");
@@ -436,6 +443,7 @@ export default {
         } else {
           this.data = res;
         }
+        this.coupon = coupon || this.data;
         return res;
       });
     },
@@ -444,6 +452,7 @@ export default {
         path: "/card-package",
         query: {
           from: TYPE.ORDER,
+          id: this.data.gbid,
         },
       });
     },
@@ -463,6 +472,9 @@ export default {
         },
       });
     },
+  },
+  destroyed() {
+    COUPON.CLEAR();
   },
   components: {
     OrderForm,

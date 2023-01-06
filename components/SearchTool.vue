@@ -20,7 +20,7 @@ export default {
               onClick={() => {
                 this.$emit("search");
               }}
-              src={icons.searchActive}
+              src={icons.searchGreen}
               class="icon"
             />
             <input

@@ -663,6 +663,25 @@ export function getTagList({ text, max }) {
     }
     return result;
 }
+export const COUPON = {
+    USE(data) {
+        localStorage.setItem('COUPON', JSON.stringify(data));
+    },
+    GET() {
+        const data = localStorage.getItem('COUPON');
+        if (data) {
+            try {
+                return JSON.parse(data);
+            } catch (e) {
+                return null
+            }
+        }
+        return null;
+    },
+    CLEAR() {
+        localStorage.removeItem('COUPON');
+    }
+}
 if (process.browser) {
     window.UID = UID;
     window.router = router;

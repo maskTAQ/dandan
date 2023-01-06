@@ -121,7 +121,7 @@ export default {
               class={["retry block", inner.status]}
               onClick={this.getData}
             >
-              <van-empty image="error" description={inner.error} />
+              <van-empty class="hint" image="error" description={inner.error} />
             </button>
           );
         } else {
@@ -151,6 +151,9 @@ export default {
     top: 0;
     bottom: 0;
   }
+}
+.hint{
+  margin: 0 auto;
 }
 .retry {
   font-size: 0.14rem;

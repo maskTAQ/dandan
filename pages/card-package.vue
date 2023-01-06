@@ -85,6 +85,7 @@ export default {
       return API.LIST({
         ...params,
         isUse: this.selected,
+        gbid: this.$route.query.id,
       });
     },
     renderItem(item) {

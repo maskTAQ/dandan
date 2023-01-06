@@ -69,7 +69,7 @@ export default {
   },
   render() {
     return (
-      <Page title="兑换管理">
+      <Page title="返利兑换">
         <div class="exchange includes-tabs-list page-full">
           <Tabs
             value={this.current}

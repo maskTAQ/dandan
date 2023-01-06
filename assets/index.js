@@ -128,7 +128,10 @@ export const icons = {
     goodTime:require('./icon/goodTime.png'),
     searchWhite:require('./icon/search-white.png'),
     checkboxUnchecked:require('./icon/checkbox-unchecked.png'),
-    checkboxChecked:require('./icon/checkbox-checked.png')
+    checkboxChecked:require('./icon/checkbox-checked.png'),
+    calendar:require('./icon/calendar.png'),
+    time:require('./icon/time.png'),
+    searchGreen:require('./icon/search-green.png')
 };
 export const img = {
     logo: require('./img/logo.png'),

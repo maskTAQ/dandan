@@ -1,27 +1,25 @@
 <template>
-  <div
-    class="coupon flex-row center"
-  >
+  <div class="coupon flex-row center">
     <div class="left flex-column align">
       <div class="price flex-row">
         <span class="unit">￥</span>
         <span class="value">{{ data.AmtText || "0" }}</span>
       </div>
-      <p class="time">{{data.time}}</p>
+      <p class="time">{{ data.time }}</p>
     </div>
     <div class="right flex-column main-center">
-      <p class="name">{{data.cardName}}</p>
-      <p class="type">{{data.cardType == 1?'抵扣券':'打折券'}}</p>
+      <p class="name">{{ data.cardName }}</p>
+      <p class="type">{{ data.cardType == 1 ? "抵扣券" : "打折券" }}</p>
       <p class="hint">领取优惠券进入粉丝福利</p>
     </div>
-    <button :isabled="type === '-1'" @click="use" class="use">去使用</button>
+    <button :isabled="type === '-1'" @click="go" class="use">去使用</button>
   </div>
 </template>
 <script>
 import day from "dayjs";
 
 import { img } from "@/assets";
-import { router } from "@/utils";
+import { router, COUPON } from "@/utils";
 export default {
   name: "coupon",
   props: {
@@ -46,20 +44,21 @@ export default {
     },
   },
   methods: {
-    use() {
-      //
+    go() {
+      COUPON.USE(this.data);
+      router.back();
 
-      const gid = this.data.gid;
-      if (gid) {
-        router.push({
-          path: "/goods-detail",
-          id: gid,
-        });
-      } else {
-        router.push({
-          path: "/mall",
-        });
-      }
+      // const gid = this.data.gid;
+      // if (gid) {
+      //   router.push({
+      //     path: "/goods-detail",
+      //     id: gid,
+      //   });
+      // } else {
+      //   router.push({
+      //     path: "/mall",
+      //   });
+      // }
     },
   },
 };
@@ -70,12 +69,12 @@ export default {
   position: relative;
   /* margin-bottom: 0.14rem; */
   height: 1.1rem;
-  background: url('./imgs/normal.png') no-repeat left center / 100%;
+  background: url("./imgs/normal.png") no-repeat left center / 100%;
   background-size: 100% 100%;
-  &.used{
-    background: url('./imgs/disabled.png') no-repeat left center / 100%;
+  &.used {
+    background: url("./imgs/disabled.png") no-repeat left center / 100%;
   }
-  
+
   .left {
     width: 0.9rem;
   }
@@ -120,9 +119,9 @@ export default {
     color: rgba($color: #fff, $alpha: 0.53);
   }
   .use {
-    margin-right: .15rem;
+    margin-right: 0.15rem;
     height: 0.29rem;
-    padding:0 .1rem;
+    padding: 0 0.1rem;
     font-size: 0.12rem;
     font-weight: 600;
     color: #ff6543;

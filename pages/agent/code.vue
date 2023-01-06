@@ -61,12 +61,18 @@ export default {
   render() {
     const { img, img2, tab } = this;
     const agentUserInfo = this.$store.state.agentUserInfo.data || {};
+    const levelName = {
+      1: "用户",
+      2: "普通合伙人",
+      3: "高级合伙人",
+    };
+    const level = levelName[agentUserInfo.UserLevel];
     return (
-      <Page title="我的二维码">
+      <Page title="我的二维码" fixed>
         <StatusHandle get={this.getUserInfo}>
           <div class="code">
-            <div class="inner  flex-column align">
-              <div class="user-info flex-row center">
+            <div class="inner  flex-column center">
+              <div class="user-info-card flex-column align">
                 <CoverImage
                   url={agentUserInfo.UserPhoto}
                   size="0.5rem"
@@ -75,9 +81,7 @@ export default {
                 />
                 <div class="info">
                   <p class="name">{agentUserInfo.NickName || "--"}</p>
-                  <p class="slogan">
-                    {agentUserInfo.UserRemarks || "定制个性签名"}
-                  </p>
+                  {level && <p class="slogan">{level}</p>}
                 </div>
               </div>
               <div class="code-box">
@@ -99,33 +103,34 @@ export default {
 .code {
   height: 100%;
   overflow: auto;
-  background: $color1 url("./imgs/code-bg.png") no-repeat center top 0.41rem /
-    3.22rem auto;
+  background: $color1 url("./imgs/code-bg.png") no-repeat center top / 100% auto;
   .inner {
     margin: 0 auto;
     margin-top: 1.5rem;
     width: 3.45rem;
-    height: 4.53rem;
-    background: #ffffff;
-    box-shadow: 0px 2px 6px 0px rgba(139, 156, 164, 0.17);
+    height: 4.62rem;
+    background: rgb(255, 255, 255, 0.77);
+    box-shadow: 0px 7px 16px rgba(88, 91, 120, 0.38);
     border-radius: 0.1rem;
   }
-  .user-info {
+  .user-info-card {
+    margin-top: -0.6rem;
     .portrait {
-      width: 0.48rem;
-      height: 0.48rem;
-      margin-right: 0.07rem;
+      width: 1rem;
+      height: 1rem;
       border-radius: 50%;
     }
     .name {
+      margin-top: 0.12rem;
       font-size: 0.16rem;
-      font-weight: bold;
-      color: #333;
+      font-weight: 600;
+      color: rgb(25, 154, 142);
     }
     .slogan {
       margin-top: 0.08rem;
       font-size: 0.14rem;
-      color: #6dc7c6;
+      font-weight: 500;
+      color: rgb(25, 154, 142);
     }
     .more {
       width: 0.16rem;
@@ -135,8 +140,8 @@ export default {
     margin: 0 auto;
     margin-top: 0.2rem;
     margin-bottom: 0.32rem;
-    width: 2.55rem;
-    height: 2.55rem;
+    width: 1.88rem;
+    height: 1.88rem;
     img {
       display: block;
       width: 100%;
@@ -146,7 +151,7 @@ export default {
   .text {
     margin-bottom: 4px;
     font-size: 0.13rem;
-    color: #666666;
+    color: rgb(25, 154, 142);
   }
 }
 </style>

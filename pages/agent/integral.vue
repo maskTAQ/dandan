@@ -14,7 +14,7 @@ export default {
   name: "integral",
   head() {
     return {
-      title: "积分管理",
+      title: "积分明细",
     };
   },
   data() {
@@ -50,7 +50,7 @@ export default {
   render() {
     const { tab } = this;
     return (
-      <Page title="积分管理">
+      <Page title="积分明细">
         <div class="integral includes-tabs-list page-full">
           <Tabs
             value={tab}

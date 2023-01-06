@@ -16,13 +16,13 @@
           <Triangle
             direction="top"
             size="6"
-            :color="params[item.key] === 'asc' ? '#2D4EF5' : '#999'"
+            :color="params[item.key] === 'asc' ? 'rgb(25, 154, 142)' : '#999'"
           />
           <Triangle
             class="bottom"
             direction="bottom"
             size="6"
-            :color="params[item.key] === 'desc' ? '#2D4EF5' : '#999'"
+            :color="params[item.key] === 'desc' ? 'rgb(25, 154, 142)' : '#999'"
           />
         </div>
       </div>
@@ -107,7 +107,7 @@ export default {
   .sort {
     &.selected {
       .label {
-        color: #6dc7c6;
+        color:rgb(25, 154, 142);
       }
     }
     .label {

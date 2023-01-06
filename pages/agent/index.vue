@@ -44,12 +44,12 @@ export default {
       ],
       listBottom: [
         {
-          label: "佣金明细",
+          label: "积分明细",
           icon: agent.jfmx,
           path: "/agent/integral",
         },
         {
-          label: "佣金提现",
+          label: "返利兑换",
           icon: agent.exchange,
           path: "/agent/exchange",
         },
@@ -59,7 +59,7 @@ export default {
           path: "/agent/client",
         },
         {
-          label: "我的团队",
+          label: "我的好友",
           icon: agent.friends,
           path: "/agent/team",
         },
@@ -246,7 +246,7 @@ $base: 1;
       height: 0.24rem;
       font-size: 0.12rem;
       color: #ffffff;
-      background: linear-gradient(160deg, #fea845 0%, #fe6a22 100%);
+      background: linear-gradient(rgba(24,159,147,1) 0%,rgba(25,152,140,0.37341176470588233) 100%);
       border-radius: 0.13rem;
     }
   }
