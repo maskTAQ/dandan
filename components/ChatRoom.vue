@@ -56,7 +56,7 @@ export default {
           {this.list.map((group, index) => {
             const { username, messages, portrait, isHost, isTop } = group;
             const self = String(username) === uid;
-            // console.log(group, "group");
+            console.log(group, "group");
             return (
               <div
                 class={{ "group flex-row": true, self, admin: +isHost }}
@@ -64,15 +64,17 @@ export default {
               >
                 <div class={"user-info flex-row"}>
                   <CoverImage url={portrait} class="portrait" />
-
-                  <div class="flex-column">
+                  {/*
+                    <div class="flex-column">
                     <p clss="username">
                       {self ? "我" : username}:{}
                     </p>
                     {+isTop ? <p class="set-top">置顶</p> : null}
                   </div>
+                    */}
                 </div>
                 <div class="messages">
+                  <p class="username">{self ? "我" : username}</p>
                   {messages.map((message, index) => {
                     const {
                       role = "user",
@@ -114,6 +116,13 @@ export default {
             {/*
             <div class="portrait"></div>
             */}
+            <img
+              onClick={() => {
+                this.isEmojiPanelVisible = !this.isEmojiPanelVisible;
+              }}
+              src={isEmojiPanelVisible ? icons.emoji : icons.emojiHide}
+              class="upload-img"
+            />
             <Input
               contenteditable={true}
               value={sendInfo.value}
@@ -149,13 +158,7 @@ export default {
                 <img src={icons.image} class="upload-img" />
               </label>
             )}
-            <img
-              onClick={() => {
-                this.isEmojiPanelVisible = !this.isEmojiPanelVisible;
-              }}
-              src={isEmojiPanelVisible ? icons.emoji : icons.emojiHide}
-              class="upload-img"
-            />
+
             {canSend && (
               <van-button
                 onClick={this.send}
@@ -344,19 +347,19 @@ export default {
 @import "../assets/theme.scss";
 .chat-room {
   position: relative;
-  background: #f6f8fa;
-  min-height: calc(100vh - 1.06rem);
+  
+  /* min-height: calc(100vh - 1.06rem); */
 
   .message-area {
     height: 100%;
     overflow: auto;
-    padding: 0.12rem;
+    padding: 0.25rem 0.12rem;
     /* padding-bottom: 0.5rem; */
     overflow: auto;
   }
   .group {
     align-items: flex-start;
-    margin-bottom: 0.16rem;
+    margin-bottom: 0.18rem;
     &.admin {
       color: #6dc7c6 !important;
       .message {
@@ -377,13 +380,25 @@ export default {
       background: #fea770;
     }
     .messages {
+      position: relative;
       width: 0;
       flex: 1;
+      .username {
+        position: absolute;
+        left: 0;
+        top: -0.08rem;
+        height: 0.16rem;
+        padding: 0 0.11rem;
+        font-size: 0.08rem;
+        color: #fff;
+        border-radius: 0.1rem;
+        background: rgb(25, 154, 142);
+      }
     }
     .portrait {
-      margin-right: 0.08rem;
-      width: 0.2rem;
-      height: 0.2rem;
+      /* margin-right: 0.15rem; */
+      width: 0.4rem;
+      height: 0.4rem;
       border-radius: 50%;
     }
     .username {
@@ -400,9 +415,8 @@ export default {
     }
     p.message {
       padding: 0.1rem;
-      background: rgba(132, 174, 255, 0.15);
-      border-radius: 8px;
-      border-radius: 8px;
+      background: rgb(246, 246, 246);
+      border-radius: 0px 16px 16px 16px;
       line-height: 0.2rem;
       &.user {
         font-size: 0.14rem;
@@ -431,10 +445,16 @@ export default {
     z-index: 9999;
 
     background: #fff;
-    box-shadow: 0px -1px 12px 0px rgba(76, 135, 249, 0.05);
+    box-shadow: 0px 12px 50px rgba(20, 72, 130, 0.06);
+    border-radius: 0.1rem;
     .text-area {
-      height: 0.5rem;
-      padding: 0 0.12rem;
+      /* height: 0.5rem;
+      padding: 0 0.12rem; */
+      height: 0.58rem;
+      padding-left: 0.19rem;
+      padding-right: 0.15rem;
+      box-shadow: 0px 12px 50px rgba(20, 72, 130, 0.06);
+      border-radius: 0.1rem;
     }
     .portrait {
       margin-right: 0.13rem;
@@ -453,7 +473,7 @@ export default {
       background: $color13;
     }
     .upload-img {
-      margin-left: 0.13rem;
+      margin-right: 0.13rem;
       width: 0.24rem;
     }
     .send {

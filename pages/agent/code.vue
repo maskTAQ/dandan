@@ -142,6 +142,9 @@ export default {
     margin-bottom: 0.32rem;
     width: 1.88rem;
     height: 1.88rem;
+    padding: 0.02rem;
+    background: #fff url("./imgs/code-border.png") no-repeat center center /
+      100% 100%;
     img {
       display: block;
       width: 100%;

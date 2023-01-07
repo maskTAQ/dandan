@@ -35,7 +35,7 @@
 <script>
 import Swiper from "swiper";
 // import Swiper styles
-import "swiper/swiper-bundle.css";
+import "swiper/css/swiper.css";
 
 import { get } from "@/api/http";
 

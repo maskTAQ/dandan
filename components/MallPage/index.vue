@@ -3,7 +3,7 @@
     <div class="mall-top">
       <SearchTool2 placeholder="搜索医院/服务/笔记等内容" />
       <StatusHandle :get="getAD">
-        <Banner class="banner" :root="bannerType" />
+        <NewBanner class="banner" :root="bannerType" />
       </StatusHandle>
     </div>
     <div class="filter-area flex-row center">

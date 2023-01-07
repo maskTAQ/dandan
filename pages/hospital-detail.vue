@@ -216,7 +216,7 @@
 </template>
 <script>
 import Swiper from "swiper";
-import "swiper/swiper-bundle.css";
+import "swiper/css/swiper.css";
 
 import { mock } from "@/api";
 import { icons } from "@/assets";
@@ -527,10 +527,9 @@ $margin: 0.12rem;
   background: #fff;
   padding-bottom: 0.8rem;
   .html-content {
-    * {
-      /* display: block; */
+    /* * {
       max-width: 100%;
-    }
+    } */
   }
   .card {
     /* border-radius: 0.12rem; */

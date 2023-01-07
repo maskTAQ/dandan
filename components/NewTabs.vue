@@ -52,7 +52,7 @@ export default {
 @import "@/assets/themes.scss";
 
 .new-tabs {
-  padding: 0.15rem;
+  /* padding: 0.15rem; */
   .tab {
     margin-right: 0.2rem;
     flex: 1;

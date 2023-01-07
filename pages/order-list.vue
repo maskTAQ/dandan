@@ -1,7 +1,7 @@
 <template>
   <Page title="订单列表">
     <div class="order-list flex-column page-full">
-      <Tabs :value="selected" @change="select" :data="tabs" />
+      <NewTabs :value="selected" @change="select" :data="tabs" />
       <List
         :request="request"
         :pageSize="20"

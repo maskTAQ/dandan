@@ -1,7 +1,7 @@
 <template>
   <Page title="医生列表">
     <div class="doctor-list page-full">
-      <Tabs :value="selected" @change="select" :data="tabs" />
+      <NewTabs class="tabs" :value="selected" @change="select" :data="tabs" />
       <List
         :request="request"
         :extra="extra"
@@ -47,7 +47,7 @@ export default {
         {
           label: "国外",
           value: "2",
-        }
+        },
       ],
     };
   },
@@ -165,12 +165,15 @@ export default {
 <style lang="scss">
 @import "../assets/theme.scss";
 .doctor-list {
-  background:#fff;
-    padding:0rem 0.16rem;
-
+  background: #fff;
+  padding: 0rem 0.16rem;
+  .tabs {
+    padding: 0.15rem 0;
+  }
   .list {
-    height: calc(100% - 0.32rem);
+    height: calc(100% - 0.6rem);
     // padding: 20px;
+    padding-bottom: 0.15rem;
     .item {
       margin-bottom: 0.2rem;
     }

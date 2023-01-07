@@ -42,10 +42,7 @@
               class="player"
             ></CoverImage>
           </template>
-          <Banner
-            v-else
-            :data="data.PageImg"
-          />
+          <Banner v-else :data="data.PageImg" class="banner" />
           <!-- <div
             v-if="isInfo"
             class="cover"
@@ -58,9 +55,55 @@
 
           <div v-if="isLive || isYG" class="live-info flex-column">
             <div class="header">
+              <div class="live-user flex-row main-between center">
+                <div class="anchor flex-row center">
+                  <CoverImage class="cover" />
+                  <div>
+                    <p class="user-name">王海娟·主任医师</p>
+                    <div class="flex-row center">
+                      <span class="date">{{ liveTime }}</span>
+                      <div class="status flex-row center">
+                        <span
+                          :style="{ background: liveInfo.color }"
+                          class="circle"
+                        />
+                        <span
+                          class="label"
+                          :style="{ color: liveInfo.color }"
+                          >{{ liveInfo.label }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  v-if="+data.LiveFlag === 2"
+                  class="user-list flex-row center"
+                >
+                  <div
+                    class="portrait-list flex-row"
+                    v-if="data.fictitiousImgs.length"
+                    :style="{
+                      width: (data.fictitiousImgs.length + 1) * 0.16 + 'rem',
+                    }"
+                  >
+                    <div
+                      v-for="(item, index) in data.fictitiousImgs"
+                      :key="item"
+                      v-if="index < 11"
+                      class="portrait"
+                      :style="{
+                        background: `url('${item}') center center / cover`,
+                        left: index * 0.16 + 'rem',
+                        zIndex: index,
+                      }"
+                    />
+                  </div>
+                  <p class="num">{{ data.fictitiousNum }}人正在观看直播</p>
+                </div>
+              </div>
               <p class="title">{{ data.Tital }}</p>
-              <div class="text flex-row main-between center">
-                <i class="time">{{ liveTime }}</i>
+              <div class="data-bar flex-row main-end center">
                 <div class="flex-row center">
                   <div class="icon-box flex-row center">
                     <img :src="icons.message" alt="" class="icon" />
@@ -76,38 +119,13 @@
                   </div>
                 </div>
               </div>
-              <div
-                v-if="+data.LiveFlag === 2"
-                class="user-list flex-row center"
-              >
-                <div
-                  class="portrait-list flex-row"
-                  v-if="data.fictitiousImgs.length"
-                  :style="{
-                    width: (data.fictitiousImgs.length + 1) * 0.16 + 'rem',
-                  }"
-                >
-                  <div
-                    v-for="(item, index) in data.fictitiousImgs"
-                    :key="item"
-                    v-if="index < 11"
-                    class="portrait"
-                    :style="{
-                      background: `url('${item}') center center / cover`,
-                      left: index * 0.16 + 'rem',
-                      zIndex: index,
-                    }"
-                  />
-                </div>
-                <img :src="icons.live_active" alt="" class="icon" />
-                <i class="num">{{ data.fictitiousNum }}人浏览直播</i>
-              </div>
+
               <div class="tab-list flex-row center" ref="tabList">
                 <div
                   v-for="item in tabList"
                   @click="tab = item"
                   :key="item"
-                  class="tab flex-column"
+                  :class="['tab flex-column', { selected: tab === item }]"
                 >
                   <i class="label">{{ item }}</i>
                   <span v-if="tab === item" class="line"></span>
@@ -116,13 +134,13 @@
             </div>
             <div
               class="html-content"
-              v-show="tab === '课程介绍'"
+              v-show="tab === '课程详情'"
               v-html="data.RoomJS"
             />
             <keep-alive>
               <ChatRoom
-                v-show="tab === '聊天室'"
-                :update="tab === '聊天室'"
+                v-show="tab === '讨论区'"
+                :update="tab === '讨论区'"
                 class="chat-room"
                 :data="data"
                 :barFixed="true"
@@ -288,8 +306,8 @@ export default {
       icons,
       status: "init",
       data: null,
-      tabList: ["聊天室", "课程介绍"],
-      tab: "聊天室",
+      tabList: ["讨论区", "课程详情"],
+      tab: "讨论区",
       hotCount: "",
       messageCount: "",
       loading: false,
@@ -343,9 +361,17 @@ export default {
     liveTime() {
       // formatTime(data.CreateTime);
       const { LiveSTime, LiveETime } = this.data;
-      return `${formatTime(LiveSTime, "YYYY/MM/DD HH:mm")} ~ ${formatTime(
+      const isSameData =
+        formatTime(LiveSTime, "MM/DD") === formatTime(LiveETime, "MM/DD");
+      if (isSameData) {
+        return `${formatTime(LiveSTime, "MM/DD HH:mm")} - ${formatTime(
+          LiveETime,
+          "HH:mm"
+        )}`;
+      }
+      return `${formatTime(LiveSTime, "MM/DD HH:mm")} - ${formatTime(
         LiveETime,
-        "HH:mm"
+        "MM/DD HH:mm"
       )}`;
     },
     title() {
@@ -360,6 +386,32 @@ export default {
     timing() {
       this.timingKey;
       return timeDiff(this.data.LiveSTime * 1000);
+    },
+    liveInfo() {
+      const { LiveFlag, LiveSTime, VideoUrl, LiveUrl } = this.data;
+      //   const dif = day(LiveSTime * 1000).diff(day(), "s");
+      if (LiveFlag === 2) {
+        return {
+          color: "rgb(245, 67, 67)",
+          label: "直播中",
+        };
+      }
+      if (LiveFlag == 1) {
+        return {
+          color: "rgb(69, 188, 188)",
+          label: "直播预告",
+        };
+      }
+      if (LiveFlag === 3) {
+        return {
+          color: "rgb(253, 142, 74)",
+          label: "观看回放",
+        };
+      }
+      return {
+        color: "rgb(253, 142, 74)",
+        label: "回放生成中",
+      };
     },
   },
   created() {
@@ -402,7 +454,7 @@ export default {
       const { scrollTop, scrollHeight, offsetHeight } = e.target;
       this.sticky = scrollTop >= offsetHeight / 2;
       const { tab } = this;
-      if (tab === "聊天室") {
+      if (tab === "讨论区") {
         const tabList = this.$refs.tabList;
         if (!tabList) {
           return;
@@ -500,7 +552,7 @@ export default {
         res.fictitiousNum = +res.fictitiousNum + 1;
         this.data = res;
         if (!!res.LiveUrl && !res.isSgin) {
-          this.tab = "课程介绍";
+          this.tab = "课程详情";
           router.replace({
             path: "/live-info-record",
             query: {
@@ -617,8 +669,11 @@ canvas.live-flowers {
 }
 .class-detail {
   position: relative;
-  background: #fff;
-  padding-bottom: 0.5rem;
+  background: #eff0f1;
+  padding-bottom: 0.58rem;
+  .banner .swiper-container {
+    border-radius: 0;
+  }
   .scroll-top {
     position: fixed;
     bottom: 1.5rem;
@@ -662,14 +717,14 @@ canvas.live-flowers {
   }
   .html-content {
     padding: 0.2rem 0;
-    * {
+    /* * {
       display: block;
       max-width: 100%;
-    }
+    } */
   }
   .like-area {
     /* padding-top: 0.1rem;*/
-    padding-bottom: 0.1rem; 
+    padding-bottom: 0.1rem;
     .portrait {
       margin-right: 0.15rem;
       width: 0.48rem;
@@ -681,7 +736,7 @@ canvas.live-flowers {
       flex: 1;
     }
     .name {
-      margin-bottom: .04rem;
+      margin-bottom: 0.04rem;
       /* line-height: 0.12rem; */
       font-size: 0.13rem;
       color: #343434;
@@ -830,19 +885,67 @@ canvas.live-flowers {
     }
   }
   .live-info {
-    height: 0;
-    flex: 1;
+    /* height: 0;
+    flex: 1; */
+    background: #fff;
+    background: #fff;
+    border-radius: 0 0 0.14rem 0.14rem;
+    margin-bottom: 0.06rem;
+    .live-user {
+      margin-bottom: 0.25rem;
+      .anchor {
+        flex-shrink: 0;
+        .cover {
+          margin-right: 0.06rem;
+          width: 0.36rem;
+          height: 0.36rem;
+          border-radius: 50%;
+          border: 1px solid red;
+        }
+        .user-name {
+          margin-bottom: 0.08rem;
+          font-size: 0.16rem;
+          font-weight: 600;
+          color: rgb(51, 51, 51);
+        }
+        .date {
+          font-size: 0.1rem;
+          font-weight: 400;
+          color: rgb(119, 119, 119);
+        }
+        .status {
+          margin-left: 0.04rem;
+          .circle {
+            margin-right: 0.04rem;
+            width: 0.05rem;
+            height: 0.05rem;
+            border-radius: 50%;
+          }
+          .label {
+            font-size: 0.1rem;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    .title {
+      margin-bottom: 0.12rem;
+      font-size: 0.2rem;
+      color: #333;
+    }
     .header {
       padding: 0.16rem 0.12rem;
       padding-bottom: 0;
+      background: #fff;
       .title {
         margin-bottom: 0.12rem;
         font-size: 0.2rem;
         color: $color4;
       }
-      .text {
+      .data-bar {
         font-size: 0.14rem;
-        color: $color5;
+        justify-content: flex-end;
+        color: rgb(102, 102, 102);
         .icon-box {
           &:first-child {
             margin-right: 0.25rem;
@@ -854,9 +957,7 @@ canvas.live-flowers {
         }
       }
       .user-list {
-        height: 0.32rem;
-        padding: 0.24rem 0;
-        border-bottom: 1px solid $border;
+        margin-bottom: 0.04rem;
         .portrait-list {
           margin-right: 0.16rem;
           position: relative;
@@ -875,19 +976,21 @@ canvas.live-flowers {
           width: 0.14rem;
         }
         .num {
-          font-size: 0.14rem;
-          color: $color1;
+          font-size: 0.1rem;
+          font-weight: 400;
+          color: rgb(119, 119, 119);
         }
       }
       .tab-list {
         padding-top: 0.24rem;
         justify-content: space-around;
+        border-bottom: 1px solid rgba(112, 112, 112, 0.22);
         .tab {
           position: relative;
           font-size: 0.16rem;
-          color: $color4;
+          color: rgba(0, 0, 0, 0.4);
           &.selected {
-            color: $color1;
+            color: rgb(105, 199, 199);
           }
           .label {
             margin-bottom: 0.1rem;
@@ -903,10 +1006,6 @@ canvas.live-flowers {
           }
         }
       }
-    }
-    .chat-room {
-      height: 0;
-      flex: 1;
     }
   }
 }

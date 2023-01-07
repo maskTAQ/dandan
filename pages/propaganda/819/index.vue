@@ -318,7 +318,7 @@
 import { mapState } from "vuex";
 import Swiper from "swiper";
 // import Swiper styles
-import "swiper/swiper-bundle.css";
+import "swiper/css/swiper.css";
 
 import Player from "@/components/Player";
 import { get } from "@/api/http";
